@@ -1,7 +1,6 @@
 <template>
   <div class="min-h-screen w-full" style="background:#E4DBCB;">
-    <!-- Même bandeau + formulaire que la home -->
-    <section class="w-full flex flex-col items-center justify-center py-16 px-4 mb-8" style="background:#465E8A;border-radius:0 0 2.5rem 2.5rem;">
+    <section class="w-full flex flex-col items-center justify-center py-16 px-4 mb-0" style="background:#465E8A;border-radius:0 0 2.5rem 2.5rem;">
       <div class="max-w-4xl w-full flex flex-col items-center">
         <h1 class="text-3xl md:text-4xl font-bold mb-4 roca-title text-center text-white">
           Explorer les <span style="color:#B6FFD7;font-style:italic;">profils</span>
@@ -26,9 +25,20 @@
       </div>
     </section>
 
+    <!-- Interest filters -->
+    <div v-if="interests.length" class="max-w-4xl mx-auto px-4 pt-6">
+      <h3 class="roca-title text-base text-[#465E8A] mb-3">Filtrer par centres d'intérêt</h3>
+      <InterestFilters
+        :interests="interests"
+        :selected="selectedInterests"
+        @toggle="toggleInterest"
+        @clear="clearInterests"
+      />
+    </div>
+
     <div class="max-w-4xl mx-auto px-4 py-6">
       <h2 class="roca-title text-xl md:text-2xl text-[#465E8A] mb-6">
-        Résultats pour « {{ query || '...' }} »
+        Résultats <span v-if="query">pour « {{ query }} »</span>
       </h2>
       <ProfileResults :results="results" :loading="loading" :has-searched="hasSearched" />
     </div>
@@ -41,11 +51,22 @@ definePageMeta({ middleware: 'auth' })
 const route = useRoute()
 const router = useRouter()
 const selectedInterests = ref<string[]>([])
-
-// Champ du formulaire : initialisé avec ?q= au chargement / quand on vient de la home
 const query = ref('')
 
+const { interests, fetchInterests } = useInterests()
 const { results, loading, hasSearched, searchProfiles } = useProfileSearch(query, selectedInterests)
+
+function toggleInterest(name: string) {
+  const idx = selectedInterests.value.indexOf(name)
+  if (idx >= 0) selectedInterests.value.splice(idx, 1)
+  else selectedInterests.value.push(name)
+  searchProfiles()
+}
+
+function clearInterests() {
+  selectedInterests.value = []
+  if (hasSearched.value) searchProfiles()
+}
 
 function syncQueryFromRoute() {
   const q = (route.query.q as string) || ''
@@ -56,7 +77,8 @@ function onSubmit() {
   router.replace({ path: '/explore', query: { q: query.value?.trim() || '' } })
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await fetchInterests()
   syncQueryFromRoute()
   if (query.value) searchProfiles()
 })

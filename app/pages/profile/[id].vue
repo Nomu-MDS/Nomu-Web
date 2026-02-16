@@ -1,0 +1,286 @@
+<template>
+  <div class="min-h-screen w-full" style="background:#E4DBCB;">
+    <!-- Hero banner -->
+    <section class="profile-hero">
+      <NuxtLink to="/explore" class="profile-back">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+        Retour
+      </NuxtLink>
+    </section>
+
+    <div class="max-w-2xl mx-auto px-4" style="margin-top:-3rem;">
+      <!-- Loading -->
+      <div v-if="loading" class="profile-card flex justify-center py-12">
+        <span class="profile-loading">Chargement...</span>
+      </div>
+
+      <!-- Error -->
+      <div v-else-if="error" class="profile-card">
+        <p class="profile-error">{{ error }}</p>
+        <NuxtLink to="/explore" class="profile-link">Retour à l'exploration</NuxtLink>
+      </div>
+
+      <!-- Profile -->
+      <div v-else-if="profile" class="profile-card">
+        <!-- Avatar -->
+        <div class="profile-avatar-section">
+          <img
+            v-if="profile.image_url"
+            :src="profile.image_url"
+            alt="Photo de profil"
+            class="profile-avatar"
+          />
+          <div v-else class="profile-avatar-placeholder">
+            {{ getInitials() }}
+          </div>
+        </div>
+
+        <!-- Name -->
+        <h1 class="profile-name">
+          {{ profile.first_name || '' }} {{ profile.last_name || '' }}
+          <span v-if="!profile.first_name && !profile.last_name">Utilisateur</span>
+        </h1>
+
+        <!-- Age & Location -->
+        <p class="profile-meta">
+          <span v-if="profile.age">{{ profile.age }} ans</span>
+          <span v-if="profile.age && (profile.city || profile.country)"> · </span>
+          <span v-if="profile.city">{{ profile.city }}</span>
+          <span v-if="profile.city && profile.country">, </span>
+          <span v-if="profile.country">{{ profile.country }}</span>
+        </p>
+
+        <!-- Biography -->
+        <div v-if="profile.biography" class="profile-biography">
+          <h2 class="profile-section-title">Biographie</h2>
+          <p class="profile-biography-text">{{ profile.biography }}</p>
+        </div>
+
+        <!-- Interests -->
+        <div v-if="profile.interests?.length" class="profile-interests">
+          <h2 class="profile-section-title">Centres d'intérêt</h2>
+          <div class="profile-interests-list">
+            <span v-for="interest in profile.interests" :key="interest.id" class="profile-interest-badge">
+              {{ interest.name }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Contact button -->
+        <button
+          @click="startConversation"
+          :disabled="contactLoading"
+          class="profile-contact-btn"
+        >
+          <span v-if="contactLoading" class="profile-spinner"></span>
+          <span v-else>Contacter</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { ProfileDetail } from '~/types'
+
+definePageMeta({ middleware: 'auth' })
+
+const route = useRoute()
+const router = useRouter()
+const { get, post } = useApi()
+
+const profileId = computed(() => route.params.id as string)
+const profile = ref<ProfileDetail | null>(null)
+const userId = ref<number | null>(null)
+const loading = ref(true)
+const error = ref('')
+const contactLoading = ref(false)
+
+function getInitials(): string {
+  const first = profile.value?.first_name?.[0] || ''
+  const last = profile.value?.last_name?.[0] || ''
+  return (first + last).toUpperCase() || '?'
+}
+
+onMounted(async () => {
+  try {
+    const data = await get<{ id: number; profile: ProfileDetail }>(`/users/${profileId.value}`)
+    profile.value = data.profile
+    userId.value = data.id
+  } catch (e: any) {
+    error.value = e.message || 'Impossible de charger ce profil.'
+  } finally {
+    loading.value = false
+  }
+})
+
+async function startConversation() {
+  if (!userId.value) return
+  contactLoading.value = true
+  try {
+    const data = await post<{ conversation: { id: number }; existed: boolean }>('/conversations', {
+      otherUserId: userId.value,
+    })
+    await router.push(`/messages/${data.conversation.id}`)
+  } catch (e: any) {
+    error.value = e.message || 'Impossible de démarrer la conversation.'
+  } finally {
+    contactLoading.value = false
+  }
+}
+</script>
+
+<style scoped>
+.profile-hero {
+  background: #465E8A;
+  padding: 2rem 1.5rem 5rem;
+  border-radius: 0 0 2.5rem 2.5rem;
+}
+.profile-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #fff;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.profile-back:hover {
+  opacity: 1;
+}
+.profile-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(70, 94, 138, 0.12);
+  text-align: center;
+}
+.profile-avatar-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+.profile-avatar {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(70, 94, 138, 0.15);
+}
+.profile-avatar-placeholder {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: #465E8A;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.profile-name {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #465E8A;
+  margin: 0 0 0.25rem;
+}
+.profile-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  color: #465E8A;
+  opacity: 0.7;
+  margin: 0 0 1.5rem;
+}
+.profile-section-title {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #465E8A;
+  margin: 0 0 0.5rem;
+  text-align: left;
+}
+.profile-biography {
+  margin-bottom: 1.5rem;
+}
+.profile-biography-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  color: #465E8A;
+  opacity: 0.85;
+  line-height: 1.6;
+  text-align: left;
+  margin: 0;
+}
+.profile-interests {
+  margin-bottom: 1.5rem;
+}
+.profile-interests-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.profile-interest-badge {
+  background: #B6FFD7;
+  color: #465E8A;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+}
+.profile-contact-btn {
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: 9999px;
+  border: none;
+  background: #465E8A;
+  color: #fff;
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 48px;
+}
+.profile-contact-btn:hover {
+  background: #3a4666;
+}
+.profile-contact-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.profile-loading {
+  font-family: 'Space Mono', monospace;
+  color: #465E8A;
+  opacity: 0.8;
+}
+.profile-error {
+  font-family: 'Space Mono', monospace;
+  color: #c53030;
+  margin-bottom: 1rem;
+}
+.profile-link {
+  font-family: 'Space Mono', monospace;
+  color: #465E8A;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+.profile-spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>

@@ -18,6 +18,11 @@
         >
         <template v-if="isLoggedIn()">
           <NuxtLink
+            to="/messages"
+            class="space-mono-regular text-[#465E8A] hover:underline"
+            >Messages</NuxtLink
+          >
+          <NuxtLink
             to="/account"
             class="rounded-full px-5 py-2 bg-[#465E8A] text-white font-bold roca-title text-base shadow hover:bg-[#3a4666] transition inline-block"
             >Mon compte</NuxtLink

@@ -1,19 +1,16 @@
 <template>
-  <div class="flex flex-wrap gap-2 mb-4">
+  <div class="interest-filters">
     <button
       v-for="interest in interests"
       :key="interest.id"
       @click="$emit('toggle', interest.name)"
-      :class="[
-        'px-4 py-2 rounded-full border text-sm font-medium transition',
-        selected.includes(interest.name)
-          ? 'bg-orange-500 text-white border-orange-500'
-          : 'bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100'
-      ]"
+      :class="['interest-badge', { 'interest-badge--active': selected.includes(interest.name) }]"
     >
       {{ interest.name }}
     </button>
-    <button v-if="selected.length" @click="$emit('clear')" class="ml-2 px-3 py-2 rounded-full text-xs bg-gray-100 text-gray-500 hover:bg-gray-200">Tout effacer</button>
+    <button v-if="selected.length" @click="$emit('clear')" class="interest-clear">
+      Tout effacer
+    </button>
   </div>
 </template>
 
@@ -21,3 +18,51 @@
 defineProps<{ interests: { id: number; name: string }[]; selected: string[] }>()
 defineEmits(['toggle', 'clear'])
 </script>
+
+<style scoped>
+.interest-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.interest-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(70, 94, 138, 0.25);
+  background: #fff;
+  color: #465E8A;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.interest-badge:hover {
+  background: #f5f3ee;
+}
+.interest-badge--active {
+  background: #465E8A;
+  color: #fff;
+  border-color: #465E8A;
+}
+.interest-badge--active:hover {
+  background: #3a4666;
+}
+.interest-clear {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: #465E8A;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  text-decoration: underline;
+}
+.interest-clear:hover {
+  opacity: 1;
+}
+</style>
