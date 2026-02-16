@@ -91,6 +91,13 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'default', middleware: 'guest' })
 
+useSeoMeta({
+  title: 'Créer un compte — Nomu',
+  description: 'Rejoignez la communauté Nomu et découvrez des expériences uniques. Inscription gratuite en quelques secondes.',
+  ogTitle: 'Rejoignez Nomu — Créez votre compte',
+  ogDescription: 'Inscrivez-vous gratuitement pour explorer des profils et réserver des expériences authentiques.',
+})
+
 const name = ref('')
 const email = ref('')
 const password = ref('')

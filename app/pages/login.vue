@@ -52,6 +52,12 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'default', middleware: 'guest' })
 
+useSeoMeta({
+  title: 'Connexion — Nomu',
+  description: 'Connectez-vous à votre compte Nomu pour explorer les profils et réserver des expériences uniques.',
+  ogTitle: 'Connexion — Nomu',
+})
+
 const email = ref('')
 const password = ref('')
 const error = ref('')

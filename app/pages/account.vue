@@ -180,6 +180,12 @@ import type { MeResponse, UserProfile, ProfileEditPayload } from '~/types'
 
 definePageMeta({ layout: 'default', middleware: 'auth' })
 
+useSeoMeta({
+  title: 'Mon compte — Nomu',
+  description: 'Gérez votre profil, vos informations et vos centres d\'intérêt sur Nomu.',
+  robots: 'noindex, nofollow',
+})
+
 const { getToken, logout: authLogout } = useAuth()
 const { get, patch } = useApi()
 const { interests: allInterests, fetchInterests } = useInterests()

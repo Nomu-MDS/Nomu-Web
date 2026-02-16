@@ -93,6 +93,13 @@
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
 
+useSeoMeta({
+  title: 'Explorer les profils — Nomu',
+  description: 'Parcourez les profils de la communauté Nomu. Filtrez par ville, pays ou centres d\'intérêt pour trouver l\'expérience idéale.',
+  ogTitle: 'Explorer les profils — Nomu',
+  ogDescription: 'Parcourez les profils et trouvez des expériences uniques près de chez vous.',
+})
+
 const route = useRoute()
 const router = useRouter()
 

@@ -18,6 +18,12 @@ import type { MeResponse } from '~/types'
 
 definePageMeta({ middleware: 'auth' })
 
+useSeoMeta({
+  title: 'Messages — Nomu',
+  description: 'Consultez vos conversations et échangez avec la communauté Nomu.',
+  robots: 'noindex, nofollow',
+})
+
 const route = useRoute()
 const { get } = useApi()
 const { conversations, loading, error, fetchConversations } = useConversations()
