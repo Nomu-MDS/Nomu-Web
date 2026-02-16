@@ -101,3 +101,17 @@ export interface ProfileEditPayload {
   is_searchable?: boolean
   interest_ids?: number[]
 }
+
+export interface Reservation {
+  id: number
+  title: string
+  status: 'pending' | 'accepted' | 'declined'
+  creator_id: number
+  conversation_id: number
+  price: number
+  date: string
+  end_date: string
+  createdAt: string
+  updatedAt: string
+  Conversation?: Conversation
+}

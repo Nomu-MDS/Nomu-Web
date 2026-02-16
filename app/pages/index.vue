@@ -38,7 +38,7 @@ const router = useRouter()
 const { isLoggedIn } = useAuth()
 
 function searchProfiles() {
-  if (!isLoggedIn()) {
+  if (!isLoggedIn.value) {
     showLoginModal.value = true
     return
   }

@@ -8,9 +8,30 @@
         </button>
       </div>
 
-      <!-- Loading -->
-      <div v-if="loading" class="account-card flex justify-center py-12">
-        <span class="account-loading">Chargement...</span>
+      <!-- Loading skeleton -->
+      <div v-if="loading" class="space-y-6">
+        <div class="account-card text-center">
+          <div class="flex justify-center mb-4">
+            <USkeleton class="h-20 w-20 rounded-full" />
+          </div>
+          <USkeleton class="h-5 w-32 mx-auto mb-2" />
+          <USkeleton class="h-3.5 w-44 mx-auto" />
+        </div>
+        <div class="account-card">
+          <USkeleton class="h-5 w-16 mb-4" />
+          <div class="grid grid-cols-2 gap-4">
+            <div v-for="i in 4" :key="i" class="space-y-1.5">
+              <USkeleton class="h-3 w-14" />
+              <USkeleton class="h-4 w-24" />
+            </div>
+          </div>
+        </div>
+        <div class="account-card">
+          <USkeleton class="h-5 w-36 mb-4" />
+          <div class="flex flex-wrap gap-2">
+            <USkeleton v-for="i in 4" :key="i" class="h-7 w-20 rounded-full" />
+          </div>
+        </div>
       </div>
 
       <!-- Error -->
@@ -23,15 +44,7 @@
         <!-- Avatar + name -->
         <div class="account-card" style="text-align:center;">
           <div class="flex justify-center mb-4">
-            <img
-              v-if="currentProfile?.image_url"
-              :src="currentProfile.image_url"
-              alt="Avatar"
-              class="account-avatar"
-            />
-            <div v-else class="account-avatar-placeholder">
-              {{ getInitials() }}
-            </div>
+            <UserAvatar :name="me.name" :image-url="currentProfile?.image_url" size="xl" />
           </div>
           <h2 class="account-name">{{ me.name }}</h2>
           <p class="account-email">{{ me.email }}</p>
@@ -188,11 +201,6 @@ const currentProfile = computed<UserProfile | null>(() => {
   return (me.value as any).Profile || null
 })
 
-function getInitials(): string {
-  if (!me.value?.name) return '?'
-  return me.value.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
-}
-
 function formatDate(iso: string) {
   try {
     return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -305,34 +313,9 @@ onMounted(async () => {
   font-size: 0.95rem;
   color: #465E8A;
 }
-.account-loading {
-  font-family: 'Space Mono', monospace;
-  color: #465E8A;
-  opacity: 0.8;
-}
 .account-error {
   font-family: 'Space Mono', monospace;
   color: #c53030;
-}
-.account-avatar {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid rgba(70, 94, 138, 0.15);
-}
-.account-avatar-placeholder {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  background: #465E8A;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'roca', sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
 }
 .account-name {
   font-family: 'roca', sans-serif;

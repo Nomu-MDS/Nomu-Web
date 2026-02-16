@@ -1,6 +1,4 @@
 export function useApi() {
-  const config = useRuntimeConfig()
-  const apiBase = ((config.public.apiBaseUrl as string) || 'http://localhost:3001').replace(/\/$/, '')
   const { getToken } = useAuth()
 
   function authHeaders(): HeadersInit {
@@ -11,39 +9,24 @@ export function useApi() {
   }
 
   async function get<T>(path: string): Promise<T> {
-    const res = await fetch(`${apiBase}${path}`, { headers: authHeaders() })
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      throw new Error(data.message || data.error || `Erreur ${res.status}`)
-    }
-    return res.json()
+    return $fetch<T>(`/api${path}`, { headers: authHeaders() })
   }
 
-  async function post<T>(path: string, body: unknown): Promise<T> {
-    const res = await fetch(`${apiBase}${path}`, {
+  async function post<T>(path: string, body: Record<string, any>): Promise<T> {
+    return $fetch<T>(`/api${path}`, {
       method: 'POST',
       headers: authHeaders(),
-      body: JSON.stringify(body),
+      body,
     })
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      throw new Error(data.message || data.error || `Erreur ${res.status}`)
-    }
-    return res.json()
   }
 
-  async function patch<T>(path: string, body: unknown): Promise<T> {
-    const res = await fetch(`${apiBase}${path}`, {
+  async function patch<T>(path: string, body: Record<string, any>): Promise<T> {
+    return $fetch<T>(`/api${path}`, {
       method: 'PATCH',
       headers: authHeaders(),
-      body: JSON.stringify(body),
+      body,
     })
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      throw new Error(data.message || data.error || `Erreur ${res.status}`)
-    }
-    return res.json()
   }
 
-  return { apiBase, authHeaders, get, post, patch }
+  return { authHeaders, get, post, patch }
 }

@@ -4,7 +4,7 @@ let socket: Socket | null = null
 
 export function useSocket() {
   const config = useRuntimeConfig()
-  const apiBase = ((config.public.apiBaseUrl as string) || 'http://localhost:3001').replace(/\/$/, '')
+  const socketUrl = (config.public.socketUrl as string || 'http://localhost:3001').replace(/\/$/, '')
   const { getToken } = useAuth()
 
   function connect(): Socket {
@@ -13,7 +13,7 @@ export function useSocket() {
     const token = getToken()
     if (!token) throw new Error('No auth token')
 
-    socket = io(apiBase, {
+    socket = io(socketUrl, {
       auth: { token },
       transports: ['websocket', 'polling'],
       reconnection: true,

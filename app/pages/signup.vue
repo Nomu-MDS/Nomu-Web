@@ -149,7 +149,7 @@ async function submit() {
 }
 
 .auth-card--wide {
-  max-width: 480px;
+  max-width: 600px;
 }
 
 .auth-logo {

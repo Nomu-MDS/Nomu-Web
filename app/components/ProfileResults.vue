@@ -1,7 +1,22 @@
 <template>
   <div>
-    <div v-if="loading" class="results-loading">
-      <span class="results-loading-text">Chargement...</span>
+    <div v-if="loading" class="results-grid">
+      <div v-for="i in 6" :key="i" class="result-card" style="pointer-events:none;">
+        <USkeleton class="h-12 w-12 rounded-full shrink-0" />
+        <div class="result-info space-y-2">
+          <div class="flex items-baseline gap-2">
+            <USkeleton class="h-4 w-28" />
+            <USkeleton class="h-3 w-16" />
+          </div>
+          <USkeleton class="h-3 w-full" />
+          <USkeleton class="h-3 w-3/4" />
+          <div class="flex gap-1.5 mt-1">
+            <USkeleton class="h-5 w-14 rounded-full" />
+            <USkeleton class="h-5 w-16 rounded-full" />
+            <USkeleton class="h-5 w-12 rounded-full" />
+          </div>
+        </div>
+      </div>
     </div>
     <div v-else>
       <div v-if="results.length" class="results-grid">
@@ -11,17 +26,7 @@
           :to="`/profile/${profile.user_id || profile.id}`"
           class="result-card"
         >
-          <div class="result-avatar-wrap">
-            <img
-              v-if="profile.image_url"
-              :src="profile.image_url"
-              alt="Avatar"
-              class="result-avatar"
-            />
-            <div v-else class="result-avatar-placeholder">
-              {{ getInitials(profile.name) }}
-            </div>
-          </div>
+          <UserAvatar :name="profile.name" :image-url="profile.image_url" size="lg" />
           <div class="result-info">
             <div class="result-header">
               <span class="result-name">{{ profile.name }}</span>
@@ -59,30 +64,9 @@ function parseInterests(interests: string | string[] | undefined): string[] {
   if (Array.isArray(interests)) return interests
   return interests.split(',').map(s => s.trim()).filter(Boolean)
 }
-
-function getInitials(name: string | undefined): string {
-  if (!name) return '?'
-  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
-}
 </script>
 
 <style scoped>
-.results-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem 0;
-}
-.results-loading-text {
-  font-family: 'Space Mono', monospace;
-  color: #465E8A;
-  opacity: 0.8;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 0.4; }
-}
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -104,29 +88,6 @@ function getInitials(name: string | undefined): string {
 .result-card:hover {
   box-shadow: 0 6px 24px rgba(70, 94, 138, 0.14);
   transform: translateY(-2px);
-}
-.result-avatar-wrap {
-  flex-shrink: 0;
-}
-.result-avatar {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(70, 94, 138, 0.15);
-}
-.result-avatar-placeholder {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  background: #465E8A;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'roca', sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
 }
 .result-info {
   flex: 1;

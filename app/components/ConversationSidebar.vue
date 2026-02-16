@@ -4,13 +4,22 @@
       <h2 class="sidebar-title">Messages</h2>
     </div>
 
-    <!-- Loading -->
-    <div v-if="loading" class="sidebar-status">
-      <span>Chargement...</span>
+    <!-- Loading skeletons -->
+    <div v-if="loading" class="sidebar-list">
+      <div v-for="i in 6" :key="i" class="sidebar-item" style="pointer-events:none;">
+        <USkeleton class="h-10 w-10 rounded-full shrink-0" />
+        <div class="sidebar-item-content space-y-1.5">
+          <div class="flex items-baseline justify-between">
+            <USkeleton class="h-3.5 w-24" />
+            <USkeleton class="h-2.5 w-8" />
+          </div>
+          <USkeleton class="h-3 w-36" />
+        </div>
+      </div>
     </div>
 
     <!-- Error -->
-    <div v-else-if="error" class="sidebar-status sidebar-status--error">
+    <div v-else-if="error" class="sidebar-status--error">
       <span>{{ error }}</span>
     </div>
 
@@ -29,9 +38,7 @@
         :to="`/messages/${conv.id}`"
         :class="['sidebar-item', { 'sidebar-item--active': activeId === conv.id }]"
       >
-        <div class="sidebar-avatar">
-          {{ getInitials(getOtherUser(conv, myUserId)) }}
-        </div>
+        <UserAvatar :name="getOtherUser(conv, myUserId).name" size="md" />
         <div class="sidebar-item-content">
           <div class="sidebar-item-top">
             <span class="sidebar-item-name">{{ getOtherUser(conv, myUserId).name }}</span>
@@ -94,11 +101,6 @@ const sortedConversations = computed(() => {
   })
 })
 
-function getInitials(user: ConversationUser): string {
-  if (!user?.name) return '?'
-  return user.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
-}
-
 function formatRelativeTime(iso: string): string {
   const now = Date.now()
   const then = new Date(iso).getTime()
@@ -132,17 +134,12 @@ function formatRelativeTime(iso: string): string {
   color: #465E8A;
   margin: 0;
 }
-.sidebar-status {
+.sidebar-status--error {
   padding: 2rem 1.25rem;
   text-align: center;
   font-family: 'Space Mono', monospace;
   font-size: 0.85rem;
-  color: #465E8A;
-  opacity: 0.6;
-}
-.sidebar-status--error {
   color: #c53030;
-  opacity: 1;
 }
 .sidebar-empty {
   padding: 2rem 1.25rem;
@@ -196,20 +193,6 @@ function formatRelativeTime(iso: string): string {
 }
 .sidebar-item--active {
   background: rgba(70, 94, 138, 0.08);
-}
-.sidebar-avatar {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
-  background: #465E8A;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'roca', sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  flex-shrink: 0;
 }
 .sidebar-item-content {
   flex: 1;

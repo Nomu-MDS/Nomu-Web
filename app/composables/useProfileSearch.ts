@@ -1,37 +1,31 @@
-import { ref, type Ref } from 'vue'
+import type { Ref } from 'vue'
 
-function getApiBase(): string {
-  const config = useRuntimeConfig()
-  const base = (config.public.apiBaseUrl as string) || 'http://localhost:3001'
-  return base.replace(/\/$/, '')
+export interface SearchFilters {
+  query: Ref<string>
+  interests: Ref<string[]>
+  cities: Ref<string[]>
+  countries: Ref<string[]>
 }
 
-export function useProfileSearch(query: Ref<string>, selectedInterests: Ref<string[]>) {
+export function useProfileSearch(filters: SearchFilters) {
+  const { get } = useApi()
   const results = ref<any[]>([])
   const loading = ref(false)
   const hasSearched = ref(false)
-  const { getToken } = useAuth()
 
   async function searchProfiles() {
     loading.value = true
     hasSearched.value = true
     try {
       const params = new URLSearchParams()
-      if (query.value) params.append('q', query.value)
-      if (selectedInterests.value.length) params.append('filterInterests', selectedInterests.value.join(','))
+      if (filters.query.value) params.append('q', filters.query.value)
+      if (filters.interests.value.length) params.append('filterInterests', filters.interests.value.join(','))
+      if (filters.cities.value.length) params.append('filterCity', filters.cities.value.join(','))
+      if (filters.countries.value.length) params.append('filterCountry', filters.countries.value.join(','))
       params.append('limit', '20')
 
-      const token = getToken()
-      const headers: HeadersInit = { 'Content-Type': 'application/json' }
-      if (token) headers['Authorization'] = `Bearer ${token}`
-
-      const res = await fetch(`${getApiBase()}/users/search?${params.toString()}`, { headers })
-      if (res.ok) {
-        const data = await res.json()
-        results.value = data.hits || []
-      } else {
-        results.value = []
-      }
+      const data = await get<{ hits: any[] }>(`/users/search?${params.toString()}`)
+      results.value = data.hits || []
     } catch (e) {
       console.error('Search error:', e)
       results.value = []

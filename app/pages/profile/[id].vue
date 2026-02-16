@@ -11,9 +11,23 @@
     </section>
 
     <div class="max-w-2xl mx-auto px-4" style="margin-top:-3rem;">
-      <!-- Loading -->
-      <div v-if="loading" class="profile-card flex justify-center py-12">
-        <span class="profile-loading">Chargement...</span>
+      <!-- Loading skeleton -->
+      <div v-if="loading" class="profile-card">
+        <div class="flex justify-center mb-5">
+          <USkeleton class="h-20 w-20 rounded-full" />
+        </div>
+        <USkeleton class="h-6 w-40 mx-auto mb-2" />
+        <USkeleton class="h-4 w-32 mx-auto mb-6" />
+        <div class="text-left space-y-2 mb-6">
+          <USkeleton class="h-4 w-20 mb-2" />
+          <USkeleton class="h-3.5 w-full" />
+          <USkeleton class="h-3.5 w-5/6" />
+          <USkeleton class="h-3.5 w-2/3" />
+        </div>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <USkeleton v-for="i in 3" :key="i" class="h-7 w-20 rounded-full" />
+        </div>
+        <USkeleton class="h-12 w-full rounded-full" />
       </div>
 
       <!-- Error -->
@@ -26,15 +40,11 @@
       <div v-else-if="profile" class="profile-card">
         <!-- Avatar -->
         <div class="profile-avatar-section">
-          <img
-            v-if="profile.image_url"
-            :src="profile.image_url"
-            alt="Photo de profil"
-            class="profile-avatar"
+          <UserAvatar
+            :name="(profile.first_name || '') + ' ' + (profile.last_name || '')"
+            :image-url="profile.image_url"
+            size="xl"
           />
-          <div v-else class="profile-avatar-placeholder">
-            {{ getInitials() }}
-          </div>
         </div>
 
         <!-- Name -->
@@ -98,12 +108,6 @@ const loading = ref(true)
 const error = ref('')
 const contactLoading = ref(false)
 
-function getInitials(): string {
-  const first = profile.value?.first_name?.[0] || ''
-  const last = profile.value?.last_name?.[0] || ''
-  return (first + last).toUpperCase() || '?'
-}
-
 onMounted(async () => {
   try {
     const data = await get<{ id: number; profile: ProfileDetail }>(`/users/${profileId.value}`)
@@ -163,26 +167,6 @@ async function startConversation() {
   display: flex;
   justify-content: center;
   margin-bottom: 1.25rem;
-}
-.profile-avatar {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid rgba(70, 94, 138, 0.15);
-}
-.profile-avatar-placeholder {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-  background: #465E8A;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'roca', sans-serif;
-  font-weight: 700;
-  font-size: 1.5rem;
 }
 .profile-name {
   font-family: 'roca', sans-serif;
@@ -254,11 +238,6 @@ async function startConversation() {
 .profile-contact-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
-}
-.profile-loading {
-  font-family: 'Space Mono', monospace;
-  color: #465E8A;
-  opacity: 0.8;
 }
 .profile-error {
   font-family: 'Space Mono', monospace;
