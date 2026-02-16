@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   srcDir: 'app',
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: ["@nuxt/ui"],
+  modules: ["@nuxt/ui", "@pinia/nuxt"],
   css: ["~/assets/css/main.css"],
   
   app: {
@@ -22,8 +22,9 @@ export default defineNuxtConfig({
   },
   
   runtimeConfig: {
+    apiBaseUrl: 'http://localhost:3001',
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3001/'
+      socketUrl: 'http://localhost:3001'
     }
   }  
 })
