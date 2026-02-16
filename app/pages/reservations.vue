@@ -188,6 +188,12 @@ import type { Reservation } from '~/types'
 
 definePageMeta({ middleware: 'auth' })
 
+useSeoMeta({
+  title: 'Mes réservations — Nomu',
+  description: 'Suivez et gérez vos réservations d\'expériences sur Nomu.',
+  robots: 'noindex, nofollow',
+})
+
 const { reservations, loading: resaLoading, error, fetchMyReservations, acceptReservation, declineReservation } = useReservations()
 const { get } = useApi()
 const initialLoading = ref(true)

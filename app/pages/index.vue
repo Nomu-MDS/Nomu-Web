@@ -32,6 +32,15 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Nomu — Trouvez les bons profils pour toutes vos envies',
+  description: 'Explorez, discutez et réservez des expériences uniques avec la communauté Nomu. Yoga, cuisine, voyages et bien plus.',
+  ogTitle: 'Nomu — Expériences uniques entre passionnés',
+  ogDescription: 'Trouvez les bons profils, échangez et réservez des expériences authentiques.',
+  ogImage: 'https://app.nomu.charlesremy.dev/img/Nomu_OG.png',
+  twitterCard: 'summary_large_image',
+})
+
 const query = ref('')
 const showLoginModal = ref(false)
 const router = useRouter()

@@ -103,6 +103,20 @@ const { get, post } = useApi()
 
 const profileId = computed(() => route.params.id as string)
 const profile = ref<ProfileDetail | null>(null)
+
+const profileName = computed(() => {
+  if (!profile.value) return ''
+  return [profile.value.first_name, profile.value.last_name].filter(Boolean).join(' ') || 'Utilisateur'
+})
+
+useSeoMeta({
+  title: () => profileName.value ? `${profileName.value} — Nomu` : 'Profil — Nomu',
+  description: () => profile.value?.biography
+    ? `Découvrez le profil de ${profileName.value} sur Nomu : ${profile.value.biography.slice(0, 140)}`
+    : `Découvrez ce profil sur Nomu et réservez une expérience unique.`,
+  ogTitle: () => profileName.value ? `${profileName.value} sur Nomu` : 'Profil — Nomu',
+  ogDescription: () => profile.value?.biography?.slice(0, 200) || 'Découvrez ce profil et réservez une expérience unique sur Nomu.',
+})
 const userId = ref<number | null>(null)
 const loading = ref(true)
 const error = ref('')
