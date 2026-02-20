@@ -128,7 +128,15 @@ onMounted(async () => {
     profile.value = data.profile
     userId.value = data.id
   } catch (e: any) {
-    error.value = e.message || 'Impossible de charger ce profil.'
+    const statusCode = e?.statusCode || 500
+
+    if (statusCode === 403) {
+      error.value = 'Ce profil n\'est pas accessible publiquement.'
+    } else if (statusCode === 404) {
+      error.value = 'Ce profil n\'existe pas.'
+    } else {
+      error.value = e?.message || 'Impossible de charger ce profil.'
+    }
   } finally {
     loading.value = false
   }
@@ -143,7 +151,9 @@ async function startConversation() {
     })
     await router.push(`/messages/${data.conversation.id}`)
   } catch (e: any) {
-    error.value = e.message || 'Impossible de démarrer la conversation.'
+    // L'erreur sera affichée par le toast automatiquement via useApi/plugin
+    // On peut quand même mettre à jour le message d'erreur local si nécessaire
+    console.error('Error starting conversation:', e)
   } finally {
     contactLoading.value = false
   }
