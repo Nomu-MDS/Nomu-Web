@@ -1,29 +1,34 @@
 <template>
   <div class="min-h-screen w-full bg-[#E4DBCB]">
     <!-- Search header -->
-    <section class="bg-[#465E8A] px-6 pt-10 pb-8 rounded-b-4xl">
-      <div class="max-w-2xl mx-auto text-center">
-        <h1 class="font-[roca] font-bold text-[1.75rem] text-white mb-5">
-          Explorer les <span class="text-[#B6FFD7] italic">profils</span>
+    <section class="px-6 pt-10 pb-8">
+      <div class="max-w-2xl mx-auto">
+        <h1 class="font-[roca] font-bold text-[2.25rem] text-[#0E224A] mb-1 tracking-tight" style="letter-spacing:-0.04em;">
+          Explorer
         </h1>
-        <form @submit.prevent="onSubmit" class="flex gap-2 max-w-xl mx-auto">
-          <input
-            v-model="query"
-            type="search"
-            class="flex-1 py-3 px-5 rounded-full border-none bg-white/90 font-mono text-sm text-[#465E8A] transition-shadow focus:outline-none focus:ring-[3px] focus:ring-[#B6FFD7]/40 placeholder:text-[#465E8A]/50"
-            placeholder="Yoga, Cuisine, Paris..."
-            aria-label="Recherche de profils"
-          />
-          <button type="submit" class="p-3 rounded-full border-none bg-white text-[#465E8A] cursor-pointer flex items-center justify-center transition-colors hover:bg-[#E4DBCB]">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+        <p class="font-mono text-sm text-[#465E8A] mb-5 opacity-70">Trouvez des profils par intérêt, ville ou pays</p>
+        <form @submit.prevent="onSubmit" class="flex gap-2 max-w-xl">
+          <div class="flex-1 flex items-center gap-2 bg-white rounded-full border border-[#465E8A] px-4 py-2.5 transition-shadow focus-within:ring-2 focus-within:ring-[#465E8A]/20">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#465E8A" class="w-4 h-4 shrink-0 opacity-50">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
             </svg>
+            <input
+              v-model="query"
+              type="search"
+              class="flex-1 border-none bg-transparent font-mono text-sm text-[#465E8A] focus:outline-none placeholder:text-[#465E8A]/40"
+              placeholder="Yoga, Cuisine, Paris..."
+              aria-label="Recherche de profils"
+            />
+          </div>
+          <button type="submit" class="px-5 py-2.5 rounded-full bg-[#465E8A] text-white font-mono text-sm font-bold cursor-pointer transition-colors hover:bg-[#3a4e6e] border-none">
+            Chercher
           </button>
         </form>
       </div>
     </section>
 
-    <!-- Content: filters + results -->
+    <!-- White card: filters + results -->
+    <div class="explore-white-card">
     <div class="explore-content w-full max-w-[95vw] 2xl:max-w-[70vw] mx-auto p-6 flex gap-6 items-start">
       <!-- Mobile filter toggle -->
       <button class="explore-filter-toggle" @click="filtersOpen = true">
@@ -47,7 +52,7 @@
       <!-- Results -->
       <div class="flex-1 min-w-0">
         <div class="flex items-baseline justify-between gap-3 mb-4">
-          <h2 class="font-[roca] font-bold text-xl text-[#465E8A] m-0">
+          <h2 class="font-[roca] font-bold text-xl text-[#0E224A] m-0">
             Résultats
             <span v-if="query" class="font-normal text-base opacity-70">pour « {{ query }} »</span>
           </h2>
@@ -86,6 +91,7 @@
 
         <ProfileResults :results="results" :loading="loading" :has-searched="hasSearched" />
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -152,6 +158,14 @@ watch(() => route.query.q, () => {
 </script>
 
 <style scoped>
+/* White card */
+.explore-white-card {
+  background: #fff;
+  border-radius: 32px 32px 0 0;
+  min-height: 60vh;
+  padding-top: 0.5rem;
+}
+
 /* Mobile filter toggle — hidden on desktop, shown on mobile */
 .explore-filter-toggle {
   display: none;

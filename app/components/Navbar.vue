@@ -81,9 +81,17 @@ const { isLoggedIn } = useAuth()
   color: #465E8A;
   text-decoration: none;
   transition: opacity 0.2s;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.5rem;
 }
 .navbar-link:hover {
   opacity: 0.7;
+}
+.navbar-link.router-link-active {
+  opacity: 1;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .navbar-icon {
   width: 1.2rem;

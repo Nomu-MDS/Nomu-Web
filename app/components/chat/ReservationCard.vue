@@ -117,9 +117,9 @@ function formatPrice(price: number | string) {
   width: 22rem;
 }
 .resa-bubble-card {
-  background: #fff;
-  border: 2px solid rgba(70, 94, 138, 0.2);
-  border-radius: 1.25rem;
+  background: #EFEFED;
+  border: 1.5px solid #465E8A;
+  border-radius: 1.5rem;
   overflow: hidden;
 }
 
@@ -133,7 +133,7 @@ function formatPrice(price: number | string) {
 .resa-bubble-sender-text {
   font-family: 'roca', sans-serif;
   font-size: 0.92rem;
-  color: #465E8A;
+  color: #0E224A;
   line-height: 1.3;
 }
 .resa-bubble-sender-text strong {
@@ -144,7 +144,7 @@ function formatPrice(price: number | string) {
 .resa-bubble-offer {
   margin: 0 0.85rem;
   background: #465E8A;
-  border-radius: 0.85rem;
+  border-radius: 1rem;
   padding: 0.9rem 1rem;
 }
 .resa-bubble-offer-top {

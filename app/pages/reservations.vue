@@ -1,18 +1,19 @@
 <template>
   <div class="min-h-screen w-full bg-[#E4DBCB]">
     <!-- Hero header -->
-    <section class="bg-[#465E8A] px-6 pt-10 pb-8 rounded-b-4xl">
-      <div class="max-w-3xl mx-auto text-center">
-        <h1 class="font-[roca] font-bold text-3xl text-white mb-2">
-          Mes <span class="text-[#B6FFD7] italic">réservations</span>
+    <section class="px-6 pt-10 pb-6">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="font-[roca] font-bold text-[2.25rem] text-[#0E224A] mb-1" style="letter-spacing:-0.04em;">
+          Réservations
         </h1>
-        <p class="font-mono text-sm text-white/60">
+        <p class="font-mono text-sm text-[#465E8A] opacity-70">
           Suivez et gérez vos expériences
         </p>
       </div>
     </section>
 
-    <div class="max-w-4xl mx-auto px-4 pt-10">
+    <div class="resa-white-card">
+    <div class="max-w-4xl mx-auto px-4 pt-8 pb-12">
       <!-- Tabs -->
       <div class="flex gap-2 overflow-x-auto pb-1 mb-6 justify-center">
         <button
@@ -180,8 +181,17 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </template>
+
+<style>
+.resa-white-card {
+  background: #fff;
+  border-radius: 32px 32px 0 0;
+  min-height: 60vh;
+}
+</style>
 
 <script setup lang="ts">
 import type { Reservation } from '~/types'

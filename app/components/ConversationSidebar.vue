@@ -119,19 +119,19 @@ function formatRelativeTime(iso: string): string {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border-right: 1px solid rgba(70, 94, 138, 0.1);
+  background: #E4DBCB;
+  border-right: 1px solid rgba(70, 94, 138, 0.12);
 }
 .sidebar-header {
   padding: 1.25rem 1.25rem 1rem;
-  border-bottom: 1px solid rgba(70, 94, 138, 0.08);
+  border-bottom: 1px solid rgba(70, 94, 138, 0.1);
   flex-shrink: 0;
 }
 .sidebar-title {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1.25rem;
-  color: #465E8A;
+  color: #0E224A;
   margin: 0;
 }
 .sidebar-status--error {
@@ -177,22 +177,27 @@ function formatRelativeTime(iso: string): string {
 .sidebar-list {
   flex: 1;
   overflow-y: auto;
+  padding: 0.5rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 .sidebar-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.85rem 1.25rem;
+  padding: 0.75rem 0.85rem;
   text-decoration: none;
-  border-bottom: 1px solid rgba(70, 94, 138, 0.05);
+  border-radius: 12px;
   transition: background 0.15s;
   cursor: pointer;
 }
 .sidebar-item:hover {
-  background: rgba(70, 94, 138, 0.04);
+  background: rgba(255, 255, 255, 0.5);
 }
 .sidebar-item--active {
-  background: rgba(70, 94, 138, 0.08);
+  background: #fff;
+  border-radius: 16px;
 }
 .sidebar-item-content {
   flex: 1;
@@ -209,7 +214,7 @@ function formatRelativeTime(iso: string): string {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 0.9rem;
-  color: #465E8A;
+  color: #0E224A;
 }
 .sidebar-item-time {
   font-family: 'Space Mono', monospace;
@@ -243,13 +248,15 @@ function formatRelativeTime(iso: string): string {
   opacity: 0.75;
 }
 .sidebar-item-unread {
-  background: #B6FFD7;
-  color: #465E8A;
+  background: #4CAF50;
+  color: #fff;
   font-family: 'Space Mono', monospace;
   font-size: 0.65rem;
   font-weight: 700;
   padding: 0.1rem 0.45rem;
   border-radius: 9999px;
   flex-shrink: 0;
+  min-width: 1.2rem;
+  text-align: center;
 }
 </style>
