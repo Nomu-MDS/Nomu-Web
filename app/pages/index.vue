@@ -21,17 +21,17 @@
 
           <!-- Bottom-left: title + CTA -->
           <div class="max-w-[520px]">
-            <span ref="heroBadge" class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 text-white font-space text-[0.68rem] font-bold tracking-[0.08em] uppercase px-4 py-[0.4rem] rounded-full mb-6">
+            <span ref="heroBadge" class="opacity-0 inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 text-white font-space text-[0.68rem] font-bold tracking-[0.08em] uppercase px-4 py-[0.4rem] rounded-full mb-6">
               <span class="w-1.5 h-1.5 rounded-full bg-cream" />
               Local · Voyageur · Les deux à la fois
             </span>
-            <h1 ref="heroTitle" class="font-roca font-bold text-white leading-[1.04] tracking-[-0.04em] mb-5" style="font-size: clamp(2.8rem, 5.5vw, 4.5rem);">
+            <h1 ref="heroTitle" class="opacity-0 font-roca font-bold text-white leading-[1.04] tracking-[-0.04em] mb-5" style="font-size: clamp(2.8rem, 5.5vw, 4.5rem);">
               Partage ta ville,<br>explore le monde.
             </h1>
-            <p ref="heroSub" class="font-space text-[0.9rem] text-white/65 leading-[1.78] mb-8 max-w-[400px]">
+            <p ref="heroSub" class="opacity-0 font-space text-[0.9rem] text-white/65 leading-[1.78] mb-8 max-w-[400px]">
               Propose tes activités ou réserve celles des passionnés qui t'accueillent. Ici, tout le monde est local quelque part.
             </p>
-            <div ref="heroCta" class="flex gap-3 flex-wrap">
+            <div ref="heroCta" class="opacity-0 flex gap-3 flex-wrap">
               <NuxtLink v-if="!isLoggedIn" to="/signup" class="px-6 py-3.5 rounded-full bg-cream text-navy font-roca font-bold text-[0.95rem] no-underline hover:bg-white transition-colors shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
                 Créer un compte
               </NuxtLink>
@@ -44,7 +44,7 @@
 
           <!-- Right: floating UI cards -->
           <div class="absolute right-10 lg:right-16 top-1/2 -translate-y-1/2 flex-col gap-4 hidden lg:flex">
-            <div ref="float1" class="bg-white/92 backdrop-blur-md rounded-2xl px-4 py-3 flex items-center gap-3 shadow-2xl w-[230px]">
+            <div ref="float1" class="opacity-0 bg-white/92 backdrop-blur-md rounded-2xl px-4 py-3 flex items-center gap-3 shadow-2xl w-[230px]">
               <img :src="avatar('Léa')" class="w-11 h-11 rounded-full shrink-0 bg-blue/20" alt="" />
               <div class="flex-1 min-w-0">
                 <p class="font-roca font-bold text-navy text-[0.9rem] leading-none mb-0.5">Léa</p>
@@ -53,11 +53,11 @@
               <span class="w-2 h-2 rounded-full bg-unread shrink-0" />
             </div>
 
-            <div ref="float2" class="bg-[rgba(255,106,87,0.93)] backdrop-blur-sm px-4 py-2.5 rounded-full self-end shadow-xl">
+            <div ref="float2" class="opacity-0 bg-[rgba(255,106,87,0.93)] backdrop-blur-sm px-4 py-2.5 rounded-full self-end shadow-xl">
               <span class="font-space text-white text-[0.72rem] font-bold">Escalade · Hanoï</span>
             </div>
 
-            <div ref="float3" class="bg-white/92 backdrop-blur-md rounded-2xl px-4 py-3.5 shadow-2xl w-[250px]">
+            <div ref="float3" class="opacity-0 bg-white/92 backdrop-blur-md rounded-2xl px-4 py-3.5 shadow-2xl w-[250px]">
               <p class="font-space text-[0.58rem] text-blue/60 uppercase tracking-wider mb-1.5">Nouvelle activité</p>
               <p class="font-roca font-bold text-navy text-[0.95rem] leading-tight">Plongée à Malte</p>
               <div class="flex items-center justify-between mt-1.5">
@@ -66,7 +66,7 @@
               </div>
             </div>
 
-            <div ref="float4" class="bg-white/85 backdrop-blur-sm px-3.5 py-2 rounded-full self-center shadow-lg flex items-center gap-1.5">
+            <div ref="float4" class="opacity-0 bg-white/85 backdrop-blur-sm px-3.5 py-2 rounded-full self-center shadow-lg flex items-center gap-1.5">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-blue" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
               </svg>
@@ -415,15 +415,14 @@ onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
   if (isLoggedIn.value) doSearch()
 
-  // ── Hero entrance ──
+  // ── Hero entrance (opacity-0 initial via CSS class) ──
+  const floatEls = [float1.value, float2.value, float3.value, float4.value].filter(Boolean)
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-  tl.from(heroBadge.value!, { y: 20, opacity: 0, duration: 0.7 }, 0.2)
-    .from(heroTitle.value!, { y: 50, opacity: 0, duration: 0.9 }, 0.4)
-    .from(heroSub.value!, { y: 30, opacity: 0, duration: 0.7 }, 0.65)
-    .from(heroCta.value!, { y: 20, opacity: 0, duration: 0.6 }, 0.85)
-    .from([float1.value!, float2.value!, float3.value!, float4.value!].filter(Boolean), {
-      x: 40, opacity: 0, stagger: 0.15, duration: 0.7, ease: 'back.out(1.2)'
-    }, 0.9)
+  tl.to(heroBadge.value!, { opacity: 1, y: 0, duration: 0.7 }, 0.2)
+    .fromTo(heroTitle.value!, { y: 50 }, { opacity: 1, y: 0, duration: 0.9 }, 0.4)
+    .fromTo(heroSub.value!, { y: 30 }, { opacity: 1, y: 0, duration: 0.7 }, 0.65)
+    .to(heroCta.value!, { opacity: 1, duration: 0.6 }, 0.85)
+    .fromTo(floatEls, { x: 40 }, { opacity: 1, x: 0, stagger: 0.15, duration: 0.7, ease: 'back.out(1.2)' }, 0.9)
 
   // ── Manifesto avatars ──
   gsap.from('.manifesto-avatar', {
