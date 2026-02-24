@@ -162,15 +162,14 @@ async function startConversation() {
 
 <style scoped>
 .profile-hero {
-  background: #465E8A;
-  padding: 2rem 1.5rem 5rem;
-  border-radius: 0 0 2.5rem 2.5rem;
+  background: #E4DBCB;
+  padding: 1.5rem 1.5rem 5rem;
 }
 .profile-back {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: #fff;
+  color: #465E8A;
   font-family: 'Space Mono', monospace;
   font-size: 0.9rem;
   text-decoration: none;
@@ -196,7 +195,7 @@ async function startConversation() {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1.5rem;
-  color: #465E8A;
+  color: #0E224A;
   margin: 0 0 0.25rem;
 }
 .profile-meta {
@@ -235,8 +234,8 @@ async function startConversation() {
   gap: 0.5rem;
 }
 .profile-interest-badge {
-  background: #B6FFD7;
-  color: #465E8A;
+  background: #465E8A;
+  color: #fff;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   font-family: 'Space Mono', monospace;

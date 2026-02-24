@@ -18,10 +18,6 @@
         <div class="flex items-end gap-2 justify-end">
           <USkeleton class="h-16 w-48 rounded-2xl rounded-br-sm" />
         </div>
-        <div class="flex items-end gap-2">
-          <USkeleton class="h-8 w-8 rounded-full shrink-0" />
-          <USkeleton class="h-10 w-36 rounded-2xl rounded-bl-sm" />
-        </div>
       </div>
     </div>
 
@@ -54,6 +50,7 @@ const { get } = useApi()
 const { connect, joinConversation, leaveConversation, sendMessage, emitTyping, markMessageRead, getSocketInstance } = useSocket()
 const { reservations, fetchMyReservations, acceptReservation, declineReservation } = useReservations()
 
+// Provided by the parent messages.vue layout
 const myUserId = inject<Ref<number>>('messagesMyUserId', ref(0))
 
 const conversationId = computed(() => Number(route.params.conversationId))
@@ -176,18 +173,11 @@ watch(conversationId, (newId, oldId) => {
       sock.off('message_read_update')
     }
   }
-  if (newId) {
-    initChat()
-  }
+  if (newId) initChat()
 })
 
-onMounted(() => {
-  initChat()
-})
-
-onBeforeUnmount(() => {
-  cleanupSocket()
-})
+onMounted(() => { initChat() })
+onBeforeUnmount(() => { cleanupSocket() })
 </script>
 
 <style scoped>
@@ -195,12 +185,13 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #E4DBCB;
+  background: #fff;
 }
 .chat-loading {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
 }
 </style>

@@ -207,18 +207,18 @@ async function handleResaSubmit() {
 .chat-input {
   flex: 1;
   padding: 0.7rem 1rem;
-  border: 2px solid rgba(70, 94, 138, 0.15);
+  border: 1.5px solid #465E8A;
   border-radius: 9999px;
   font-family: 'Space Mono', monospace;
   font-size: 0.9rem;
-  color: #465E8A;
-  background: #f9f8f5;
-  transition: border-color 0.2s;
+  color: #3C3C3B;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
   min-width: 0;
 }
 .chat-input:focus {
   outline: none;
-  border-color: #465E8A;
+  box-shadow: 0 0 0 3px rgba(70, 94, 138, 0.1);
 }
 .chat-input::placeholder {
   color: #465E8A;
@@ -230,9 +230,9 @@ async function handleResaSubmit() {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  border: 2px solid rgba(70, 94, 138, 0.2);
-  background: transparent;
-  color: #465E8A;
+  border: none;
+  background: #465E8A;
+  color: #E4DBCB;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -241,12 +241,10 @@ async function handleResaSubmit() {
   flex-shrink: 0;
 }
 .chat-plus-btn:hover {
-  border-color: #465E8A;
-  background: rgba(70, 94, 138, 0.05);
+  background: #3a4e6e;
 }
 .chat-plus-btn--active {
-  background: #465E8A;
-  border-color: #465E8A;
+  background: #3C3C3B;
   color: #fff;
   transform: rotate(45deg);
 }

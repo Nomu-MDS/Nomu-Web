@@ -25,47 +25,49 @@ const formattedTime = computed(() =>
 
 <style scoped>
 .chat-bubble {
-  max-width: 70%;
-  padding: 0.65rem 1rem;
+  max-width: 78%;
   word-break: break-word;
 }
 .chat-bubble--sent {
-  background: #465E8A;
+  background: #3C3C3B;
   color: #fff;
-  border-radius: 1rem 1rem 0.25rem 1rem;
+  border-radius: 100px;
+  padding: 0.625rem 1.25rem;
 }
 .chat-bubble--received {
-  background: #fff;
-  color: #465E8A;
-  border-radius: 1rem 1rem 1rem 0.25rem;
-  box-shadow: 0 1px 4px rgba(70, 94, 138, 0.08);
+  background: rgba(60, 60, 59, 0.2);
+  color: #3C3C3B;
+  border-radius: 100px;
+  padding: 0.625rem 1.25rem;
 }
 .chat-bubble-text {
   font-family: 'Space Mono', monospace;
-  font-size: 0.88rem;
-  line-height: 1.45;
+  font-size: 0.8rem;
+  line-height: 1.5;
   margin: 0;
+  letter-spacing: -0.015em;
 }
 .chat-bubble-meta {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 0.35rem;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }
 .chat-bubble-time {
   font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  opacity: 0.55;
+  font-size: 0.68rem;
+  opacity: 0.7;
+  letter-spacing: -0.014em;
 }
 .chat-bubble-status {
   font-size: 0.7rem;
-  opacity: 0.65;
+  opacity: 0.7;
 }
 .chat-bubble-attachment {
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: 0.5rem;
+  max-width: 200px;
+  max-height: 150px;
+  border-radius: 0.75rem;
   margin-bottom: 0.35rem;
   object-fit: cover;
 }

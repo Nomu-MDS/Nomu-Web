@@ -172,14 +172,14 @@ async function submit() {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1.75rem;
-  color: #465E8A;
+  color: #0E224A;
   margin: 0 0 0.5rem;
 }
 
 .auth-subtitle {
   font-family: 'Space Mono', monospace;
   font-size: 0.95rem;
-  color: #465E8A;
+  color: #3C3C3B;
   opacity: 0.9;
   margin: 0 0 1.75rem;
 }
@@ -229,9 +229,9 @@ async function submit() {
   font-family: 'Space Mono', monospace;
   font-size: 1rem;
   padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 0.75rem;
-  color: #465E8A;
+  border: 1.5px solid rgba(70, 94, 138, 0.3);
+  border-radius: 0.875rem;
+  color: #3C3C3B;
   background: #fff;
   transition: border-color 0.2s, box-shadow 0.2s;
 }

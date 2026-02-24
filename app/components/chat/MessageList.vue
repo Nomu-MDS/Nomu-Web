@@ -59,10 +59,22 @@ type TimelineItem =
   | { type: 'message'; data: Message; date: string; key: string }
   | { type: 'reservation'; data: Reservation; date: string; key: string }
 
+function isSystemMessage(content: string): boolean {
+  try {
+    if (content?.startsWith('{')) {
+      const parsed = JSON.parse(content)
+      return !!parsed.__type
+    }
+  } catch {}
+  return false
+}
+
 const timeline = computed<TimelineItem[]>(() => {
   const items: TimelineItem[] = []
 
   for (const msg of props.messages) {
+    // Skip system messages (e.g. reservation notifications sent as JSON)
+    if (isSystemMessage(msg.content)) continue
     items.push({ type: 'message', data: msg, date: msg.createdAt, key: `msg-${msg.id}` })
   }
   for (const resa of props.reservations) {

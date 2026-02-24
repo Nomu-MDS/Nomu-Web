@@ -24,12 +24,13 @@ defineProps<{
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: #465E8A;
+  padding: 0.85rem 1rem;
+  background: #E4DBCB;
   flex-shrink: 0;
+  border-bottom: 1px solid rgba(70, 94, 138, 0.1);
 }
 .chat-header-back {
-  color: #fff;
+  color: #465E8A;
   display: flex;
   align-items: center;
   opacity: 0.85;
@@ -43,14 +44,13 @@ defineProps<{
   display: flex;
   align-items: center;
   gap: 0.6rem;
-}
-.chat-header-info :deep(.user-avatar--initials) {
-  background: rgba(255, 255, 255, 0.2);
+  flex: 1;
 }
 .chat-header-name {
   font-family: 'roca', sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
-  color: #fff;
+  font-size: 1rem;
+  color: #465E8A;
+  letter-spacing: -0.02em;
 }
 </style>

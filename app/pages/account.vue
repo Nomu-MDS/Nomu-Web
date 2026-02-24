@@ -1,12 +1,16 @@
 <template>
   <div class="min-h-screen w-full" style="background:#E4DBCB;">
-    <div class="max-w-2xl mx-auto px-4 py-8">
-      <div class="flex items-center justify-between mb-8">
-        <h1 class="roca-title text-2xl md:text-3xl text-[#465E8A]">Mon compte</h1>
+    <!-- Hero -->
+    <div class="px-4 pt-10 pb-8 max-w-2xl mx-auto">
+      <div class="flex items-center justify-between">
+        <h1 class="roca-title text-[2rem] md:text-[2.25rem] text-[#0E224A]" style="letter-spacing:-0.04em;">Mon compte</h1>
         <button v-if="me && !editing" @click="handleLogout" class="logout-btn">
           Se déconnecter
         </button>
       </div>
+    </div>
+    <div class="account-white-card">
+    <div class="max-w-2xl mx-auto px-4 py-8">
 
       <!-- Loading skeleton -->
       <div v-if="loading" class="space-y-6">
@@ -172,6 +176,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -273,6 +278,11 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.account-white-card {
+  background: #fff;
+  border-radius: 32px 32px 0 0;
+  min-height: 60vh;
+}
 .roca-title {
   font-family: 'roca', sans-serif;
   font-weight: 700;
@@ -343,8 +353,8 @@ onMounted(async () => {
   gap: 0.5rem;
 }
 .account-interest-badge {
-  background: #B6FFD7;
-  color: #465E8A;
+  background: #465E8A;
+  color: #fff;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   font-family: 'Space Mono', monospace;

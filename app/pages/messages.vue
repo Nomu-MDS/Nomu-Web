@@ -63,25 +63,27 @@ onMounted(async () => {
 <style scoped>
 .messages-layout {
   display: flex;
-  height: calc(100vh - 64px);
+  flex: 1;
+  min-height: 0;
   background: #E4DBCB;
+  overflow: hidden;
 }
 .messages-layout > :first-child {
-  width: 360px;
+  width: 300px;
   flex-shrink: 0;
 }
 .messages-main {
   flex: 1;
   min-width: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
   .messages-layout > :first-child {
     display: none;
-  }
-  .messages-layout {
-    height: 100vh;
   }
 }
 </style>
