@@ -413,7 +413,7 @@ function goSearch(tag: string) {
 // GSAP
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
-  doSearch()
+  if (isLoggedIn.value) doSearch()
 
   // ── Hero entrance ──
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
