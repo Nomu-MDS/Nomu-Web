@@ -36,6 +36,7 @@
     </template>
 
     <ChatTypingIndicator v-if="typingName" :name="typingName" />
+    <div ref="bottomAnchor" class="scroll-anchor" />
   </div>
 </template>
 
@@ -86,6 +87,7 @@ const timeline = computed<TimelineItem[]>(() => {
 })
 
 const container = ref<HTMLElement | null>(null)
+const bottomAnchor = ref<HTMLElement | null>(null)
 
 function showDateBefore(idx: number): boolean {
   if (idx === 0) return true
@@ -95,14 +97,18 @@ function showDateBefore(idx: number): boolean {
 }
 
 function scrollToBottom() {
-  nextTick(() => {
-    if (container.value) {
-      container.value.scrollTop = container.value.scrollHeight
-    }
-  })
+  if (container.value) {
+    container.value.scrollTop = container.value.scrollHeight
+  }
 }
 
-watch(() => props.messages.length + props.reservations.length, scrollToBottom)
+watch(
+  () => props.messages.length + props.reservations.length,
+  scrollToBottom,
+  { flush: 'post' }
+)
+
+onMounted(scrollToBottom)
 
 defineExpose({ scrollToBottom })
 </script>
@@ -112,7 +118,7 @@ defineExpose({ scrollToBottom })
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 1rem 1rem 1.5rem;
+  padding: 1rem 1rem calc(var(--chat-input-h) + 0.75rem);
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -142,5 +148,9 @@ defineExpose({ scrollToBottom })
 }
 .chat-bubble-wrap--received {
   align-items: flex-start;
+}
+.scroll-anchor {
+  height: 1px;
+  flex-shrink: 0;
 }
 </style>
