@@ -177,7 +177,7 @@ async function submit() {
 }
 
 .auth-subtitle {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
   color: #3C3C3B;
   opacity: 0.9;
@@ -203,7 +203,7 @@ async function submit() {
 }
 
 .auth-error {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #c53030;
   background: #fff5f5;
@@ -219,14 +219,14 @@ async function submit() {
 }
 
 .auth-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: #465E8A;
 }
 
 .auth-input {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   padding: 0.75rem 1rem;
   border: 1.5px solid rgba(70, 94, 138, 0.3);
@@ -256,7 +256,7 @@ async function submit() {
   align-items: flex-start;
   gap: 0.75rem;
   cursor: pointer;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
 }
@@ -314,7 +314,7 @@ async function submit() {
 }
 
 .auth-footer {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
   margin: 1.5rem 0 0;

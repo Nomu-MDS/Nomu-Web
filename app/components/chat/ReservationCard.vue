@@ -163,7 +163,7 @@ function formatPrice(price: number | string) {
   line-height: 1.2;
 }
 .resa-bubble-date {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.6);
   white-space: nowrap;
@@ -178,7 +178,7 @@ function formatPrice(price: number | string) {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.75);
 }
@@ -228,7 +228,7 @@ function formatPrice(price: number | string) {
   justify-content: center;
   gap: 0.4rem;
   padding: 0.7rem 0.85rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
 }

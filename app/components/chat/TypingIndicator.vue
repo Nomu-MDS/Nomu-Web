@@ -19,7 +19,7 @@ defineProps<{ name: string }>()
   align-items: center;
   gap: 0.4rem;
   padding: 0.5rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.78rem;
   color: #465E8A;
   opacity: 0.6;

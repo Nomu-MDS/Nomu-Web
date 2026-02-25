@@ -209,7 +209,7 @@ async function handleResaSubmit() {
   padding: 0.7rem 1rem;
   border: 1.5px solid #465E8A;
   border-radius: 9999px;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #3C3C3B;
   background: #fff;
@@ -326,7 +326,7 @@ async function handleResaSubmit() {
   line-height: 1.2;
 }
 .resa-card-subtitle {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.68rem;
   color: rgba(255, 255, 255, 0.65);
   margin: 0;
@@ -361,7 +361,7 @@ async function handleResaSubmit() {
   min-width: 0;
 }
 .resa-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   color: #465E8A;
@@ -373,7 +373,7 @@ async function handleResaSubmit() {
   padding: 0.55rem 0.75rem;
   border: 1.5px solid rgba(70, 94, 138, 0.12);
   border-radius: 0.6rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.82rem;
   color: #465E8A;
   background: #f8f7f4;
@@ -457,7 +457,7 @@ async function handleResaSubmit() {
 
 /* Error & success */
 .resa-error {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.72rem;
   color: #c53030;
   background: #FEE2E2;

@@ -1,7 +1,9 @@
 <template>
-  <div :class="['chat-bubble', sent ? 'chat-bubble--sent' : 'chat-bubble--received']">
-    <img v-if="attachment" :src="attachment" alt="Image" class="chat-bubble-attachment" />
-    <p class="chat-bubble-text">{{ content }}</p>
+  <div :class="['chat-bubble-outer', sent ? 'chat-bubble-outer--sent' : 'chat-bubble-outer--received']">
+    <div :class="['chat-bubble', sent ? 'chat-bubble--sent' : 'chat-bubble--received']">
+      <img v-if="attachment" :src="attachment" alt="Image" class="chat-bubble-attachment" />
+      <p class="chat-bubble-text">{{ content }}</p>
+    </div>
     <div class="chat-bubble-meta">
       <span class="chat-bubble-time">{{ formattedTime }}</span>
       <span v-if="sent" class="chat-bubble-status">{{ read ? '✓✓' : '✓' }}</span>
@@ -24,8 +26,20 @@ const formattedTime = computed(() =>
 </script>
 
 <style scoped>
-.chat-bubble {
+.chat-bubble-outer {
+  display: flex;
+  flex-direction: column;
   max-width: 78%;
+  gap: 0.2rem;
+}
+.chat-bubble-outer--sent {
+  align-items: flex-end;
+}
+.chat-bubble-outer--received {
+  align-items: flex-start;
+}
+
+.chat-bubble {
   word-break: break-word;
 }
 .chat-bubble--sent {
@@ -41,28 +55,26 @@ const formattedTime = computed(() =>
   padding: 0.625rem 1.25rem;
 }
 .chat-bubble-text {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
   line-height: 1.5;
   margin: 0;
-  letter-spacing: -0.015em;
 }
 .chat-bubble-meta {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.35rem;
-  margin-top: 0.2rem;
+  gap: 0.25rem;
+  padding: 0 0.75rem;
 }
 .chat-bubble-time {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  opacity: 0.7;
-  letter-spacing: -0.014em;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.65rem;
+  opacity: 0.5;
 }
 .chat-bubble-status {
-  font-size: 0.7rem;
-  opacity: 0.7;
+  font-size: 0.65rem;
+  opacity: 0.6;
+  color: #465E8A;
 }
 .chat-bubble-attachment {
   max-width: 200px;

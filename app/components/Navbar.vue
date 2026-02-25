@@ -76,7 +76,7 @@ const { isLoggedIn } = useAuth()
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
   text-decoration: none;

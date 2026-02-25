@@ -176,7 +176,7 @@ watch(() => route.query.q, () => {
   border: 1.5px solid rgba(70, 94, 138, 0.2);
   background: #fff;
   color: #465E8A;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   cursor: pointer;
   position: sticky;

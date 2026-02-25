@@ -88,7 +88,7 @@ function goToSignup() {
 }
 
 .login-modal-text {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
   color: #465E8A;
   text-align: center;
