@@ -100,10 +100,11 @@ const { get, post } = useApi()
 
 const profileId = computed(() => route.params.id as string)
 const profile = ref<ProfileDetail | null>(null)
+const userName = ref('')
 
 const profileName = computed(() => {
   if (!profile.value) return ''
-  return [profile.value.first_name, profile.value.last_name].filter(Boolean).join(' ') || 'Utilisateur'
+  return [profile.value.first_name, profile.value.last_name].filter(Boolean).join(' ') || userName.value || 'Utilisateur'
 })
 
 // Normalize interests regardless of Sequelize casing
@@ -126,9 +127,10 @@ const contactLoading = ref(false)
 
 onMounted(async () => {
   try {
-    const data = await get<{ id: number; profile: ProfileDetail }>(`/users/${profileId.value}`)
+    const data = await get<{ id: number; name?: string; profile: ProfileDetail }>(`/users/${profileId.value}`)
     profile.value = data.profile
     userId.value = data.id
+    userName.value = data.name || ''
   } catch (e: any) {
     const statusCode = e?.statusCode || 500
 

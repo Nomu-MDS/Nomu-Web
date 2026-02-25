@@ -6,7 +6,8 @@ export interface LoginCredentials {
 }
 
 export interface SignupPayload {
-  name: string
+  first_name: string
+  last_name: string
   email: string
   password: string
   is_searchable: boolean
@@ -64,10 +65,14 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function signup(payload: SignupPayload): Promise<AuthResult> {
     try {
+      const firstName = payload.first_name.trim()
+      const lastName = payload.last_name.trim()
       const data = await $fetch<Record<string, any>>('/api/auth/signup', {
         method: 'POST',
         body: {
-          name: payload.name.trim(),
+          name: [firstName, lastName].filter(Boolean).join(' '),
+          first_name: firstName || undefined,
+          last_name: lastName || undefined,
           email: payload.email.trim(),
           password: payload.password,
           is_searchable: payload.is_searchable,
