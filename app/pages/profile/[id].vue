@@ -172,7 +172,7 @@ async function startConversation() {
   align-items: center;
   gap: 0.35rem;
   color: #465E8A;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   text-decoration: none;
   opacity: 0.8;
@@ -201,7 +201,7 @@ async function startConversation() {
   margin: 0 0 0.25rem;
 }
 .profile-meta {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
   opacity: 0.7;
@@ -219,7 +219,7 @@ async function startConversation() {
   margin-bottom: 1.5rem;
 }
 .profile-biography-text {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
   opacity: 0.85;
@@ -240,7 +240,7 @@ async function startConversation() {
   color: #fff;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
 }
 .profile-contact-btn {
@@ -265,12 +265,12 @@ async function startConversation() {
   cursor: not-allowed;
 }
 .profile-error {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   color: #c53030;
   margin-bottom: 1rem;
 }
 .profile-link {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   color: #465E8A;
   text-decoration: underline;
   font-size: 0.9rem;

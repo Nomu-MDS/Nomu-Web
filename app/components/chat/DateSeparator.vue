@@ -20,7 +20,7 @@ const label = computed(() => {
 <style scoped>
 .chat-date-separator {
   text-align: center;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.7rem;
   color: #465E8A;
   opacity: 0.5;

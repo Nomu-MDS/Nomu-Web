@@ -32,7 +32,7 @@ defineEmits(['toggle', 'clear'])
   border: 1.5px solid rgba(70, 94, 138, 0.25);
   background: #fff;
   color: #465E8A;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
   font-weight: 400;
   cursor: pointer;
@@ -55,7 +55,7 @@ defineEmits(['toggle', 'clear'])
   border: none;
   background: transparent;
   color: #465E8A;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   opacity: 0.6;
   cursor: pointer;

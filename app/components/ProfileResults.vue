@@ -137,7 +137,7 @@ function avatarUrl(profile: any): string {
   left: 0.6rem;
   background: rgba(255, 106, 87, 0.88);
   color: #fff;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -176,7 +176,7 @@ function avatarUrl(profile: any): string {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.68rem;
   color: rgba(255, 255, 255, 0.75);
   white-space: nowrap;
@@ -192,7 +192,7 @@ function avatarUrl(profile: any): string {
 }
 
 .results-empty-text {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
   opacity: 0.6;

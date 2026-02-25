@@ -288,7 +288,7 @@ onMounted(async () => {
   font-weight: 700;
 }
 .space-mono-regular {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
 }
 .account-card {
@@ -318,19 +318,19 @@ onMounted(async () => {
   grid-column: 1 / -1;
 }
 .account-field-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   color: #465E8A;
   opacity: 0.85;
 }
 .account-field-value {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
   color: #465E8A;
 }
 .account-error {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   color: #c53030;
 }
 .account-name {
@@ -341,7 +341,7 @@ onMounted(async () => {
   margin: 0;
 }
 .account-email {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
   color: #465E8A;
   opacity: 0.6;
@@ -357,7 +357,7 @@ onMounted(async () => {
   color: #fff;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
 }
 .edit-btn {
@@ -383,7 +383,7 @@ onMounted(async () => {
   border: 1.5px solid #c53030;
   background: transparent;
   color: #c53030;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s;
@@ -408,7 +408,7 @@ onMounted(async () => {
   gap: 0.35rem;
 }
 .edit-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   color: #465E8A;
@@ -418,7 +418,7 @@ onMounted(async () => {
   padding: 0.65rem 0.85rem;
   border: 2px solid #e2e8f0;
   border-radius: 0.75rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -432,7 +432,7 @@ onMounted(async () => {
   padding: 0.65rem 0.85rem;
   border: 2px solid #e2e8f0;
   border-radius: 0.75rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #465E8A;
   resize: vertical;
@@ -447,7 +447,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
   color: #465E8A;
   cursor: pointer;
@@ -468,7 +468,7 @@ onMounted(async () => {
   border: 1.5px solid rgba(70, 94, 138, 0.25);
   background: #fff;
   color: #465E8A;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s;
