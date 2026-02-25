@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MeResponse } from '~/types'
+import type { MeResponse, Message } from '~/types'
 
 definePageMeta({ middleware: 'auth' })
 
@@ -27,6 +27,7 @@ useSeoMeta({
 const route = useRoute()
 const { get } = useApi()
 const { conversations, loading, error, fetchConversations } = useConversations()
+const { connect, getSocketInstance } = useSocket()
 const myUserId = ref(0)
 
 const activeConversationId = computed(() => {
@@ -43,6 +44,35 @@ onMounted(async () => {
     myUserId.value = me.id
   } catch {}
   await fetchConversations()
+
+  // Brancher le socket pour mettre à jour les badges non-lus en temps réel
+  try {
+    const sock = connect()
+
+    sock.on('new_message', (data: { message: Message }) => {
+      const conv = conversations.value.find(c => c.id === data.message.conversation_id)
+      if (!conv) return
+      if (!conv.Messages) conv.Messages = []
+      if (!conv.Messages.some(m => m.id === data.message.id)) {
+        conv.Messages.push(data.message)
+      }
+    })
+
+    sock.on('message_read_update', (data: { message_id: number; conversation_id: number; read: boolean }) => {
+      const conv = conversations.value.find(c => c.id === data.conversation_id)
+      if (!conv?.Messages) return
+      const msg = conv.Messages.find(m => m.id === data.message_id)
+      if (msg) msg.read = data.read
+    })
+  } catch {}
+})
+
+onBeforeUnmount(() => {
+  const sock = getSocketInstance()
+  if (sock) {
+    sock.off('new_message')
+    sock.off('message_read_update')
+  }
 })
 </script>
 

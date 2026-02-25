@@ -110,8 +110,9 @@ defineExpose({ scrollToBottom })
 <style scoped>
 .chat-message-list {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 1rem 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;

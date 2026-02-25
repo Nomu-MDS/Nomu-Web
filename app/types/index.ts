@@ -43,7 +43,9 @@ export interface ProfileDetail {
   country: string | null
   city: string | null
   image_url: string | null
-  interests: { id: number; name: string }[]
+  // Sequelize peut retourner les deux casings selon l'endpoint
+  interests?: { id: number; name: string }[]
+  Interests?: { id: number; name: string; icon?: string | null }[]
 }
 
 export interface SearchHit {

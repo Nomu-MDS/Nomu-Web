@@ -3,7 +3,7 @@ import type { Conversation, Message, ConversationUser } from '~/types'
 export function useConversations() {
   const { get } = useApi()
   const conversations = ref<Conversation[]>([])
-  const loading = ref(false)
+  const loading = ref(true)
   const error = ref('')
 
   async function fetchConversations() {
