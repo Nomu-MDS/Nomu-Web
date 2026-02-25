@@ -23,6 +23,7 @@
 import type { Conversation } from '~/types'
 
 const router = useRouter()
+const route = useRoute()
 const conversations = inject<Ref<Conversation[]>>('messagesConversations', ref([]))
 const redirecting = ref(true)
 
@@ -33,6 +34,8 @@ function getLastMessageTime(conv: Conversation): number {
 }
 
 function tryRedirect() {
+  // Guard : ne rediriger que si on est encore sur /messages
+  if (route.path !== '/messages') return false
   if (conversations.value.length > 0) {
     const sorted = [...conversations.value].sort((a, b) => getLastMessageTime(b) - getLastMessageTime(a))
     router.replace(`/messages/${sorted[0].id}`)
@@ -42,15 +45,17 @@ function tryRedirect() {
 }
 
 watch(conversations, (val) => {
-  if (val.length > 0) {
-    tryRedirect()
-  }
+  if (val.length > 0) tryRedirect()
 }, { immediate: true })
 
-// After a timeout, if still no conversations, show empty state
-setTimeout(() => {
-  if (!tryRedirect()) {
-    redirecting.value = false
-  }
-}, 3000)
+// Afficher l'état vide après timeout si toujours aucune conversation
+let redirectTimer: ReturnType<typeof setTimeout> | null = null
+onMounted(() => {
+  redirectTimer = setTimeout(() => {
+    if (!tryRedirect()) redirecting.value = false
+  }, 3000)
+})
+onBeforeUnmount(() => {
+  if (redirectTimer) clearTimeout(redirectTimer)
+})
 </script>

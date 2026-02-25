@@ -41,17 +41,14 @@
         <!-- Avatar -->
         <div class="profile-avatar-section">
           <UserAvatar
-            :name="(profile.first_name || '') + ' ' + (profile.last_name || '')"
+            :name="profileName"
             :image-url="profile.image_url"
             size="xl"
           />
         </div>
 
         <!-- Name -->
-        <h1 class="profile-name">
-          {{ profile.first_name || '' }} {{ profile.last_name || '' }}
-          <span v-if="!profile.first_name && !profile.last_name">Utilisateur</span>
-        </h1>
+        <h1 class="profile-name">{{ profileName }}</h1>
 
         <!-- Age & Location -->
         <p class="profile-meta">
@@ -69,10 +66,10 @@
         </div>
 
         <!-- Interests -->
-        <div v-if="profile.interests?.length" class="profile-interests">
+        <div v-if="profileInterests.length" class="profile-interests">
           <h2 class="profile-section-title">Centres d'intérêt</h2>
           <div class="profile-interests-list">
-            <span v-for="interest in profile.interests" :key="interest.id" class="profile-interest-badge">
+            <span v-for="interest in profileInterests" :key="interest.id" class="profile-interest-badge">
               {{ interest.name }}
             </span>
           </div>
@@ -108,6 +105,11 @@ const profileName = computed(() => {
   if (!profile.value) return ''
   return [profile.value.first_name, profile.value.last_name].filter(Boolean).join(' ') || 'Utilisateur'
 })
+
+// Normalize interests regardless of Sequelize casing
+const profileInterests = computed(() =>
+  profile.value?.interests ?? profile.value?.Interests ?? []
+)
 
 useSeoMeta({
   title: () => profileName.value ? `${profileName.value} — Nomu` : 'Profil — Nomu',
