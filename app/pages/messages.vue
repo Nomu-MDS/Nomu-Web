@@ -93,10 +93,9 @@ onBeforeUnmount(() => {
 <style scoped>
 .messages-layout {
   display: flex;
-  flex: 1;
-  min-height: 0;
-  background: #E4DBCB;
+  height: calc(100dvh - var(--navbar-h));
   overflow: hidden;
+  background: #E4DBCB;
 }
 .messages-layout > :first-child {
   width: 300px;

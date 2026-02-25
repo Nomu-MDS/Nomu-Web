@@ -13,16 +13,18 @@ import Navbar from '~/components/Navbar.vue'
 
 <style scoped>
 .layout-root {
-  min-height: 100dvh;
+  height: 100dvh;
   width: 100%;
   background: #E4DBCB;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .layout-main {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  overflow-y: auto;
 }
 </style>

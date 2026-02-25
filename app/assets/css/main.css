@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* ── Layout height tokens ─────────────────────────── */
+:root {
+  --navbar-h: 57px;   /* padding 0.85rem×2 + logo ~1.5rem */
+  --chat-input-h: 68px; /* padding 0.75rem×2 + input 2.75rem */
+}
+
 @theme {
   --color-navy: #0E224A;
   --color-blue: #465E8A;

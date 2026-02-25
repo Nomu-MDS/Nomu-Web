@@ -184,10 +184,13 @@ async function handleResaSubmit() {
 
 <style scoped>
 .chat-input-area {
-  flex-shrink: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: #fff;
   border-top: 1px solid rgba(70, 94, 138, 0.1);
-  position: relative;
+  z-index: 10;
 }
 
 /* Input bar */
