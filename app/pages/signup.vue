@@ -13,29 +13,41 @@
         </div>
         <div class="auth-grid">
           <div class="auth-field">
-            <label for="signup-name" class="auth-label">Nom</label>
+            <label for="signup-firstname" class="auth-label">Prénom</label>
             <input
-              id="signup-name"
-              v-model="name"
+              id="signup-firstname"
+              v-model="first_name"
               type="text"
               required
-              autocomplete="name"
+              autocomplete="given-name"
               class="auth-input"
-              placeholder="Ton prénom ou pseudo"
+              placeholder="Ton prénom"
             />
           </div>
           <div class="auth-field">
-            <label for="signup-email" class="auth-label">Email</label>
+            <label for="signup-lastname" class="auth-label">Nom</label>
             <input
-              id="signup-email"
-              v-model="email"
-              type="email"
+              id="signup-lastname"
+              v-model="last_name"
+              type="text"
               required
-              autocomplete="email"
+              autocomplete="family-name"
               class="auth-input"
-              placeholder="toi@exemple.com"
+              placeholder="Ton nom de famille"
             />
           </div>
+        </div>
+        <div class="auth-field">
+          <label for="signup-email" class="auth-label">Email</label>
+          <input
+            id="signup-email"
+            v-model="email"
+            type="email"
+            required
+            autocomplete="email"
+            class="auth-input"
+            placeholder="toi@exemple.com"
+          />
         </div>
         <div class="auth-field">
           <label for="signup-password" class="auth-label">Mot de passe</label>
@@ -98,7 +110,8 @@ useSeoMeta({
   ogDescription: 'Inscrivez-vous gratuitement pour explorer des profils et réserver des expériences authentiques.',
 })
 
-const name = ref('')
+const first_name = ref('')
+const last_name = ref('')
 const email = ref('')
 const password = ref('')
 const location = ref('')
@@ -114,7 +127,8 @@ async function submit() {
   loading.value = true
   try {
     const result = await signup({
-      name: name.value,
+      first_name: first_name.value,
+      last_name: last_name.value,
       email: email.value,
       password: password.value,
       is_searchable: isSearchable.value,
