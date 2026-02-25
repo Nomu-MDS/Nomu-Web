@@ -9,7 +9,7 @@
         style="min-height: 88vh"
       >
         <img
-          src="/img/Randonneurs.jpeg"
+          src="/img/AdobeStock_96991406.jpg"
           class="absolute inset-0 w-full h-full object-cover"
           style="object-position: 55% 35%"
           alt=""
@@ -169,6 +169,24 @@
         </div>
       </div>
     </section>
+
+    <!-- ══════════════════════════════════════
+         SEARCH BAR — superposée bas du hero
+    ══════════════════════════════════════ -->
+    <div class="relative z-20 -mt-10 sm:-mt-14 px-5 sm:px-10 mb-4">
+      <form @submit.prevent="searchProfiles" class="max-w-[700px] mx-auto bg-white/96 backdrop-blur-md rounded-2xl shadow-[0_16px_56px_rgba(14,34,74,0.22)] p-2.5 flex gap-2 items-center">
+        <div class="flex-1 flex items-center gap-3 px-3 py-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-navy/35 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+          </svg>
+          <input v-model="query" type="search" class="flex-1 border-none bg-transparent font-space text-[0.9rem] text-navy outline-none placeholder:text-navy/35" placeholder="Activité, ville, passion…" />
+        </div>
+        <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] whitespace-nowrap">
+          Rechercher
+          <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg>
+        </button>
+      </form>
+    </div>
 
     <!-- ══════════════════════════════════════
          MANIFESTE — avatars flottants + grande citation
@@ -370,9 +388,19 @@
           <!-- Étape 1 — Explorer -->
           <div class="how-step text-center">
             <div class="phone-frame mx-auto mb-7">
-              <div class="phone-notch" />
+              <div class="phone-vol-up" />
+              <div class="phone-vol-down" />
+              <div class="phone-power" />
               <div class="phone-screen">
-                <div class="px-3 pt-2 pb-2 bg-navy">
+                <div class="phone-status">
+                  <span>9:41</span>
+                  <div class="phone-island" />
+                  <div class="flex items-center gap-1">
+                    <svg class="h-2 w-3" viewBox="0 0 12 8" fill="currentColor"><rect x="0" y="3" width="2" height="5" rx="0.4"/><rect x="3" y="2" width="2" height="6" rx="0.4"/><rect x="6" y="1" width="2" height="7" rx="0.4"/><rect x="9" y="0" width="2" height="8" rx="0.4" opacity="0.25"/></svg>
+                    <svg class="h-2.5 w-5" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="17" height="9" rx="2" stroke="currentColor" stroke-width="1"/><rect x="17.5" y="3" width="2" height="4" rx="1" fill="currentColor"/><rect x="1.5" y="1.5" width="11" height="7" rx="1.5" fill="currentColor"/></svg>
+                  </div>
+                </div>
+                <div class="px-3 pt-1 pb-2 bg-navy">
                   <p
                     class="font-space text-[0.48rem] text-cream/50 mb-1.5 text-center tracking-wider uppercase"
                   >
@@ -483,9 +511,19 @@
           <!-- Étape 2 — Discuter -->
           <div class="how-step text-center">
             <div class="phone-frame mx-auto mb-7">
-              <div class="phone-notch" />
+              <div class="phone-vol-up" />
+              <div class="phone-vol-down" />
+              <div class="phone-power" />
               <div class="phone-screen">
-                <div class="px-3 pt-2 pb-2 bg-navy flex items-center gap-2">
+                <div class="phone-status">
+                  <span>9:41</span>
+                  <div class="phone-island" />
+                  <div class="flex items-center gap-1">
+                    <svg class="h-2 w-3" viewBox="0 0 12 8" fill="currentColor"><rect x="0" y="3" width="2" height="5" rx="0.4"/><rect x="3" y="2" width="2" height="6" rx="0.4"/><rect x="6" y="1" width="2" height="7" rx="0.4"/><rect x="9" y="0" width="2" height="8" rx="0.4" opacity="0.25"/></svg>
+                    <svg class="h-2.5 w-5" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="17" height="9" rx="2" stroke="currentColor" stroke-width="1"/><rect x="17.5" y="3" width="2" height="4" rx="1" fill="currentColor"/><rect x="1.5" y="1.5" width="11" height="7" rx="1.5" fill="currentColor"/></svg>
+                  </div>
+                </div>
+                <div class="px-3 pt-1 pb-2 bg-navy flex items-center gap-2">
                   <img
                     :src="avatar('Marc')"
                     class="w-6 h-6 rounded-full shrink-0"
@@ -574,9 +612,19 @@
           <!-- Étape 3 — Réserver -->
           <div class="how-step text-center">
             <div class="phone-frame mx-auto mb-7">
-              <div class="phone-notch" />
+              <div class="phone-vol-up" />
+              <div class="phone-vol-down" />
+              <div class="phone-power" />
               <div class="phone-screen">
-                <div class="px-3 pt-5 pb-3 text-center">
+                <div class="phone-status">
+                  <span>9:41</span>
+                  <div class="phone-island" />
+                  <div class="flex items-center gap-1">
+                    <svg class="h-2 w-3" viewBox="0 0 12 8" fill="currentColor"><rect x="0" y="3" width="2" height="5" rx="0.4"/><rect x="3" y="2" width="2" height="6" rx="0.4"/><rect x="6" y="1" width="2" height="7" rx="0.4"/><rect x="9" y="0" width="2" height="8" rx="0.4" opacity="0.25"/></svg>
+                    <svg class="h-2.5 w-5" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="17" height="9" rx="2" stroke="currentColor" stroke-width="1"/><rect x="17.5" y="3" width="2" height="4" rx="1" fill="currentColor"/><rect x="1.5" y="1.5" width="11" height="7" rx="1.5" fill="currentColor"/></svg>
+                  </div>
+                </div>
+                <div class="px-3 pt-3 pb-3 text-center">
                   <div
                     class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2"
                     style="background: rgba(52, 211, 153, 0.15)"
@@ -999,8 +1047,8 @@
           </div>
           <NuxtLink
             to="/explore"
-            class="font-space text-[0.78rem] text-blue no-underline opacity-55 hover:opacity-100 transition-opacity"
-            >Voir tout →</NuxtLink
+            class="inline-flex items-center gap-1.5 font-space text-[0.78rem] text-blue no-underline opacity-55 hover:opacity-100 transition-opacity"
+            >Voir tout <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg></NuxtLink
           >
         </div>
 
@@ -1103,9 +1151,10 @@
           </div>
           <button
             type="submit"
-            class="px-5 py-3.5 rounded-2xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] whitespace-nowrap"
+            class="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] whitespace-nowrap"
           >
-            Rechercher →
+            Rechercher
+            <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg>
           </button>
         </form>
       </div>
@@ -1204,7 +1253,7 @@
         class="cta-inner relative overflow-hidden rounded-[24px] bg-navy text-center py-20 sm:py-28 px-8"
       >
         <img
-          src="/img/Randonneurs.jpeg"
+          src="/img/AdobeStock_96991406.jpg"
           class="absolute inset-0 w-full h-full object-cover opacity-[0.07]"
           style="object-position: center 40%"
           alt=""
@@ -1231,8 +1280,8 @@
             >
             <NuxtLink
               to="/explore"
-              class="px-8 py-4 rounded-full border border-cream/25 text-cream font-space text-[0.9rem] no-underline hover:bg-cream/10 transition-colors"
-              >Explorer les profils →</NuxtLink
+              class="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-cream/25 text-cream font-space text-[0.9rem] no-underline hover:bg-cream/10 transition-colors"
+              >Explorer les profils <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg></NuxtLink
             >
           </div>
         </div>
@@ -1277,34 +1326,35 @@ const photoAlbum = ref<HTMLElement>();
 
 const albumPhotos = [
   {
-    src: "/img/Randonneurs.jpeg",
+    src: "/img/AdobeStock_185639188.jpeg",
     caption: "Randonnée · Chamonix",
     zIndex: 1,
     hoverX: -15,
     hoverY: 2,
   },
   {
-    src: "/img/c28a7559afe67851b956dfe0a46c60e0c0b56238.jpg",
+    src: "/img/AdobeStock_769910821.jpeg",
     caption: "Escalade · Hanoï",
     zIndex: 3,
     hoverX: -11,
     hoverY: -10,
   },
   {
-    src: "/img/963a1f2e92b33a7e9eb5b189895156e0746cf16e.png",
+    src: "/img/AdobeStock_1602836779.jpeg",
     caption: "Activités locales",
     zIndex: 2,
     hoverX: 14,
     hoverY: 5,
   },
   {
-    src: "/img/ff6e53520532cef4432e3e0519c8b8be951b110d.png",
+    src: "/img/AdobeStock_1899765400.jpeg",
     caption: "Expériences uniques",
     zIndex: 4,
     hoverX: 15,
     hoverY: -1,
   },
 ];
+const albumReady = ref(false)
 const albumSpread = [
   { x: -240, y: 38, rotation: -16 },
   { x: -70, y: -60, rotation: 5 },
@@ -1379,6 +1429,7 @@ function goSearch(tag: string) {
   router.push({ path: "/explore", query: { q: tag } });
 }
 function hoverAlbum(i: number, enter: boolean) {
+  if (!albumReady.value) return;
   const el = document.querySelectorAll<HTMLElement>(".album-photo")[i];
   if (!el) return;
   const spread = albumSpread[i];
@@ -1535,6 +1586,7 @@ onMounted(() => {
       stagger: 0.1,
       duration: 0.9,
       ease: "back.out(1.4)",
+      onComplete: () => { albumReady.value = true },
     });
   }
 });
@@ -1575,33 +1627,61 @@ onUnmounted(() => {
 
 /* ── Phone mockup ── */
 .phone-frame {
-  width: 178px;
-  height: 335px;
-  background: #0f172a;
-  border-radius: 30px;
+  width: 180px;
+  height: 362px;
+  background: linear-gradient(160deg, #2e2e32 0%, #18181b 100%);
+  border-radius: 40px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   box-shadow:
-    0 24px 56px rgba(14, 34, 74, 0.22),
-    inset 0 0 0 1.5px rgba(255, 255, 255, 0.06);
-}
-.phone-notch {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 7px;
-  background: #1e293b;
-  border-radius: 10px;
-  z-index: 10;
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 2px 0 rgba(255, 255, 255, 0.04),
+    0 30px 64px rgba(0, 0, 0, 0.55),
+    0 8px 20px rgba(0, 0, 0, 0.3);
 }
 .phone-screen {
-  width: 100%;
-  height: 100%;
-  background: #e4dbcb;
+  position: absolute;
+  inset: 4px;
+  border-radius: 36px;
+  background: #f0ebe3;
   overflow: hidden;
-  padding-top: 26px;
+}
+.phone-island {
+  width: 56px;
+  height: 18px;
+  background: #0a0a0b;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.phone-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 12px 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #18181b;
+  line-height: 1;
+}
+.phone-vol-up,
+.phone-vol-down {
+  position: absolute;
+  left: -3px;
+  width: 3px;
+  background: linear-gradient(to right, #222226, #36363a);
+  border-radius: 2px 0 0 2px;
+}
+.phone-vol-up  { top: 90px;  height: 28px; }
+.phone-vol-down{ top: 126px; height: 28px; }
+.phone-power {
+  position: absolute;
+  right: -3px;
+  top: 108px;
+  width: 3px;
+  height: 46px;
+  background: linear-gradient(to left, #222226, #36363a);
+  border-radius: 0 2px 2px 0;
 }
 
 /* ── Album photo ── */
