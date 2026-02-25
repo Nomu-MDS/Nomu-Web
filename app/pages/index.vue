@@ -1134,6 +1134,16 @@
               {{ tag }}
             </button>
           </div>
+          <div class="flex gap-3 pr-3">
+            <button
+              v-for="tag in tagsRow1"
+              :key="'r1a-' + tag"
+              class="shrink-0 px-5 py-2.5 rounded-full border-2 border-navy/12 bg-transparent font-space text-[0.82rem] font-bold text-navy cursor-pointer hover:bg-navy hover:text-cream hover:border-navy transition-all duration-150"
+              @click="goSearch(tag)"
+            >
+              {{ tag }}
+            </button>
+          </div>
           <div class="flex gap-3 pr-3" aria-hidden="true">
             <button
               v-for="tag in tagsRow1"
@@ -1151,6 +1161,16 @@
       <!-- Row 2 — droite -->
       <div class="overflow-hidden">
         <div class="marquee-row-reverse flex w-max">
+          <div class="flex gap-3 pr-3">
+            <button
+              v-for="tag in tagsRow2"
+              :key="'r2a-' + tag"
+              class="shrink-0 px-5 py-2.5 rounded-full border-2 border-blue/15 bg-blue/5 font-space text-[0.82rem] font-bold text-blue cursor-pointer hover:bg-blue hover:text-white hover:border-blue transition-all duration-150"
+              @click="goSearch(tag)"
+            >
+              {{ tag }}
+            </button>
+          </div>
           <div class="flex gap-3 pr-3">
             <button
               v-for="tag in tagsRow2"
