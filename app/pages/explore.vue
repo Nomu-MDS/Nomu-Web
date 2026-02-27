@@ -51,14 +51,36 @@
 
       <!-- Results -->
       <div class="flex-1 min-w-0">
-        <div class="flex items-baseline justify-between gap-3 mb-4">
-          <h2 class="font-[roca] font-bold text-xl text-[#0E224A] m-0">
-            Résultats
-            <span v-if="query" class="font-normal text-base opacity-70">pour « {{ query }} »</span>
-          </h2>
-          <span v-if="hasSearched && !loading" class="font-mono text-xs text-[#465E8A]/50 shrink-0">
-            {{ results.length }} profil{{ results.length !== 1 ? 's' : '' }}
-          </span>
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <div class="flex items-baseline gap-2">
+            <h2 class="font-[roca] font-bold text-xl text-[#0E224A] m-0">
+              Résultats
+              <span v-if="query" class="font-normal text-base opacity-70">pour « {{ query }} »</span>
+            </h2>
+            <span v-if="hasSearched && !loading" class="font-mono text-xs text-[#465E8A]/50 shrink-0">
+              {{ results.length }} profil{{ results.length !== 1 ? 's' : '' }}
+            </span>
+          </div>
+          <div class="view-toggle">
+            <button
+              :class="['view-toggle-btn', viewMode === 'grid' && 'view-toggle-btn--active']"
+              aria-label="Affichage grille"
+              @click="viewMode = 'grid'"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              </svg>
+            </button>
+            <button
+              :class="['view-toggle-btn', viewMode === 'list' && 'view-toggle-btn--active']"
+              aria-label="Affichage liste"
+              @click="viewMode = 'list'"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 5.25h16.5m-16.5-10.5h16.5" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <!-- Active filter tags -->
@@ -89,7 +111,7 @@
           </button>
         </div>
 
-        <ProfileResults :results="results" :loading="loading" :has-searched="hasSearched" />
+        <ProfileResults :results="results" :loading="loading" :has-searched="hasSearched" :view-mode="viewMode" />
       </div>
     </div>
     </div>
@@ -112,6 +134,7 @@ const selectedInterests = ref<string[]>([])
 const selectedCities = ref<string[]>([])
 const selectedCountries = ref<string[]>([])
 const filtersOpen = ref(false)
+const viewMode = ref<'grid' | 'list'>('grid')
 
 const { interests, fetchInterests } = useInterests()
 const { results, loading, hasSearched, searchProfiles } = useProfileSearch({
@@ -190,5 +213,36 @@ watch(() => route.query.q, () => {
   .explore-filter-toggle {
     display: inline-flex;
   }
+}
+
+/* View toggle */
+.view-toggle {
+  display: flex;
+  gap: 0.25rem;
+  background: rgba(70, 94, 138, 0.08);
+  border-radius: 0.5rem;
+  padding: 0.15rem;
+}
+.view-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: transparent;
+  color: #465E8A;
+  opacity: 0.45;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+}
+.view-toggle-btn:hover {
+  opacity: 0.7;
+}
+.view-toggle-btn--active {
+  background: #fff;
+  opacity: 1;
+  box-shadow: 0 1px 3px rgba(14, 34, 74, 0.1);
 }
 </style>
