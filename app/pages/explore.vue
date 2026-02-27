@@ -97,8 +97,6 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
-
 useSeoMeta({
   title: 'Explorer les profils — Nomu',
   description: 'Parcourez les profils de la communauté Nomu. Filtrez par ville, pays ou centres d\'intérêt pour trouver l\'expérience idéale.',
