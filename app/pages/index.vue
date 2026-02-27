@@ -1070,46 +1070,74 @@
           v-else-if="popularProfiles.length"
           class="profiles-scroll flex gap-3 overflow-x-auto pb-2"
         >
-          <component
-            :is="isLoggedIn ? 'NuxtLink' : 'button'"
-            v-for="(profile, i) in popularProfiles"
-            :key="profile.id"
-            :data-index="i"
-            v-bind="
-              isLoggedIn
-                ? { to: `/profile/${profile.user_id || profile.id}` }
-                : {}
-            "
-            class="profile-card-anim relative shrink-0 rounded-[18px] overflow-hidden no-underline block border-none cursor-pointer shadow-[0_4px_16px_rgba(14,34,74,0.1)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(14,34,74,0.2)] transition-all duration-200"
-            style="width: 140px; height: 195px"
-            @click="!isLoggedIn && (showLoginModal = true)"
-          >
-            <img
-              :src="profileAvatarUrl(profile)"
-              class="absolute inset-0 w-full h-full object-cover"
-              alt=""
-              loading="lazy"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(14,34,74,0.9)]"
-            />
-            <span
-              v-if="firstInterest(profile)"
-              class="absolute top-2 left-2 bg-[rgba(255,106,87,0.9)] text-white font-space text-[0.57rem] font-bold px-2 py-0.5 rounded-full truncate max-w-[calc(100%-1rem)]"
-              >{{ firstInterest(profile) }}</span
+          <template v-for="(profile, i) in popularProfiles" :key="profile.id">
+            <NuxtLink
+              v-if="isLoggedIn"
+              :to="`/profile/${profile.user_id || profile.id}`"
+              :data-index="i"
+              class="profile-card-anim relative shrink-0 rounded-[18px] overflow-hidden no-underline block border-none cursor-pointer shadow-[0_4px_16px_rgba(14,34,74,0.1)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(14,34,74,0.2)] transition-all duration-200"
+              style="width: 140px; height: 195px"
             >
-            <div class="absolute bottom-0 left-0 right-0 px-3 pb-3">
-              <p class="font-roca font-bold text-[0.82rem] text-white truncate">
-                {{ profile.name }}
-              </p>
-              <p
-                v-if="profile.city"
-                class="font-space text-[0.58rem] text-white/55 truncate"
+              <img
+                :src="profileAvatarUrl(profile)"
+                class="absolute inset-0 w-full h-full object-cover"
+                alt=""
+                loading="lazy"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(14,34,74,0.9)]"
+              />
+              <span
+                v-if="firstInterest(profile)"
+                class="absolute top-2 left-2 bg-[rgba(255,106,87,0.9)] text-white font-space text-[0.57rem] font-bold px-2 py-0.5 rounded-full truncate max-w-[calc(100%-1rem)]"
+                >{{ firstInterest(profile) }}</span
               >
-                {{ profile.city }}
-              </p>
-            </div>
-          </component>
+              <div class="absolute bottom-0 left-0 right-0 px-3 pb-3">
+                <p class="font-roca font-bold text-[0.82rem] text-white truncate">
+                  {{ profile.name }}
+                </p>
+                <p
+                  v-if="profile.city"
+                  class="font-space text-[0.58rem] text-white/55 truncate"
+                >
+                  {{ profile.city }}
+                </p>
+              </div>
+            </NuxtLink>
+            <button
+              v-else
+              :data-index="i"
+              class="profile-card-anim relative shrink-0 rounded-[18px] overflow-hidden no-underline block border-none cursor-pointer shadow-[0_4px_16px_rgba(14,34,74,0.1)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(14,34,74,0.2)] transition-all duration-200"
+              style="width: 140px; height: 195px"
+              @click="ShowModalorRedirect(profile, $event)"
+            >
+              <img
+                :src="profileAvatarUrl(profile)"
+                class="absolute inset-0 w-full h-full object-cover"
+                alt=""
+                loading="lazy"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(14,34,74,0.9)]"
+              />
+              <span
+                v-if="firstInterest(profile)"
+                class="absolute top-2 left-2 bg-[rgba(255,106,87,0.9)] text-white font-space text-[0.57rem] font-bold px-2 py-0.5 rounded-full truncate max-w-[calc(100%-1rem)]"
+                >{{ firstInterest(profile) }}</span
+              >
+              <div class="absolute bottom-0 left-0 right-0 px-3 pb-3">
+                <p class="font-roca font-bold text-[0.82rem] text-white truncate">
+                  {{ profile.name }}
+                </p>
+                <p
+                  v-if="profile.city"
+                  class="font-space text-[0.58rem] text-white/55 truncate"
+                >
+                  {{ profile.city }}
+                </p>
+              </div>
+            </button>
+          </template>
         </div>
 
         <div v-else class="text-center py-10">
@@ -1435,6 +1463,12 @@ function hoverAlbum(i: number, enter: boolean) {
     ease: enter ? "back.out(1.4)" : "power2.out",
     overwrite: "auto",
   });
+}
+
+// Fonction pour afficher la modale de connexion
+function ShowModalorRedirect(profile: any, event: Event) {
+  event.preventDefault();
+  showLoginModal.value = true;
 }
 
 // GSAP
