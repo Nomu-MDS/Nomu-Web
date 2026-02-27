@@ -1415,17 +1415,9 @@ function profileAvatarUrl(profile: any) {
   return avatar(profile.name || String(profile.id || "user"));
 }
 function searchProfiles() {
-  if (!isLoggedIn.value) {
-    showLoginModal.value = true;
-    return;
-  }
   router.push({ path: "/explore", query: { q: query.value || "" } });
 }
 function goSearch(tag: string) {
-  if (!isLoggedIn.value) {
-    showLoginModal.value = true;
-    return;
-  }
   router.push({ path: "/explore", query: { q: tag } });
 }
 function hoverAlbum(i: number, enter: boolean) {
@@ -1446,7 +1438,7 @@ function hoverAlbum(i: number, enter: boolean) {
 // GSAP
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
-  if (isLoggedIn.value) doSearch();
+  doSearch();
 
   // ── Hero entrance (opacity-0 initial via CSS class) ──
   const floatEls = [

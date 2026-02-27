@@ -9,11 +9,11 @@
 
     <!-- Results -->
     <div v-else-if="results.length" class="results-grid">
-      <NuxtLink
+      <div
         v-for="profile in results"
         :key="profile.id"
-        :to="`/profile/${profile.user_id || profile.id}`"
         class="result-card-wrap"
+        @click="handleProfileClick(profile)"
       >
         <!-- Background image or DiceBear avatar fallback -->
         <img :src="avatarUrl(profile)" class="result-img" alt="" loading="lazy" />
@@ -37,7 +37,7 @@
             {{ [profile.city, profile.country].filter(Boolean).join(', ') }}
           </span>
         </div>
-      </NuxtLink>
+      </div>
     </div>
 
     <!-- Empty state -->
@@ -48,11 +48,25 @@
       <p v-if="hasSearched" class="results-empty-text">Aucun profil trouvé.</p>
       <p v-else class="results-empty-text">Recherchez un profil ou explorez les intérêts !</p>
     </div>
+
+    <LoginRequiredModal v-model="showLoginModal" />
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{ results: any[]; loading: boolean; hasSearched: boolean }>()
+
+const router = useRouter()
+const { isLoggedIn } = useAuth()
+const showLoginModal = ref(false)
+
+function handleProfileClick(profile: any) {
+  if (isLoggedIn.value) {
+    router.push(`/profile/${profile.user_id || profile.id}`)
+  } else {
+    showLoginModal.value = true
+  }
+}
 
 function parseInterests(interests: string | string[] | undefined): string[] {
   if (!interests) return []
