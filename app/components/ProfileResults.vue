@@ -81,8 +81,8 @@ function firstInterest(profile: any): string | null {
 
 function avatarUrl(profile: any): string {
   if (profile.image_url) return profile.image_url
-  const seed = encodeURIComponent(profile.name || String(profile.id || 'user'))
-  return `https://api.dicebear.com/9.x/personas/svg?seed=${seed}&backgroundColor=465e8a&scale=110`
+  const id = profile.user_id || profile.id || 0
+  return `https://i.pravatar.cc/500?img=${(id % 70) + 1}`
 }
 </script>
 

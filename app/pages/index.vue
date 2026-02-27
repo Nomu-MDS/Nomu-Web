@@ -1397,7 +1397,8 @@ const tagsRow2 = [
 
 // Helpers
 function avatar(name: string) {
-  return `https://api.dicebear.com/9.x/personas/svg?seed=${encodeURIComponent(name)}&backgroundColor=465e8a&scale=110`;
+  const n = name.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  return `https://i.pravatar.cc/500?img=${(n % 70) + 1}`;
 }
 function parseInterests(interests: string | string[] | undefined): string[] {
   if (!interests) return [];
@@ -1426,6 +1427,7 @@ function hoverAlbum(i: number, enter: boolean) {
   if (!el) return;
   const spread = albumSpread[i];
   const photo = albumPhotos[i];
+  if (!spread || !photo) return;
   gsap.to(el, {
     x: enter ? spread.x + photo.hoverX : spread.x,
     y: enter ? spread.y + photo.hoverY : spread.y,
@@ -1572,9 +1574,9 @@ onMounted(() => {
     gsap.set(".album-photo", { rotation: 0, x: 0, y: 0 });
     gsap.to(".album-photo", {
       scrollTrigger: { trigger: photoAlbum.value, start: "top 75%" },
-      x: (i: number) => albumSpread[i].x,
-      y: (i: number) => albumSpread[i].y,
-      rotation: (i: number) => albumSpread[i].rotation,
+      x: (i: number) => albumSpread[i]?.x ?? 0,
+      y: (i: number) => albumSpread[i]?.y ?? 0,
+      rotation: (i: number) => albumSpread[i]?.rotation ?? 0,
       stagger: 0.1,
       duration: 0.9,
       ease: "back.out(1.4)",
