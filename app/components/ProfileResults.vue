@@ -1,32 +1,36 @@
 <template>
   <div>
     <!-- Loading skeleton -->
-    <div v-if="loading" class="results-grid">
-      <div v-for="i in 8" :key="i" class="result-card-wrap">
-        <USkeleton class="absolute inset-0" style="border-radius:20px;" />
-      </div>
+    <div v-if="loading" :class="viewMode === 'list' ? 'results-list' : 'results-grid'">
+      <template v-if="viewMode === 'list'">
+        <div v-for="i in 6" :key="i" class="list-card">
+          <USkeleton class="w-16 h-16 rounded-full shrink-0" />
+          <div class="flex-1 flex flex-col gap-2">
+            <USkeleton class="h-4 w-32 rounded" />
+            <USkeleton class="h-3 w-48 rounded" />
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <div v-for="i in 8" :key="i" class="result-card-wrap">
+          <USkeleton class="absolute inset-0" style="border-radius:20px;" />
+        </div>
+      </template>
     </div>
 
-    <!-- Results -->
-    <div v-else-if="results.length" class="results-grid">
+    <!-- Results: GRID -->
+    <div v-else-if="results.length && viewMode === 'grid'" class="results-grid">
       <div
         v-for="profile in results"
         :key="profile.id"
         class="result-card-wrap"
         @click="handleProfileClick(profile)"
       >
-        <!-- Background image or DiceBear avatar fallback -->
         <img :src="avatarUrl(profile)" class="result-img" alt="" loading="lazy" />
-
-        <!-- Gradient overlay -->
         <div class="result-overlay" />
-
-        <!-- Interest tag (top-left) -->
         <span v-if="firstInterest(profile)" class="result-tag">
           {{ firstInterest(profile) }}
         </span>
-
-        <!-- Name + location (bottom) -->
         <div class="result-bottom">
           <span class="result-name">{{ profile.name }}</span>
           <span v-if="profile.city || profile.country" class="result-location">
@@ -36,6 +40,41 @@
             </svg>
             {{ [profile.city, profile.country].filter(Boolean).join(', ') }}
           </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results: LIST -->
+    <div v-else-if="results.length && viewMode === 'list'" class="results-list">
+      <div
+        v-for="profile in results"
+        :key="profile.id"
+        class="list-card"
+        @click="handleProfileClick(profile)"
+      >
+        <img :src="avatarUrl(profile)" class="list-avatar" alt="" loading="lazy" />
+        <div class="list-body">
+          <div class="list-header">
+            <span class="list-name">{{ profile.name }}</span>
+            <span v-if="profile.city || profile.country" class="list-location">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5 shrink-0">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+              </svg>
+              {{ [profile.city, profile.country].filter(Boolean).join(', ') }}
+            </span>
+          </div>
+          <p v-if="profileBio(profile)" class="list-bio">{{ profileBio(profile) }}</p>
+          <div v-if="parseInterests(profile.interests).length" class="list-interests">
+            <span
+              v-for="interest in parseInterests(profile.interests).slice(0, 5)"
+              :key="interest"
+              class="list-interest-tag"
+            >{{ interest }}</span>
+            <span v-if="parseInterests(profile.interests).length > 5" class="list-interest-more">
+              +{{ parseInterests(profile.interests).length - 5 }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -54,7 +93,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ results: any[]; loading: boolean; hasSearched: boolean }>()
+const props = withDefaults(defineProps<{
+  results: any[]
+  loading: boolean
+  hasSearched: boolean
+  viewMode?: 'grid' | 'list'
+}>(), { viewMode: 'grid' })
 
 const router = useRouter()
 const { isLoggedIn } = useAuth()
@@ -77,6 +121,10 @@ function parseInterests(interests: string | string[] | undefined): string[] {
 function firstInterest(profile: any): string | null {
   const interests = parseInterests(profile.interests)
   return interests[0] || null
+}
+
+function profileBio(profile: any): string {
+  return profile.biography || profile.bio || ''
 }
 
 function avatarUrl(profile: any): string {
@@ -196,6 +244,112 @@ function avatarUrl(profile: any): string {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* ─── LIST VIEW ─── */
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.list-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(14, 34, 74, 0.07);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 1px solid rgba(70, 94, 138, 0.06);
+}
+
+.list-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(14, 34, 74, 0.13);
+}
+
+.list-avatar {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(70, 94, 138, 0.1);
+}
+
+.list-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.list-name {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0E224A;
+  letter-spacing: -0.01em;
+}
+
+.list-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: #465E8A;
+  opacity: 0.7;
+}
+
+.list-bio {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  color: #465E8A;
+  opacity: 0.85;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.list-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.list-interest-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #465E8A;
+  background: rgba(182, 255, 215, 0.4);
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.list-interest-more {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: #465E8A;
+  opacity: 0.5;
+  padding: 0.2rem 0.3rem;
 }
 
 /* Empty state */
