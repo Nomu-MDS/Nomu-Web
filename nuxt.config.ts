@@ -74,7 +74,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiBaseUrl: 'http://localhost:3001',
     public: {
-      socketUrl: 'http://localhost:3001'
+      socketUrl: 'http://localhost:3001',
+      apiBase: 'http://localhost:3001',
     }
   }
 })

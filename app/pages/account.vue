@@ -113,6 +113,22 @@
 
           <div v-if="saveError" class="account-error mb-4">{{ saveError }}</div>
 
+          <!-- Avatar upload -->
+          <div class="avatar-upload-section">
+            <button type="button" class="avatar-upload-btn" @click="fileInput?.click()" :disabled="uploadingAvatar">
+              <UserAvatar :name="me.name" :image-url="avatarPreview ?? currentProfile?.image_url" size="xl" />
+              <div class="avatar-upload-overlay">
+                <span v-if="uploadingAvatar" class="edit-spinner"></span>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="22" height="22">
+                  <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"/>
+                  <path d="M9 3 7.17 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.17L15 3H9Zm3 14a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+                </svg>
+              </div>
+            </button>
+            <p class="avatar-upload-hint">{{ uploadingAvatar ? 'Upload en cours…' : 'Changer la photo' }}</p>
+            <input ref="fileInput" type="file" accept="image/jpeg,image/png,image/webp" class="hidden" @change="handleFileChange" />
+          </div>
+
           <form @submit.prevent="saveProfile" class="edit-form">
             <div class="edit-grid">
               <div class="edit-field">
@@ -194,6 +210,7 @@ useSeoMeta({
 const { getToken, logout: authLogout } = useAuth()
 const { get, patch } = useApi()
 const { interests: allInterests, fetchInterests } = useInterests()
+const config = useRuntimeConfig()
 
 const me = ref<MeResponse | null>(null)
 const loading = ref(true)
@@ -202,6 +219,9 @@ const editing = ref(false)
 const editForm = ref<ProfileEditPayload>({})
 const saveLoading = ref(false)
 const saveError = ref('')
+const fileInput = ref<HTMLInputElement | null>(null)
+const avatarPreview = ref<string | null>(null)
+const uploadingAvatar = ref(false)
 
 const currentProfile = computed<UserProfile | null>(() => {
   if (!me.value) return null
@@ -220,7 +240,48 @@ function formatDate(iso: string) {
   }
 }
 
+async function handleFileChange(event: Event) {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (!file) return
+
+  // Preview immédiat
+  avatarPreview.value = URL.createObjectURL(file)
+  uploadingAvatar.value = true
+
+  try {
+    const token = getToken()
+    const formData = new FormData()
+    formData.append('image', file)
+
+    const res = await fetch('/api/upload/profile-photo/file', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    })
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error(err.error || 'Erreur upload')
+    }
+
+    const data = await res.json()
+    // Stocker l'URL dans editForm pour que le PATCH l'inclue et ne l'efface pas
+    editForm.value.image_url = data.image_url
+    // Preview dans la vue
+    if (me.value && (me.value as any).Profile) {
+      (me.value as any).Profile.image_url = data.image_url
+    }
+  } catch (e: any) {
+    avatarPreview.value = null
+    saveError.value = e.message || 'Impossible d\'uploader la photo'
+  } finally {
+    uploadingAvatar.value = false
+    if (fileInput.value) fileInput.value.value = ''
+  }
+}
+
 function startEdit() {
+  avatarPreview.value = null
   const p = currentProfile.value
   editForm.value = {
     name: me.value?.name || '',
@@ -231,6 +292,7 @@ function startEdit() {
     biography: p?.biography || '',
     country: p?.country || '',
     city: p?.city || '',
+    image_url: p?.image_url || undefined,
     is_searchable: p?.is_searchable ?? true,
     interest_ids: p?.Interests?.map(i => i.id) || [],
   }
@@ -392,6 +454,50 @@ onMounted(async () => {
   background: #c53030;
   color: #fff;
 }
+/* Avatar upload */
+.avatar-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.avatar-upload-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+}
+.avatar-upload-btn:disabled {
+  cursor: not-allowed;
+}
+.avatar-upload-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.avatar-upload-btn:hover .avatar-upload-overlay,
+.avatar-upload-btn:disabled .avatar-upload-overlay {
+  opacity: 1;
+}
+.avatar-upload-hint {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  color: #465E8A;
+  font-weight: 600;
+}
+.hidden {
+  display: none;
+}
+
 /* Edit form */
 .edit-form {
   display: flex;
