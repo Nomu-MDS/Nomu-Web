@@ -194,6 +194,31 @@
     </div>
     </div>
   </div>
+
+  <!-- Bio prompt modal (hors de la chaîne v-if) -->
+  <Teleport to="body">
+    <Transition name="bio-modal">
+      <div v-if="showBioPrompt" class="bio-modal-backdrop" @click.self="dismissBioPrompt">
+        <div class="bio-modal-sheet">
+          <div class="bio-modal-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#465E8A">
+              <path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+            </svg>
+          </div>
+          <h3 class="bio-modal-title">Complète ta biographie</h3>
+          <p class="bio-modal-body">
+            Les utilisateurs avec une biographie obtiennent des résultats de recherche bien plus pertinents. Quelques mots suffisent !
+          </p>
+          <button class="bio-modal-cta" @click="openEditForBio">
+            Modifier mon profil
+          </button>
+          <button class="bio-modal-skip" @click="dismissBioPrompt">
+            Plus tard
+          </button>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -216,6 +241,28 @@ const me = ref<MeResponse | null>(null)
 const loading = ref(true)
 const error = ref('')
 const editing = ref(false)
+const showBioPrompt = ref(false)
+
+const BIO_PROMPT_KEY = 'nomu_bio_prompt_dismissed_at'
+const BIO_PROMPT_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000 // 7 jours
+
+function checkBioPrompt() {
+  if (currentProfile.value?.biography) return
+  const dismissed = localStorage.getItem(BIO_PROMPT_KEY)
+  if (dismissed && Date.now() - Number(dismissed) < BIO_PROMPT_COOLDOWN_MS) return
+  // Petit délai pour laisser la page s'afficher d'abord
+  setTimeout(() => { showBioPrompt.value = true }, 800)
+}
+
+function dismissBioPrompt() {
+  showBioPrompt.value = false
+  localStorage.setItem(BIO_PROMPT_KEY, String(Date.now()))
+}
+
+function openEditForBio() {
+  showBioPrompt.value = false
+  startEdit()
+}
 const editForm = ref<ProfileEditPayload>({})
 const saveLoading = ref(false)
 const saveError = ref('')
@@ -331,6 +378,7 @@ onMounted(async () => {
   if (!token) return
   try {
     me.value = await get<MeResponse>('/users/me')
+    checkBioPrompt()
   } catch (e: any) {
     error.value = e.message || 'Impossible de charger ton profil.'
   } finally {
@@ -643,5 +691,103 @@ onMounted(async () => {
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* Bio prompt modal */
+.bio-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.bio-modal-sheet {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2rem 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 8px 48px rgba(14, 34, 74, 0.18);
+}
+.bio-modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: rgba(70, 94, 138, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
+}
+.bio-modal-title {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0E224A;
+  margin: 0 0 0.6rem;
+}
+.bio-modal-body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #465E8A;
+  line-height: 1.55;
+  margin: 0 0 1.5rem;
+}
+.bio-modal-cta {
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: 9999px;
+  background: #465E8A;
+  color: #fff;
+  border: none;
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 0.75rem;
+}
+.bio-modal-cta:hover {
+  background: #3a4666;
+}
+.bio-modal-skip {
+  background: none;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  color: #465E8A;
+  opacity: 0.7;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: opacity 0.2s;
+}
+.bio-modal-skip:hover {
+  opacity: 1;
+}
+/* Transition */
+.bio-modal-enter-active,
+.bio-modal-leave-active {
+  transition: opacity 0.2s ease;
+}
+.bio-modal-enter-active .bio-modal-sheet,
+.bio-modal-leave-active .bio-modal-sheet {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.bio-modal-enter-from,
+.bio-modal-leave-to {
+  opacity: 0;
+}
+.bio-modal-enter-from .bio-modal-sheet,
+.bio-modal-leave-to .bio-modal-sheet {
+  transform: scale(0.95);
+  opacity: 0;
 }
 </style>
