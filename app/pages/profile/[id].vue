@@ -212,7 +212,15 @@
 
         <template v-else>
           <label class="report-label">Raison *</label>
-          <input v-model="reportReason" class="report-input" placeholder="Ex. comportement inapproprié, spam…" />
+          <select v-model="reportReason" class="report-input report-select">
+            <option value="" disabled>Choisissez un motif…</option>
+            <option value="Comportement inapproprié">Comportement inapproprié</option>
+            <option value="Spam ou publicité">Spam ou publicité</option>
+            <option value="Harcèlement">Harcèlement</option>
+            <option value="Faux profil">Faux profil</option>
+            <option value="Contenu offensant">Contenu offensant</option>
+            <option value="Autre">Autre</option>
+          </select>
 
           <label class="report-label">Détails (optionnel)</label>
           <textarea v-model="reportMessage" class="report-input report-textarea" rows="3" placeholder="Décrivez le problème…" />
@@ -936,6 +944,15 @@ async function startConversation() {
   resize: none;
 }
 .report-input:focus { border-color: #465E8A; }
+
+.report-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23465E8A' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
 
 .report-textarea {
   min-height: 80px;
