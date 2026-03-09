@@ -683,12 +683,4 @@ onMounted(async () => {
   opacity: 0;
   transform: translateY(12px);
 }
-
-/* min md */
-@media (min-width: 768px) {
-  .vc-header {
-    padding: 0 !important;
-    padding-bottom: 50px !important;
-  }
-}
 </style>
