@@ -26,6 +26,10 @@
     padding: 0 !important;
     padding-bottom: 50px !important;
   }
+
+  html body .vc-title {
+    font-size: 1.5rem !important;
+  }
 }
 
 html body .vc-day-content:hover,
