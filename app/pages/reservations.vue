@@ -691,12 +691,4 @@ onMounted(async () => {
     padding-bottom: 50px !important;
   }
 }
-
-.vc-day-content:hover, .vc-day-content:focus, .vc-day-content.vc-highlight-content-solid, .vc-day-content:active, .vc-arrow:hover, .vc-arrow:focus, .vc-arrow:active {
-    background: #0E224B !important;
-    color: white !important;
-    border: 0 !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
 </style>
