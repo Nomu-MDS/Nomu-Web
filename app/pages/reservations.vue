@@ -366,39 +366,61 @@ onMounted(async () => {
   border: 1px solid rgba(70, 94, 138, 0.1) !important;
   font-family: 'Poppins', sans-serif;
 }
-:deep(.vc-header) { padding: 1rem 1.25rem 0.5rem; }
+
+/* Header : flèches + titre bien espacés */
+:deep(.vc-header) {
+  padding: 1.25rem 1.5rem 0.75rem;
+  gap: 1.5rem !important;
+}
+:deep(.vc-title-wrapper) { flex: 1; display: flex; justify-content: center; }
 :deep(.vc-title) {
   font-family: 'roca', sans-serif !important;
   font-weight: 700 !important;
-  font-size: 1.05rem !important;
+  font-size: 1.15rem !important;
   color: #0E224A !important;
+  letter-spacing: -0.02em;
 }
 :deep(.vc-arrow) {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
   border: 1.5px solid rgba(70, 94, 138, 0.2) !important;
   background: #fff !important;
   color: #465E8A !important;
+  flex-shrink: 0;
 }
-:deep(.vc-arrow:hover) { border-color: #465E8A !important; background: #465E8A !important; color: #fff !important; }
+:deep(.vc-arrow:hover) {
+  border-color: #465E8A !important;
+  background: #465E8A !important;
+  color: #fff !important;
+}
+
+/* Jours de la semaine */
 :deep(.vc-weekday) {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 0.7rem !important;
+  font-size: 0.72rem !important;
   font-weight: 600 !important;
   color: rgba(70, 94, 138, 0.5) !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* Cellules — plus grandes */
+:deep(.vc-day) {
+  min-height: 64px !important;
 }
 :deep(.vc-day-content) {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 0.82rem !important;
+  font-size: 0.88rem !important;
   font-weight: 500 !important;
   color: #0E224A !important;
+  width: 34px !important;
+  height: 34px !important;
 }
 :deep(.vc-day-content:hover) {
   background: rgba(70, 94, 138, 0.1) !important;
 }
 :deep(.vc-highlight) { border-radius: 50% !important; }
-:deep(.vc-dots) { gap: 2px; }
+:deep(.vc-dots) { gap: 3px; padding-bottom: 4px; }
 
 /* ── Legend ──────────────────────────────────────────────────────────────── */
 .cal-legend {
