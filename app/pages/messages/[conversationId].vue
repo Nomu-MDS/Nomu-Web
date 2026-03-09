@@ -55,9 +55,16 @@ const myUserId = inject<Ref<number>>('messagesMyUserId', ref(0))
 
 const conversationId = computed(() => Number(route.params.conversationId))
 
-const messages = ref<Message[]>([])
-const otherUser = ref<ConversationUser | null>(null)
-const loading = ref(true)
+const messages    = ref<Message[]>([])
+const currentConv = ref<Conversation | null>(null)
+const loading     = ref(true)
+
+// Recalculé dès que myUserId est connu (évite la race condition avec le parent)
+const otherUser = computed<ConversationUser | null>(() => {
+  if (!currentConv.value || !myUserId.value) return null
+  const conv = currentConv.value
+  return conv.Voyager?.id === myUserId.value ? conv.Local : conv.Voyager
+})
 const isOtherTyping = ref(false)
 const typingUserName = ref('')
 const messageList = ref<any>(null)
@@ -102,13 +109,12 @@ async function handleDeclineResa(id: number) {
 async function initChat() {
   loading.value = true
   messages.value = []
-  otherUser.value = null
+  currentConv.value = null
   isOtherTyping.value = false
 
   try {
     const convData = await get<{ conversation: Conversation }>(`/conversations/${conversationId.value}`)
-    const conv = convData.conversation
-    otherUser.value = conv.voyager_id === myUserId.value ? conv.Local : conv.Voyager
+    currentConv.value = convData.conversation
 
     const [msgData] = await Promise.all([
       get<{ messages: Message[] }>(`/conversations/${conversationId.value}/messages?limit=50&offset=0`),
