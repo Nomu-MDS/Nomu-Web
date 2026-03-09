@@ -44,7 +44,16 @@
             <div class="resa-dates">
               <div class="resa-field">
                 <label class="resa-label">Début</label>
-                <input v-model="resaForm.date" type="datetime-local" class="resa-input" required />
+                <ClientOnly>
+                  <VDatePicker v-model="resaForm.date" mode="dateTime" is24hr locale="fr" :min-date="new Date()" color="indigo">
+                    <template #default="{ togglePopover }">
+                      <button type="button" class="resa-date-btn" :class="{ 'has-value': resaForm.date }" @click="togglePopover">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        <span>{{ resaForm.date ? formatDateDisplay(resaForm.date) : 'Choisir…' }}</span>
+                      </button>
+                    </template>
+                  </VDatePicker>
+                </ClientOnly>
               </div>
               <div class="resa-dates-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
@@ -53,7 +62,16 @@
               </div>
               <div class="resa-field">
                 <label class="resa-label">Fin</label>
-                <input v-model="resaForm.end_date" type="datetime-local" class="resa-input" required />
+                <ClientOnly>
+                  <VDatePicker v-model="resaForm.end_date" mode="dateTime" is24hr locale="fr" :min-date="resaForm.date ?? new Date()" color="indigo">
+                    <template #default="{ togglePopover }">
+                      <button type="button" class="resa-date-btn" :class="{ 'has-value': resaForm.end_date }" @click="togglePopover">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        <span>{{ resaForm.end_date ? formatDateDisplay(resaForm.end_date) : 'Choisir…' }}</span>
+                      </button>
+                    </template>
+                  </VDatePicker>
+                </ClientOnly>
               </div>
             </div>
 
@@ -126,9 +144,13 @@ const resaSuccess = ref(false)
 const resaForm = ref({
   title: '',
   price: null as number | null,
-  date: '',
-  end_date: '',
+  date: null as Date | null,
+  end_date: null as Date | null,
 })
+
+function formatDateDisplay(date: Date) {
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+}
 
 function handleSubmit() {
   const content = text.value.trim()
@@ -153,7 +175,7 @@ async function handleResaSubmit() {
     resaError.value = 'Les dates sont requises'
     return
   }
-  if (new Date(resaForm.value.end_date) <= new Date(resaForm.value.date)) {
+  if (resaForm.value.end_date <= resaForm.value.date) {
     resaError.value = 'La date de fin doit être après la date de début'
     return
   }
@@ -163,8 +185,8 @@ async function handleResaSubmit() {
     title: resaForm.value.title.trim(),
     conversation_id: props.conversationId,
     price: resaForm.value.price,
-    date: new Date(resaForm.value.date).toISOString(),
-    end_date: new Date(resaForm.value.end_date).toISOString(),
+    date: resaForm.value.date.toISOString(),
+    end_date: resaForm.value.end_date.toISOString(),
   })
   resaLoading.value = false
 
@@ -430,6 +452,41 @@ async function handleResaSubmit() {
   display: flex;
   align-items: center;
 }
+
+/* Date picker button */
+.resa-date-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid rgba(70, 94, 138, 0.12);
+  border-radius: 0.6rem;
+  background: #f8f7f4;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(70, 94, 138, 0.4);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.resa-date-btn svg { flex-shrink: 0; color: #465E8A; opacity: 0.5; }
+.resa-date-btn.has-value { color: #0E224A; background: #fff; border-color: rgba(70,94,138,0.25); }
+.resa-date-btn.has-value svg { opacity: 0.8; }
+.resa-date-btn:hover { border-color: #465E8A; background: #fff; }
+
+/* v-calendar popover overrides */
+:deep(.vc-popover-content-wrapper) { z-index: 9999 !important; }
+:deep(.vc-container) {
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 40px rgba(14,34,74,0.18) !important;
+  border: 1px solid rgba(70,94,138,0.12) !important;
+}
+:deep(.vc-title) { font-family: 'roca', sans-serif !important; font-weight: 700 !important; color: #0E224A !important; }
+:deep(.vc-time-header) { font-family: 'Poppins', sans-serif !important; font-size: 0.75rem !important; color: #465E8A !important; }
 
 /* Submit button */
 .resa-submit {
