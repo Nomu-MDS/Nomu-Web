@@ -1,277 +1,247 @@
 <template>
-  <div class="min-h-screen w-full bg-[#E4DBCB]">
-    <!-- Hero header -->
-    <section class="px-6 pt-10 pb-6">
-      <div class="max-w-3xl mx-auto">
-        <h1 class="font-[roca] font-bold text-[2.25rem] text-[#0E224A] mb-1" style="letter-spacing:-0.04em;">
-          Réservations
-        </h1>
-        <p class="font-mono text-sm text-[#465E8A] opacity-70">
-          Suivez et gérez vos expériences
-        </p>
+  <div class="page-bg">
+
+    <!-- ── Hero ───────────────────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">Réservations</h1>
+        <p class="hero-sub">Suivez et gérez vos expériences</p>
       </div>
     </section>
 
-    <div class="resa-white-card">
-    <div class="max-w-4xl mx-auto px-4 pt-8 pb-12">
-      <!-- Tabs -->
-      <div class="flex gap-2 overflow-x-auto pb-1 mb-6 justify-center">
-        <button
-          v-for="tab in tabs"
-          :key="tab.value"
-          @click="activeTab = tab.value"
-          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-xs whitespace-nowrap cursor-pointer transition-all duration-200 border-none shadow-sm"
-          :class="activeTab === tab.value
-            ? 'bg-[#465E8A] text-white shadow-md'
-            : 'bg-white text-[#465E8A] hover:shadow-md'"
-        >
-          {{ tab.label }}
-          <span
-            v-if="countByStatus(tab.value)"
-            class="text-[0.65rem] font-bold px-1.5 py-px rounded-full min-w-4 text-center"
-            :class="activeTab === tab.value ? 'bg-white/25' : 'bg-[#465E8A]/10'"
-          >
-            {{ countByStatus(tab.value) }}
-          </span>
-        </button>
-      </div>
+    <!-- ── White card ─────────────────────────────────────────────────────── -->
+    <div class="white-card">
+      <div class="inner">
 
-      <!-- Loading skeletons -->
-      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div v-for="i in 4" :key="i" class="bg-white rounded-2xl overflow-hidden border border-[#465E8A]/10">
-          <USkeleton class="h-1 w-full" />
-          <div class="p-5">
-            <div class="flex items-center gap-3 mb-4">
-              <USkeleton class="h-10 w-10 rounded-full" />
-              <div class="flex-1 space-y-2">
-                <USkeleton class="h-3.5 w-28" />
-                <USkeleton class="h-3 w-20" />
-              </div>
-              <USkeleton class="h-6 w-20 rounded-full" />
-            </div>
-            <USkeleton class="h-24 w-full rounded-xl mb-4" />
-            <div class="flex gap-2.5">
-              <USkeleton class="h-10 flex-1 rounded-full" />
-              <USkeleton class="h-10 flex-1 rounded-full" />
-            </div>
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="filters">
+            <button
+              v-for="tab in tabs" :key="tab.value"
+              class="filter-btn"
+              :class="{ active: activeTab === tab.value }"
+              @click="activeTab = tab.value"
+            >
+              {{ tab.label }}
+              <span v-if="countByStatus(tab.value)" class="filter-count">{{ countByStatus(tab.value) }}</span>
+            </button>
+          </div>
+
+          <div class="view-toggle">
+            <button class="view-btn" :class="{ active: viewMode === 'calendar' }" title="Vue calendrier" @click="viewMode = 'calendar'">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </button>
+            <button class="view-btn" :class="{ active: viewMode === 'list' }" title="Vue liste" @click="viewMode = 'list'">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- Error -->
-      <div v-else-if="error" class="bg-white rounded-2xl border-2 border-[#465E8A]/10 p-12 text-center">
-        <p class="font-mono text-sm text-red-600 mb-3">{{ error }}</p>
-        <button
-          @click="fetchMyReservations"
-          class="px-5 py-2 rounded-full border-[1.5px] border-[#465E8A] bg-transparent text-[#465E8A] font-mono text-sm cursor-pointer transition-all hover:bg-[#465E8A] hover:text-white"
-        >
-          Réessayer
-        </button>
-      </div>
-
-      <!-- Empty state -->
-      <div v-else-if="filteredReservations.length === 0" class="bg-white rounded-2xl border-2 border-[#465E8A]/10 p-12 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mx-auto mb-4 text-[#465E8A]/25">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-        </svg>
-        <p class="font-[roca] font-bold text-lg text-[#465E8A]/50 mb-1">
-          {{ activeTab === 'all' ? 'Aucune réservation' : 'Rien ici' }}
-        </p>
-        <p class="font-mono text-xs text-[#465E8A]/35">
-          {{ activeTab === 'all' ? 'Vos réservations apparaîtront ici.' : 'Aucune réservation avec ce statut.' }}
-        </p>
-      </div>
-
-      <!-- Reservation grid -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div
-          v-for="resa in filteredReservations"
-          :key="resa.id"
-          class="bg-white rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl group border border-[#465E8A]/10"
-        >
-          <!-- Top colored bar based on status -->
-          <div
-            class="h-1"
-            :class="{
-              'bg-amber-400': resa.status === 'pending',
-              'bg-emerald-400': resa.status === 'accepted',
-              'bg-red-400': resa.status === 'declined',
-            }"
-          />
-
-          <div class="p-5">
-            <!-- Header: avatar + name + status badge -->
-            <div class="flex items-center gap-3 mb-4">
-              <UserAvatar :name="partnerName(resa)" size="md" />
-              <div class="flex-1 min-w-0">
-                <p class="font-[roca] font-bold text-sm text-[#465E8A] truncate">{{ partnerName(resa) }}</p>
-                <p class="font-mono text-xs text-[#465E8A]/50">{{ formatDateLong(resa.date) }}</p>
-              </div>
-              <span
-                class="shrink-0 px-2.5 py-1 rounded-full font-mono text-[0.65rem] font-bold"
-                :class="{
-                  'bg-amber-100 text-amber-700': resa.status === 'pending',
-                  'bg-emerald-100 text-emerald-700': resa.status === 'accepted',
-                  'bg-red-100 text-red-700': resa.status === 'declined',
-                }"
-              >
-                {{ statusLabel(resa.status) }}
-              </span>
-            </div>
-
-            <!-- Offer block -->
-            <div class="bg-[#465E8A] rounded-xl p-4 mb-4">
-              <h3 class="font-[roca] font-bold text-white text-base mb-2 leading-tight">{{ resa.title }}</h3>
-              <div class="flex items-center gap-4 flex-wrap">
-                <span class="flex items-center gap-1.5 font-mono text-xs text-white/70">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                  </svg>
-                  {{ formatDate(resa.date) }}
-                </span>
-                <span class="flex items-center gap-1.5 font-mono text-xs text-white/70">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {{ computeDuration(resa.date, resa.end_date) }}
-                </span>
-                <span class="flex items-center gap-1.5 font-mono text-xs text-[#B6FFD7] font-bold ml-auto">
-                  {{ formatPrice(resa.price) }}
-                </span>
-              </div>
-            </div>
-
-            <!-- Actions: receiver can accept/decline -->
-            <div v-if="resa.status === 'pending' && resa.creator_id !== currentUserId" class="grid grid-cols-2 gap-2.5">
-              <button
-                @click="handleDecline(resa.id)"
-                :disabled="actionLoading === resa.id"
-                class="py-2.5 rounded-full font-[roca] font-bold text-sm cursor-pointer transition-all border-[1.5px] border-[#465E8A]/15 bg-[#E4DBCB] text-[#465E8A] hover:bg-[#d9ceba] disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Refuser
-              </button>
-              <button
-                @click="handleAccept(resa.id)"
-                :disabled="actionLoading === resa.id"
-                class="py-2.5 rounded-full font-[roca] font-bold text-sm cursor-pointer transition-all border-none bg-[#465E8A] text-white hover:bg-[#3a4e6e] disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Accepter
-              </button>
-            </div>
-
-            <!-- Pending (sender) -->
-            <div v-else-if="resa.status === 'pending' && resa.creator_id === currentUserId" class="text-center py-1">
-              <span class="font-mono text-xs text-[#465E8A]/50">En attente de réponse…</span>
-            </div>
-
-            <!-- Conversation link -->
-            <div v-else class="text-right">
-              <NuxtLink
-                v-if="resa.conversation_id"
-                :to="`/messages/${resa.conversation_id}`"
-                class="inline-flex items-center gap-1 font-mono text-xs text-[#465E8A]/50 no-underline transition-all hover:text-[#465E8A] hover:underline"
-              >
-                Voir la conversation
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </NuxtLink>
-            </div>
-          </div>
+        <!-- Loading -->
+        <div v-if="loading" class="cal-skeleton">
+          <USkeleton class="h-8 w-48 mb-4" />
+          <USkeleton class="h-64 w-full rounded-2xl" />
         </div>
+
+        <!-- Error -->
+        <div v-else-if="error" class="empty-state">
+          <p class="empty-title">Erreur de chargement</p>
+          <button class="btn-outline" @click="fetchMyReservations">Réessayer</button>
+        </div>
+
+        <template v-else>
+
+          <!-- ── Calendar view ──────────────────────────────────────────── -->
+          <template v-if="viewMode === 'calendar'">
+            <ClientOnly>
+              <VCalendar
+                class="nomu-cal"
+                :attributes="calendarAttrs"
+                expanded
+                borderless
+                @dayclick="onDayClick"
+              />
+            </ClientOnly>
+
+            <!-- Legend -->
+            <div class="cal-legend">
+              <span class="legend-item"><span class="dot dot-pending" />En attente</span>
+              <span class="legend-item"><span class="dot dot-accepted" />Acceptée</span>
+              <span class="legend-item"><span class="dot dot-declined" />Refusée</span>
+            </div>
+
+            <!-- Detail panel -->
+            <Transition name="panel">
+              <div v-if="selectedReservations.length" class="detail-panel">
+                <div class="detail-panel-header">
+                  <span class="detail-panel-date">{{ selectedDateLabel }}</span>
+                  <button class="detail-close" @click="selectedDate = null">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <div class="detail-list">
+                  <ReservationCard
+                    v-for="resa in selectedReservations"
+                    :key="resa.id"
+                    :resa="resa"
+                    :partner-name="partnerName(resa)"
+                    :action-loading="actionLoading"
+                    :current-user-id="currentUserId"
+                    @accept="handleAccept"
+                    @decline="handleDecline"
+                  />
+                </div>
+              </div>
+            </Transition>
+
+            <div v-if="filteredReservations.length === 0" class="empty-state">
+              <p class="empty-title">Aucune réservation</p>
+              <p class="empty-sub">{{ activeTab === 'all' ? 'Vos réservations apparaîtront ici.' : 'Aucune réservation avec ce statut.' }}</p>
+            </div>
+          </template>
+
+          <!-- ── List view ──────────────────────────────────────────────── -->
+          <template v-else>
+            <div v-if="filteredReservations.length === 0" class="empty-state">
+              <p class="empty-title">Aucune réservation</p>
+              <p class="empty-sub">{{ activeTab === 'all' ? 'Vos réservations apparaîtront ici.' : 'Aucune réservation avec ce statut.' }}</p>
+            </div>
+
+            <div v-else class="list-wrap">
+              <div v-for="group in groupedByMonth" :key="group.key" class="list-group">
+                <h3 class="list-month">{{ group.label }}</h3>
+                <div class="list-cards">
+                  <ReservationCard
+                    v-for="resa in group.items"
+                    :key="resa.id"
+                    :resa="resa"
+                    :partner-name="partnerName(resa)"
+                    :action-loading="actionLoading"
+                    :current-user-id="currentUserId"
+                    @accept="handleAccept"
+                    @decline="handleDecline"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
+
+        </template>
       </div>
-    </div>
     </div>
   </div>
 </template>
-
-<style>
-.resa-white-card {
-  background: #fff;
-  border-radius: 32px 32px 0 0;
-  min-height: 60vh;
-}
-</style>
 
 <script setup lang="ts">
 import type { Reservation } from '~/types'
 
 definePageMeta({ middleware: 'auth' })
-
 useSeoMeta({
   title: 'Mes réservations — Nomu',
-  description: 'Suivez et gérez vos réservations d\'expériences sur Nomu.',
+  description: 'Suivez et gérez vos réservations sur Nomu.',
   robots: 'noindex, nofollow',
 })
 
 const { reservations, loading: resaLoading, error, fetchMyReservations, acceptReservation, declineReservation } = useReservations()
 const { get } = useApi()
+
 const initialLoading = ref(true)
-const loading = computed(() => initialLoading.value || resaLoading.value)
+const loading        = computed(() => initialLoading.value || resaLoading.value)
+const activeTab      = ref<'all' | 'pending' | 'accepted' | 'declined'>('all')
+const viewMode       = ref<'calendar' | 'list'>('calendar')
+const actionLoading  = ref<number | null>(null)
+const currentUserId  = ref<number | null>(null)
+const selectedDate   = ref<string | null>(null)
 
-const activeTab = ref<'all' | 'pending' | 'accepted' | 'declined'>('all')
-const actionLoading = ref<number | null>(null)
-const currentUserId = ref<number | null>(null)
-
+// ── Filters ────────────────────────────────────────────────────────────────
 const tabs = [
-  { label: 'Toutes', value: 'all' as const },
-  { label: 'En attente', value: 'pending' as const },
-  { label: 'Acceptées', value: 'accepted' as const },
-  { label: 'Refusées', value: 'declined' as const },
+  { label: 'Toutes',     value: 'all'      as const },
+  { label: 'En attente', value: 'pending'  as const },
+  { label: 'Acceptées',  value: 'accepted' as const },
+  { label: 'Refusées',   value: 'declined' as const },
 ]
 
-const filteredReservations = computed(() => {
-  if (activeTab.value === 'all') return reservations.value
-  return reservations.value.filter((r) => r.status === activeTab.value)
-})
+const filteredReservations = computed(() =>
+  activeTab.value === 'all'
+    ? reservations.value
+    : reservations.value.filter(r => r.status === activeTab.value)
+)
 
 function countByStatus(status: string) {
   if (status === 'all') return reservations.value.length
-  return reservations.value.filter((r) => r.status === status).length
+  return reservations.value.filter(r => r.status === status).length
 }
 
-function statusLabel(status: string) {
-  const map: Record<string, string> = {
-    pending: 'En attente',
-    accepted: 'Acceptée',
-    declined: 'Refusée',
+// ── v-calendar attributes ──────────────────────────────────────────────────
+const DOT_COLORS: Record<string, string> = {
+  pending:  '#d97706',
+  accepted: '#059669',
+  declined: '#dc2626',
+}
+
+const calendarAttrs = computed(() => {
+  const attrs: any[] = filteredReservations.value.map(r => ({
+    dot:   { style: { backgroundColor: DOT_COLORS[r.status] ?? '#888', width: '6px', height: '6px' } },
+    dates: { start: new Date(r.date), end: new Date(r.end_date) },
+  }))
+
+  if (selectedDate.value) {
+    attrs.push({
+      highlight: { style: { background: '#465E8A' }, contentStyle: { color: '#fff' } },
+      dates: new Date(selectedDate.value + 'T12:00:00'),
+    })
   }
-  return map[status] || status
+
+  return attrs
+})
+
+// ── Day click ──────────────────────────────────────────────────────────────
+function onDayClick(day: { id: string }) {
+  selectedDate.value = selectedDate.value === day.id ? null : day.id
 }
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })
-}
+const selectedReservations = computed(() => {
+  if (!selectedDate.value) return []
+  const d = new Date(selectedDate.value + 'T12:00:00')
+  return filteredReservations.value.filter(r => {
+    const start = new Date(r.date)
+    const end   = new Date(r.end_date)
+    return d >= start && d <= end
+  })
+})
 
-function formatDateLong(iso: string) {
-  return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
-}
+const selectedDateLabel = computed(() => {
+  if (!selectedDate.value) return ''
+  return new Date(selectedDate.value + 'T12:00:00')
+    .toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
+    .replace(/^./, c => c.toUpperCase())
+})
 
-function formatPrice(price: number | string) {
-  const num = typeof price === 'string' ? parseFloat(price) : price
-  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(num)
-}
-
-function computeDuration(start: string, end: string) {
-  const diffMs = new Date(end).getTime() - new Date(start).getTime()
-  const diffH = Math.floor(diffMs / (1000 * 60 * 60))
-  const diffM = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60))
-  if (diffH >= 24) {
-    const days = Math.floor(diffH / 24)
-    return `${days}j${diffH % 24 > 0 ? ` ${diffH % 24}h` : ''}`
+// ── List: group by month ───────────────────────────────────────────────────
+const groupedByMonth = computed(() => {
+  const sorted = [...filteredReservations.value].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  )
+  const groups: { key: string; label: string; items: Reservation[] }[] = []
+  for (const r of sorted) {
+    const d     = new Date(r.date)
+    const key   = `${d.getFullYear()}-${d.getMonth()}`
+    const label = d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
+      .replace(/^./, c => c.toUpperCase())
+    let group = groups.find(g => g.key === key)
+    if (!group) { group = { key, label, items: [] }; groups.push(group) }
+    group.items.push(r)
   }
-  if (diffH > 0 && diffM > 0) return `${diffH}h${String(diffM).padStart(2, '0')}`
-  if (diffH > 0) return `${diffH}h`
-  return `${diffM}min`
-}
+  return groups
+})
 
+// ── Helpers ────────────────────────────────────────────────────────────────
 function partnerName(resa: Reservation) {
   if (!resa.Conversation) return 'Inconnu'
   const conv = resa.Conversation
-  if (currentUserId.value === conv.voyager_id) {
-    return conv.Local?.name || 'Hôte'
-  }
-  return conv.Voyager?.name || 'Voyageur'
+  return currentUserId.value === conv.voyager_id
+    ? (conv.Local?.name ?? 'Hôte')
+    : (conv.Voyager?.name ?? 'Voyageur')
 }
 
 async function handleAccept(id: number) {
@@ -279,7 +249,6 @@ async function handleAccept(id: number) {
   await acceptReservation(id)
   actionLoading.value = null
 }
-
 async function handleDecline(id: number) {
   actionLoading.value = id
   await declineReservation(id)
@@ -295,3 +264,253 @@ onMounted(async () => {
   initialLoading.value = false
 })
 </script>
+
+<style scoped>
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.page-bg  { min-height: 100vh; background: #E4DBCB; }
+.hero     { padding: 2.5rem 1.5rem 1.5rem; }
+.hero-inner { max-width: 48rem; margin: 0 auto; }
+.hero-title {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 2.25rem;
+  color: #0E224A;
+  letter-spacing: -0.04em;
+  margin: 0 0 4px;
+}
+.hero-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  color: #465E8A;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.white-card {
+  background: #fff;
+  border-radius: 32px 32px 0 0;
+  min-height: 70vh;
+}
+.inner {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+.filters { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(70, 94, 138, 0.2);
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #465E8A;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-btn:hover { border-color: #465E8A; }
+.filter-btn.active { background: #465E8A; border-color: #465E8A; color: #fff; }
+.filter-count {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: rgba(255,255,255,0.25);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+.filter-btn:not(.active) .filter-count { background: rgba(70,94,138,0.12); color: #465E8A; }
+
+/* ── View toggle ─────────────────────────────────────────────────────────── */
+.view-toggle {
+  display: flex;
+  gap: 4px;
+  background: rgba(70, 94, 138, 0.07);
+  border-radius: 10px;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: rgba(70, 94, 138, 0.45);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.view-btn:hover { color: #465E8A; }
+.view-btn.active { background: #fff; color: #0E224A; box-shadow: 0 1px 4px rgba(14,34,74,0.12); }
+
+/* ── v-calendar overrides ────────────────────────────────────────────────── */
+.nomu-cal {
+  width: 100% !important;
+  border-radius: 20px;
+  background: #F9F7F4 !important;
+  border: 1px solid rgba(70, 94, 138, 0.1) !important;
+  font-family: 'Poppins', sans-serif;
+}
+:deep(.vc-header) { padding: 1rem 1.25rem 0.5rem; }
+:deep(.vc-title) {
+  font-family: 'roca', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  color: #0E224A !important;
+}
+:deep(.vc-arrow) {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(70, 94, 138, 0.2) !important;
+  background: #fff !important;
+  color: #465E8A !important;
+}
+:deep(.vc-arrow:hover) { border-color: #465E8A !important; background: #465E8A !important; color: #fff !important; }
+:deep(.vc-weekday) {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  color: rgba(70, 94, 138, 0.5) !important;
+}
+:deep(.vc-day-content) {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  color: #0E224A !important;
+}
+:deep(.vc-day-content:hover) {
+  background: rgba(70, 94, 138, 0.1) !important;
+}
+:deep(.vc-highlight) { border-radius: 50% !important; }
+:deep(.vc-dots) { gap: 2px; }
+
+/* ── Legend ──────────────────────────────────────────────────────────────── */
+.cal-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 0.75rem;
+  justify-content: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(70, 94, 138, 0.6);
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-pending  { background: #d97706; }
+.dot-accepted { background: #059669; }
+.dot-declined { background: #dc2626; }
+
+/* ── Detail panel ────────────────────────────────────────────────────────── */
+.detail-panel {
+  margin-top: 1.25rem;
+  border-radius: 20px;
+  border: 1.5px solid rgba(70, 94, 138, 0.15);
+  overflow: hidden;
+}
+.detail-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: #F9F7F4;
+  border-bottom: 1px solid rgba(70, 94, 138, 0.1);
+}
+.detail-panel-date {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0E224A;
+}
+.detail-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(70, 94, 138, 0.1);
+  color: #465E8A;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.detail-close:hover { background: rgba(70, 94, 138, 0.2); }
+.detail-list { display: flex; flex-direction: column; }
+
+/* ── List view ───────────────────────────────────────────────────────────── */
+.list-wrap { display: flex; flex-direction: column; gap: 2rem; }
+.list-month {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: rgba(70, 94, 138, 0.5);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(70, 94, 138, 0.1);
+}
+.list-cards {
+  border-radius: 20px;
+  border: 1.5px solid rgba(70, 94, 138, 0.15);
+  overflow: hidden;
+}
+
+/* ── Empty / skeleton ────────────────────────────────────────────────────── */
+.cal-skeleton { padding: 1rem 0; }
+.empty-state { margin-top: 1.5rem; text-align: center; padding: 3rem 1rem; }
+.empty-title {
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: rgba(70, 94, 138, 0.5);
+  margin: 0 0 6px;
+}
+.empty-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(70, 94, 138, 0.35);
+  margin: 0;
+}
+.btn-outline {
+  margin-top: 1rem;
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1.5px solid #465E8A;
+  background: transparent;
+  color: #465E8A;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.btn-outline:hover { background: #465E8A; color: #fff; }
+
+/* ── Panel transition ────────────────────────────────────────────────────── */
+.panel-enter-active, .panel-leave-active { transition: all 0.25s ease; }
+.panel-enter-from, .panel-leave-to { opacity: 0; transform: translateY(12px); }
+</style>
