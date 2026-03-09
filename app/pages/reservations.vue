@@ -367,27 +367,35 @@ onMounted(async () => {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Header : flèches + titre bien espacés */
+/*
+  v-calendar v3 utilise 2 .vc-header superposés :
+  - .vc-pane-header-wrapper > .vc-header  → flèches seulement
+  - .vc-pane > .vc-header                 → titre seulement
+  Ils partagent la même grille pour aligner les colonnes.
+  On remplace "[prev] auto 1fr [title] auto 1fr [next] auto"
+  par une grille centrée avec un espace fixe de 2rem entre flèches et titre.
+*/
 :deep(.vc-header) {
-  padding: 1.25rem 1.5rem 0.75rem;
-  gap: 1.5rem !important;
+  grid-template-columns: 1fr [prev] auto 2rem [title] auto 2rem [next] auto 1fr !important;
+  padding: 1.25rem 1.5rem 0.75rem !important;
+  align-items: center !important;
 }
-:deep(.vc-title-wrapper) { flex: 1; display: flex; justify-content: center; }
+
 :deep(.vc-title) {
   font-family: 'roca', sans-serif !important;
   font-weight: 700 !important;
-  font-size: 1.15rem !important;
+  font-size: 1.1rem !important;
   color: #0E224A !important;
   letter-spacing: -0.02em;
 }
+
 :deep(.vc-arrow) {
   border-radius: 50% !important;
-  width: 36px !important;
-  height: 36px !important;
+  width: 34px !important;
+  height: 34px !important;
   border: 1.5px solid rgba(70, 94, 138, 0.2) !important;
   background: #fff !important;
   color: #465E8A !important;
-  flex-shrink: 0;
 }
 :deep(.vc-arrow:hover) {
   border-color: #465E8A !important;
@@ -404,23 +412,26 @@ onMounted(async () => {
   padding: 0.5rem 0 !important;
 }
 
-/* Cellules — plus grandes */
+/* Cellules */
+:deep(.vc-weeks) {
+  padding: 0 0.75rem 0.75rem !important;
+}
 :deep(.vc-day) {
-  min-height: 64px !important;
+  min-height: 52px !important;
 }
 :deep(.vc-day-content) {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 0.88rem !important;
+  font-size: 0.9rem !important;
   font-weight: 500 !important;
   color: #0E224A !important;
-  width: 34px !important;
-  height: 34px !important;
+  width: 36px !important;
+  height: 36px !important;
 }
 :deep(.vc-day-content:hover) {
   background: rgba(70, 94, 138, 0.1) !important;
 }
 :deep(.vc-highlight) { border-radius: 50% !important; }
-:deep(.vc-dots) { gap: 3px; padding-bottom: 4px; }
+:deep(.vc-dots) { gap: 3px; padding-bottom: 6px; }
 
 /* ── Legend ──────────────────────────────────────────────────────────────── */
 .cal-legend {
