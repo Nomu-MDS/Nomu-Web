@@ -181,6 +181,12 @@
                 <span v-if="contactLoading" class="contact-spinner" />
                 {{ contactLoading ? 'Chargement…' : 'Contacter' }}
               </button>
+              <button class="report-link" @click="reportModal = true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v18m0-13.5 6-3 6 3 6-3V18l-6 3-6-3-6 3" />
+                </svg>
+                Signaler ce profil
+              </button>
             </div>
           </div>
 
@@ -190,6 +196,46 @@
     </div>
 
   </div>
+
+  <!-- ── Modal signalement ────────────────────────────────────────────────── -->
+  <Teleport to="body">
+    <div v-if="reportModal" class="report-overlay" @click.self="reportModal = false; reportError = ''">
+      <div class="report-sheet">
+        <h3 class="report-title">Signaler ce profil</h3>
+
+        <div v-if="reportSuccess" class="report-success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#10b981" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          Signalement envoyé. Merci.
+        </div>
+
+        <template v-else>
+          <label class="report-label">Raison *</label>
+          <input v-model="reportReason" class="report-input" placeholder="Ex. comportement inapproprié, spam…" />
+
+          <label class="report-label">Détails (optionnel)</label>
+          <textarea v-model="reportMessage" class="report-input report-textarea" rows="3" placeholder="Décrivez le problème…" />
+
+          <p v-if="reportError" class="report-error">{{ reportError }}</p>
+
+          <div class="report-actions">
+            <button class="report-btn-cancel" @click="reportModal = false; reportReason = ''; reportMessage = ''; reportError = ''">
+              Annuler
+            </button>
+            <button
+              class="report-btn-submit"
+              :disabled="!reportReason.trim() || reportLoading"
+              @click="submitReport"
+            >
+              {{ reportLoading ? 'Envoi…' : 'Signaler' }}
+            </button>
+          </div>
+        </template>
+      </div>
+    </div>
+  </Teleport>
+
 </template>
 
 <script setup lang="ts">
@@ -208,6 +254,13 @@ const userId = ref<number | null>(null)
 const loading = ref(true)
 const error = ref('')
 const contactLoading = ref(false)
+
+const reportModal = ref(false)
+const reportReason = ref('')
+const reportMessage = ref('')
+const reportLoading = ref(false)
+const reportError = ref('')
+const reportSuccess = ref(false)
 
 const profileName = computed(() => {
   if (!profile.value) return ''
@@ -299,6 +352,32 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+async function submitReport() {
+  if (!reportReason.value.trim() || !userId.value) return
+  reportLoading.value = true
+  reportError.value = ''
+  try {
+    await post('/reports', {
+      reportedUserId: userId.value,
+      reason: reportReason.value.trim(),
+      message: reportMessage.value.trim() || undefined,
+    })
+    reportSuccess.value = true
+    reportReason.value = ''
+    reportMessage.value = ''
+    setTimeout(() => {
+      reportModal.value = false
+      reportSuccess.value = false
+    }, 2000)
+  } catch (e: any) {
+    reportError.value = e?.statusCode === 409
+      ? 'Vous avez déjà signalé cet utilisateur.'
+      : 'Une erreur est survenue. Réessayez.'
+  } finally {
+    reportLoading.value = false
+  }
+}
 
 async function startConversation() {
   if (!userId.value) return
@@ -775,4 +854,144 @@ async function startConversation() {
   flex-shrink: 0;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Report link ───────────────────────────────────────────────────────────── */
+.report-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  background: none;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  color: rgba(228, 219, 203, 0.5);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.report-link:hover { color: rgba(228, 219, 203, 0.85); }
+
+/* ── Report modal overlay ──────────────────────────────────────────────────── */
+.report-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 34, 74, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 9999;
+  padding: 0 1rem 1.5rem;
+}
+
+/* ── Report sheet ──────────────────────────────────────────────────────────── */
+.report-sheet {
+  width: 100%;
+  max-width: 520px;
+  background: #F9F5EE;
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 -8px 40px rgba(14, 34, 74, 0.25);
+  animation: slideUp 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.report-title {
+  font-family: 'roca', sans-serif;
+  font-size: 18px;
+  color: #0E224A;
+  margin: 0 0 6px;
+}
+
+.report-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #465E8A;
+  letter-spacing: 0.3px;
+  margin-bottom: -4px;
+}
+
+.report-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid rgba(70, 94, 138, 0.25);
+  border-radius: 10px;
+  background: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #0E224A;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  resize: none;
+}
+.report-input:focus { border-color: #465E8A; }
+
+.report-textarea {
+  min-height: 80px;
+}
+
+.report-error {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: #e53e3e;
+  margin: 0;
+}
+
+.report-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: #0E224A;
+  padding: 16px 0 8px;
+}
+
+.report-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.report-btn-cancel {
+  flex: 1;
+  height: 46px;
+  border-radius: 30px;
+  border: 1.5px solid rgba(70, 94, 138, 0.3);
+  background: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #465E8A;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.report-btn-cancel:hover { border-color: #465E8A; color: #0E224A; }
+
+.report-btn-submit {
+  flex: 1;
+  height: 46px;
+  border-radius: 30px;
+  border: none;
+  background: #0E224A;
+  font-family: 'roca', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #E4DBCB;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.report-btn-submit:hover:not(:disabled) { opacity: 0.88; }
+.report-btn-submit:disabled { opacity: 0.45; cursor: not-allowed; }
 </style>
