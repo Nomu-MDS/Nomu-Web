@@ -16,6 +16,14 @@
           <p class="footer-sub">
             Connecte voyageurs et locaux passionnés autour d'activités authentiques.
           </p>
+          <div class="footer-stores">
+            <a href="https://github.com/Nomu-MDS" target="_blank" rel="noopener" aria-label="Télécharger sur l'App Store">
+              <img src="/img/Download_on_the_App_Store_Badge_FRCA_RGB_blk.svg" alt="App Store" class="store-badge" />
+            </a>
+            <a href="https://files.charlesremy.dev/nomu/application-54e08593-c67a-45bf-a8c0-54a0bc61510e.apk" target="_blank" rel="noopener" aria-label="Télécharger sur Google Play">
+              <img src="/img/Google_Play_Store_badge_FR.svg" alt="Google Play" class="store-badge" />
+            </a>
+          </div>
         </div>
 
         <!-- Nav columns -->
@@ -128,7 +136,25 @@ const year = new Date().getFullYear()
   font-size: 0.78rem;
   color: rgba(228, 219, 203, 0.5);
   line-height: 1.65;
-  margin: 0;
+  margin: 0 0 1.1rem;
+}
+
+.footer-stores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.store-badge {
+  width: 130px;
+  height: auto;
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.store-badge:hover {
+  opacity: 1;
 }
 
 /* Nav columns */
