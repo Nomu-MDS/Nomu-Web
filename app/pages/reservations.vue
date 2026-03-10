@@ -277,13 +277,17 @@ function onDayClick(day: { id: string }) {
   selectedDate.value = selectedDate.value === day.id ? null : day.id;
 }
 
+function toLocalDateStr(iso: string) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 const selectedReservations = computed(() => {
   if (!selectedDate.value) return [];
-  const d = new Date(selectedDate.value + "T12:00:00");
   return filteredReservations.value.filter((r) => {
-    const start = new Date(r.date);
-    const end = new Date(r.end_date);
-    return d >= start && d <= end;
+    const s = toLocalDateStr(r.date);
+    const e = toLocalDateStr(r.end_date);
+    return selectedDate.value! >= s && selectedDate.value! <= e;
   });
 });
 
