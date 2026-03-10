@@ -40,6 +40,23 @@
               </div>
             </div>
 
+            <!-- Commission breakdown -->
+            <div v-if="commissionBreakdown" class="resa-commission">
+              <div class="resa-commission-row">
+                <span>Votre gain</span>
+                <span>{{ formatEur(commissionBreakdown.base) }}</span>
+              </div>
+              <div class="resa-commission-row resa-commission-row--fee">
+                <span>Commission Nomu (10%)</span>
+                <span>+ {{ formatEur(commissionBreakdown.commission) }}</span>
+              </div>
+              <div class="resa-commission-divider"></div>
+              <div class="resa-commission-row resa-commission-row--total">
+                <span>Payé par le voyageur</span>
+                <span>{{ formatEur(commissionBreakdown.total) }}</span>
+              </div>
+            </div>
+
             <!-- Dates -->
             <div class="resa-dates">
               <div class="resa-field">
@@ -135,6 +152,8 @@ const emit = defineEmits<{
 
 const { createReservation } = useReservations()
 
+const COMMISSION_RATE = 0.10
+
 const text = ref('')
 const showResaForm = ref(false)
 const resaLoading = ref(false)
@@ -147,6 +166,18 @@ const resaForm = ref({
   date: null as Date | null,
   end_date: null as Date | null,
 })
+
+const commissionBreakdown = computed(() => {
+  const base = resaForm.value.price
+  if (!base || base <= 0) return null
+  const commission = Math.round(base * COMMISSION_RATE * 100) / 100
+  const total = Math.round(base * (1 + COMMISSION_RATE) * 100) / 100
+  return { base, commission, total }
+})
+
+function formatEur(n: number) {
+  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n)
+}
 
 function formatDateDisplay(date: Date) {
   return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
@@ -192,7 +223,7 @@ async function handleResaSubmit() {
 
   if (result.success) {
     resaSuccess.value = true
-    resaForm.value = { title: '', price: null, date: '', end_date: '' }
+    resaForm.value = { title: '', price: null, date: null, end_date: null }
     emit('reservationCreated')
     setTimeout(() => {
       showResaForm.value = false
@@ -513,6 +544,37 @@ async function handleResaSubmit() {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+/* Commission breakdown */
+.resa-commission {
+  background: #f8f7f4;
+  border: 1.5px solid rgba(70, 94, 138, 0.1);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.resa-commission-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(70, 94, 138, 0.6);
+}
+.resa-commission-row--fee {
+  color: rgba(70, 94, 138, 0.45);
+}
+.resa-commission-divider {
+  height: 1px;
+  background: rgba(70, 94, 138, 0.12);
+  margin: 0.15rem 0;
+}
+.resa-commission-row--total {
+  color: #0E224A;
+  font-weight: 600;
 }
 
 /* Error & success */
