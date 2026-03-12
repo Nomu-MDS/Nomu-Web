@@ -18,24 +18,6 @@
 
       <!-- Body -->
       <div class="flex-1 overflow-y-auto px-5 py-2 space-y-4">
-        <!-- Pays -->
-        <div class="flex flex-col gap-2">
-          <label class="flex items-center gap-2 font-[roca] font-bold text-sm text-[#465E8A]">
-            Pays
-            <span v-if="selectedCountries.length" class="bg-[#465E8A] text-white text-xs font-mono px-2 py-px rounded-full min-w-[1.2rem] text-center">{{ selectedCountries.length }}</span>
-          </label>
-          <select
-            v-model="selectedCountries"
-            multiple
-            class="w-full px-3 py-2 bg-[#E4DBCB]/30 border border-[#465E8A]/10 rounded-lg font-mono text-sm text-[#465E8A] transition-all focus:outline-none focus:ring-2 focus:ring-[#B6FFD7]/50 focus:border-[#465E8A]/30"
-            size="4"
-          >
-            <option v-for="c in countriesWithFlags" :key="c.name" :value="c.name" class="px-2 py-1.5 checked:bg-[#465E8A] checked:text-white">
-              {{ c.flag }} {{ c.name }}
-            </option>
-          </select>
-        </div>
-
         <!-- Ville -->
         <div class="flex flex-col gap-2">
           <label class="flex items-center gap-2 font-[roca] font-bold text-sm text-[#465E8A]">
@@ -94,35 +76,23 @@ const props = defineProps<{
 defineEmits<{ close: [] }>()
 
 const selectedCities = defineModel<string[]>('selectedCities', { default: () => [] })
-const selectedCountries = defineModel<string[]>('selectedCountries', { default: () => [] })
 const selectedInterests = defineModel<string[]>('selectedInterests', { default: () => [] })
 
 const cities = [
   'Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Toulouse',
   'Nice', 'Nantes', 'Strasbourg', 'Montpellier', 'Lille',
-  'London', 'New York', 'Berlin', 'Rome', 'Tokyo',
-  'Barcelona', 'Amsterdam', 'Lisbonne',
-]
-
-const countriesWithFlags = [
-  { name: 'France', flag: '🇫🇷' },
-  { name: 'Espagne', flag: '🇪🇸' },
-  { name: 'Italie', flag: '🇮🇹' },
-  { name: 'Allemagne', flag: '🇩🇪' },
-  { name: 'Royaume-Uni', flag: '🇬🇧' },
-  { name: 'Portugal', flag: '🇵🇹' },
-  { name: 'Pays-Bas', flag: '🇳🇱' },
-  { name: 'Japon', flag: '🇯🇵' },
-  { name: 'États-Unis', flag: '🇺🇸' },
+  'Grenoble', 'Rennes', 'Brest', 'Annecy', 'Chambéry',
+  'Nancy', 'Metz', 'Bayonne', 'Pau', 'Reims',
+  'Tours', 'La Rochelle', 'Caen', 'Rouen', 'Dijon',
+  'Clermont-Ferrand', 'Perpignan', 'Toulon', 'Avignon', 'Aix-en-Provence',
 ]
 
 const totalCount = computed(() =>
-  selectedCities.value.length + selectedCountries.value.length + selectedInterests.value.length
+  selectedCities.value.length + selectedInterests.value.length
 )
 
 function clearAll() {
   selectedCities.value = []
-  selectedCountries.value = []
   selectedInterests.value = []
 }
 </script>

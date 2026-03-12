@@ -5,14 +5,14 @@ export interface ApiError {
 }
 
 export function useApi() {
-  const { getToken, logout } = useAuth()
+  const { getToken, logout, refreshAccessToken } = useAuth()
   const router = useRouter()
   const toast = useToast()
 
-  function authHeaders(): HeadersInit {
+  function authHeaders(token?: string | null): HeadersInit {
     const headers: Record<string, string> = { 'Content-Type': 'application/json' }
-    const token = getToken()
-    if (token) headers['Authorization'] = `Bearer ${token}`
+    const t = token ?? getToken()
+    if (t) headers['Authorization'] = `Bearer ${t}`
     return headers
   }
 
@@ -20,7 +20,7 @@ export function useApi() {
     const statusCode = error?.response?.status || error?.statusCode || 500
     const message = error?.data?.error || error?.data?.message || error?.message || 'Une erreur est survenue'
 
-    // Session expirée ou non authentifié
+    // Session expirée ou non authentifié (already handled by caller for retries)
     if (statusCode === 401) {
       logout()
       toast.add({
@@ -64,36 +64,47 @@ export function useApi() {
     throw { statusCode, message }
   }
 
-  async function get<T>(path: string): Promise<T> {
+  async function withRefresh<T>(fn: () => Promise<T>): Promise<T> {
     try {
-      return await $fetch<T>(`/api${path}`, { headers: authHeaders() })
-    } catch (error) {
+      return await fn()
+    } catch (error: any) {
+      const statusCode = error?.response?.status || error?.statusCode
+      if (statusCode === 401) {
+        const newToken = await refreshAccessToken()
+        if (newToken) {
+          try {
+            return await fn()
+          } catch (retryError) {
+            return handleError(retryError)
+          }
+        }
+      }
       return handleError(error)
     }
   }
 
+  async function get<T>(path: string): Promise<T> {
+    return withRefresh(() => $fetch<T>(`/api${path}`, { headers: authHeaders() }))
+  }
+
   async function post<T>(path: string, body: Record<string, any>): Promise<T> {
-    try {
-      return await $fetch<T>(`/api${path}`, {
+    return withRefresh(() =>
+      $fetch<T>(`/api${path}`, {
         method: 'POST',
         headers: authHeaders(),
         body,
       })
-    } catch (error) {
-      return handleError(error)
-    }
+    )
   }
 
   async function patch<T>(path: string, body: Record<string, any>): Promise<T> {
-    try {
-      return await $fetch<T>(`/api${path}`, {
+    return withRefresh(() =>
+      $fetch<T>(`/api${path}`, {
         method: 'PATCH',
         headers: authHeaders(),
         body,
       })
-    } catch (error) {
-      return handleError(error)
-    }
+    )
   }
 
   return { authHeaders, get, post, patch }

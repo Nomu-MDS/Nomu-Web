@@ -8,14 +8,22 @@
 definePageMeta({ layout: false })
 
 const route = useRoute()
-const { setToken } = useAuth()
+const { setToken, setRefreshToken } = useAuth()
 
 onMounted(() => {
   const token = route.query.token as string | undefined
+  const refreshToken = route.query.refreshToken as string | undefined
   const isNew = route.query.new === '1'
+  const photo = route.query.photo as string | undefined
   if (token) {
     setToken(token)
-    navigateTo(isNew ? '/onboarding' : '/')
+    if (refreshToken) setRefreshToken(refreshToken)
+    if (isNew) {
+      const onboardingUrl = photo ? `/onboarding?photo=${encodeURIComponent(photo)}` : '/onboarding'
+      navigateTo(onboardingUrl)
+    } else {
+      navigateTo('/')
+    }
   } else {
     navigateTo('/login?error=google')
   }

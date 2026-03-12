@@ -1399,7 +1399,6 @@ const {
   query: ref(""),
   interests: ref([]),
   cities: ref([]),
-  countries: ref([]),
 });
 
 const tagsRow1 = [
