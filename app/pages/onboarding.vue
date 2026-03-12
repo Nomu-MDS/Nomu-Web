@@ -39,6 +39,7 @@
             </div>
           </button>
           <p class="avatar-hint">{{ uploading ? 'Upload en cours…' : avatarUrl ? 'Changer la photo' : 'Ajouter une photo' }}</p>
+          <p v-if="isGooglePhoto && !uploading" class="avatar-google-hint">Photo importée depuis Google · Clique pour en choisir une autre</p>
           <input ref="fileInput" type="file" accept="image/jpeg,image/png,image/webp" style="display:none" @change="handleFileChange" />
         </div>
 
@@ -107,10 +108,16 @@ const error = ref('')
 // Photo
 const fileInput = ref<HTMLInputElement | null>(null)
 const avatarUrl = ref<string | null>(null)
+const isGooglePhoto = ref(false)
 const uploading = ref(false)
 const uploadError = ref('')
 
 onMounted(async () => {
+  const photoParam = useRoute().query.photo as string | undefined
+  if (photoParam) {
+    avatarUrl.value = photoParam
+    isGooglePhoto.value = true
+  }
   await fetchInterests()
   loading.value = false
 })
@@ -141,6 +148,7 @@ async function handleFileChange(event: Event) {
 
     const data = await res.json()
     avatarUrl.value = data.image_url
+    isGooglePhoto.value = false
   } catch (e: any) {
     avatarUrl.value = null
     uploadError.value = e.message || "Impossible d'uploader la photo"
@@ -304,6 +312,13 @@ async function save() {
   font-size: 0.85rem;
   color: #465E8A;
   font-weight: 600;
+}
+.avatar-google-hint {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  color: #888;
+  text-align: center;
+  max-width: 240px;
 }
 
 /* Interests */

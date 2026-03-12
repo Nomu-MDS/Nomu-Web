@@ -6,7 +6,7 @@
         <h1 class="font-[roca] font-bold text-[2.25rem] text-[#0E224A] mb-1 tracking-tight" style="letter-spacing:-0.04em;">
           Explorer
         </h1>
-        <p class="font-mono text-sm text-[#465E8A] mb-5 opacity-70">Trouvez des profils par intérêt, ville ou pays</p>
+        <p class="font-mono text-sm text-[#465E8A] mb-5 opacity-70">Trouvez des profils par intérêt ou ville</p>
         <form @submit.prevent="onSubmit" class="flex gap-2 max-w-xl">
           <div class="flex-1 flex items-center gap-2 bg-white rounded-full border border-[#465E8A] px-4 py-2.5 transition-shadow focus-within:ring-2 focus-within:ring-[#465E8A]/20">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#465E8A" class="w-4 h-4 shrink-0 opacity-50">
@@ -44,7 +44,6 @@
         :interests="interests"
         :mobile-open="filtersOpen"
         v-model:selected-cities="selectedCities"
-        v-model:selected-countries="selectedCountries"
         v-model:selected-interests="selectedInterests"
         @close="filtersOpen = false"
       />
@@ -94,14 +93,6 @@
             {{ city }} <span class="text-sm leading-none opacity-60">&times;</span>
           </button>
           <button
-            v-for="country in selectedCountries"
-            :key="'co-' + country"
-            class="inline-flex items-center gap-1 px-3 py-1 rounded-full border-none bg-[#465E8A]/10 text-[#465E8A] font-mono text-xs cursor-pointer transition-colors hover:bg-[#465E8A]/18"
-            @click="removeFilter(selectedCountries, country)"
-          >
-            {{ country }} <span class="text-sm leading-none opacity-60">&times;</span>
-          </button>
-          <button
             v-for="interest in selectedInterests"
             :key="'i-' + interest"
             class="inline-flex items-center gap-1 px-3 py-1 rounded-full border-none bg-[#B6FFD7]/40 text-[#465E8A] font-mono text-xs cursor-pointer transition-colors hover:bg-[#B6FFD7]/60"
@@ -132,7 +123,6 @@ const router = useRouter()
 const query = ref('')
 const selectedInterests = ref<string[]>([])
 const selectedCities = ref<string[]>([])
-const selectedCountries = ref<string[]>([])
 const filtersOpen = ref(false)
 const viewMode = ref<'grid' | 'list'>('grid')
 
@@ -141,11 +131,10 @@ const { results, loading, hasSearched, searchProfiles } = useProfileSearch({
   query,
   interests: selectedInterests,
   cities: selectedCities,
-  countries: selectedCountries,
 })
 
 const activeFilterCount = computed(() =>
-  selectedInterests.value.length + selectedCities.value.length + selectedCountries.value.length
+  selectedInterests.value.length + selectedCities.value.length
 )
 
 function removeFilter(arr: string[], value: string) {
@@ -162,7 +151,7 @@ function onSubmit() {
   router.replace({ path: '/explore', query: { q: query.value?.trim() || '' } })
 }
 
-watch([selectedInterests, selectedCities, selectedCountries], () => {
+watch([selectedInterests, selectedCities], () => {
   searchProfiles()
 }, { deep: true })
 

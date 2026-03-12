@@ -28,6 +28,12 @@ export const useAuthStore = defineStore('auth', () => {
     path: '/',
   })
 
+  const refreshTokenCookie = useCookie<string | null>('refresh-token', {
+    maxAge: 60 * 60 * 24 * 30,
+    sameSite: 'lax',
+    path: '/',
+  })
+
   const isLoggedIn = computed(() => !!tokenCookie.value)
 
   function getToken(): string | null {
@@ -38,8 +44,37 @@ export const useAuthStore = defineStore('auth', () => {
     tokenCookie.value = value
   }
 
+  function getRefreshToken(): string | null {
+    return refreshTokenCookie.value ?? null
+  }
+
+  function setRefreshToken(value: string): void {
+    refreshTokenCookie.value = value
+  }
+
   function logout(): void {
     tokenCookie.value = null
+    refreshTokenCookie.value = null
+  }
+
+  async function refreshAccessToken(): Promise<string | null> {
+    const rt = getRefreshToken()
+    if (!rt) return null
+    try {
+      const data = await $fetch<{ token: string; refreshToken: string }>('/api/auth/refresh', {
+        method: 'POST',
+        body: { refreshToken: rt },
+      })
+      if (data.token) {
+        setToken(data.token)
+        setRefreshToken(data.refreshToken)
+        return data.token
+      }
+      return null
+    } catch {
+      logout()
+      return null
+    }
   }
 
   async function login(credentials: LoginCredentials): Promise<AuthResult> {
@@ -54,6 +89,8 @@ export const useAuthStore = defineStore('auth', () => {
       const t = data.token ?? data.access_token ?? data.accessToken
       if (t) {
         setToken(t)
+        const rt = data.refreshToken ?? data.refresh_token
+        if (rt) setRefreshToken(rt)
         return { success: true, token: t }
       }
       return { success: false, error: 'Réponse invalide du serveur.' }
@@ -83,6 +120,8 @@ export const useAuthStore = defineStore('auth', () => {
       const t = data.token ?? data.access_token ?? data.accessToken
       if (t) {
         setToken(t)
+        const rt = data.refreshToken ?? data.refresh_token
+        if (rt) setRefreshToken(rt)
         return { success: true, token: t }
       }
       return { success: true }
@@ -96,6 +135,9 @@ export const useAuthStore = defineStore('auth', () => {
     isLoggedIn,
     getToken,
     setToken,
+    getRefreshToken,
+    setRefreshToken,
+    refreshAccessToken,
     logout,
     login,
     signup,
