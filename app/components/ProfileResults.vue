@@ -137,8 +137,14 @@ function avatarUrl(profile: any): string {
 <style scoped>
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 0.65rem;
+}
+
+@media (min-width: 480px) {
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 640px) {
