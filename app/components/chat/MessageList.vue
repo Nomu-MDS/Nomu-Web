@@ -130,7 +130,7 @@ defineExpose({ scrollToBottom })
   align-items: center;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.5;
   text-align: center;
   gap: 0.25rem;

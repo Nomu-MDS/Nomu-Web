@@ -22,7 +22,7 @@ const label = computed(() => {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-size: 0.7rem;
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.5;
   padding: 0.75rem 0;
 }

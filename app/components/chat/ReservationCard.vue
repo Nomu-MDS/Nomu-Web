@@ -118,7 +118,7 @@ function formatPrice(price: number | string) {
 }
 .resa-bubble-card {
   background: #EFEFED;
-  border: 1.5px solid #465E8A;
+  border: 1.5px solid #07172e;
   border-radius: 1.5rem;
   overflow: hidden;
 }
@@ -143,7 +143,7 @@ function formatPrice(price: number | string) {
 /* Offer block */
 .resa-bubble-offer {
   margin: 0 0.85rem;
-  background: #465E8A;
+  background: #07172e;
   border-radius: 1rem;
   padding: 0.9rem 1rem;
 }
@@ -207,14 +207,14 @@ function formatPrice(price: number | string) {
 }
 .resa-bubble-btn--decline {
   background: #E4DBCB;
-  color: #465E8A;
+  color: #07172e;
   border: 1.5px solid rgba(70, 94, 138, 0.2);
 }
 .resa-bubble-btn--decline:hover:not(:disabled) {
   background: #d9ceba;
 }
 .resa-bubble-btn--accept {
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
 }
 .resa-bubble-btn--accept:hover:not(:disabled) {
@@ -233,7 +233,7 @@ function formatPrice(price: number | string) {
   font-weight: 700;
 }
 .resa-bubble-status--pending {
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.5;
 }
 .resa-bubble-status--accepted {

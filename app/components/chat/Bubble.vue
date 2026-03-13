@@ -74,7 +74,7 @@ const formattedTime = computed(() =>
 .chat-bubble-status {
   font-size: 0.65rem;
   opacity: 0.6;
-  color: #465E8A;
+  color: #07172e;
 }
 .chat-bubble-attachment {
   max-width: 200px;

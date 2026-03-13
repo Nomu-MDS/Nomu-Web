@@ -172,7 +172,7 @@ async function submit() {
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
-  color: #465E8A;
+  color: #07172e;
 }
 
 .auth-input {
@@ -192,7 +192,7 @@ async function submit() {
 
 .auth-input:focus {
   outline: none;
-  border-color: #465E8A;
+  border-color: #07172e;
   box-shadow: 0 0 0 3px rgba(70, 94, 138, 0.15);
 }
 
@@ -203,7 +203,7 @@ async function submit() {
   font-size: 1rem;
   padding: 0.875rem 1.5rem;
   border-radius: 9999px;
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -239,13 +239,13 @@ async function submit() {
 .auth-footer {
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
-  color: #465E8A;
+  color: #07172e;
   margin: 1.5rem 0 0;
   text-align: center;
 }
 
 .auth-link {
-  color: #465E8A;
+  color: #07172e;
   font-weight: 700;
   text-decoration: underline;
 }
@@ -291,7 +291,7 @@ async function submit() {
   margin-bottom: 1rem;
 }
 .auth-google-btn:hover {
-  border-color: #465E8A;
+  border-color: #07172e;
   box-shadow: 0 0 0 3px rgba(70, 94, 138, 0.1);
 }
 </style>

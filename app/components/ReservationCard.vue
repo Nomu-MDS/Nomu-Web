@@ -109,7 +109,7 @@ function formatPrice(price: number | string) {
 .conv-link {
   font-family: 'Poppins', sans-serif;
   font-size: 0.72rem;
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.6;
   text-decoration: none;
   transition: opacity 0.15s;
@@ -156,7 +156,7 @@ function formatPrice(price: number | string) {
   font-size: 0.78rem;
   color: rgba(70, 94, 138, 0.7);
 }
-.meta-item svg { flex-shrink: 0; color: #465E8A; opacity: 0.6; }
+.meta-item svg { flex-shrink: 0; color: #07172e; opacity: 0.6; }
 .meta-price { color: #0E224A; font-weight: 600; }
 .meta-price svg { opacity: 1; }
 
@@ -173,7 +173,7 @@ function formatPrice(price: number | string) {
 }
 .btn-decline {
   background: rgba(70, 94, 138, 0.1);
-  color: #465E8A;
+  color: #07172e;
   border: 1.5px solid rgba(70, 94, 138, 0.2);
 }
 .btn-decline:hover { background: rgba(70, 94, 138, 0.18); }

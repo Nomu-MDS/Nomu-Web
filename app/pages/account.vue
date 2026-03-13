@@ -101,7 +101,7 @@
 
         <button @click="startEdit" class="edit-btn">Éditer mon profil</button>
 
-        <p class="space-mono-regular text-sm text-[#465E8A] opacity-75">
+        <p class="space-mono-regular text-sm text-[#07172e] opacity-75">
           Compte créé le {{ formatDate(me.createdAt) }}
         </p>
       </div>
@@ -201,7 +201,7 @@
       <div v-if="showBioPrompt" class="bio-modal-backdrop" @click.self="dismissBioPrompt">
         <div class="bio-modal-sheet">
           <div class="bio-modal-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#465E8A">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#07172e">
               <path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
             </svg>
           </div>
@@ -411,7 +411,7 @@ onMounted(async () => {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1.125rem;
-  color: #465E8A;
+  color: #07172e;
   margin: 0 0 1rem;
 }
 .account-grid {
@@ -431,13 +431,13 @@ onMounted(async () => {
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.85;
 }
 .account-field-value {
   font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
-  color: #465E8A;
+  color: #07172e;
 }
 .account-error {
   font-family: 'Poppins', sans-serif;
@@ -447,13 +447,13 @@ onMounted(async () => {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1.35rem;
-  color: #465E8A;
+  color: #07172e;
   margin: 0;
 }
 .account-email {
   font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.6;
   margin: 0.25rem 0 0;
 }
@@ -463,7 +463,7 @@ onMounted(async () => {
   gap: 0.5rem;
 }
 .account-interest-badge {
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
@@ -474,9 +474,9 @@ onMounted(async () => {
   width: 100%;
   padding: 0.875rem;
   border-radius: 9999px;
-  border: 2px solid #465E8A;
+  border: 2px solid #07172e;
   background: #fff;
-  color: #465E8A;
+  color: #07172e;
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1rem;
@@ -484,7 +484,7 @@ onMounted(async () => {
   transition: all 0.2s;
 }
 .edit-btn:hover {
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
 }
 .logout-btn {
@@ -539,7 +539,7 @@ onMounted(async () => {
 .avatar-upload-hint {
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
-  color: #465E8A;
+  color: #07172e;
   font-weight: 600;
 }
 .hidden {
@@ -565,7 +565,7 @@ onMounted(async () => {
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.85;
 }
 .edit-input {
@@ -574,12 +574,12 @@ onMounted(async () => {
   border-radius: 0.75rem;
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
-  color: #465E8A;
+  color: #07172e;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .edit-input:focus {
   outline: none;
-  border-color: #465E8A;
+  border-color: #07172e;
   box-shadow: 0 0 0 3px rgba(70, 94, 138, 0.15);
 }
 .edit-textarea {
@@ -588,13 +588,13 @@ onMounted(async () => {
   border-radius: 0.75rem;
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
-  color: #465E8A;
+  color: #07172e;
   resize: vertical;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .edit-textarea:focus {
   outline: none;
-  border-color: #465E8A;
+  border-color: #07172e;
   box-shadow: 0 0 0 3px rgba(70, 94, 138, 0.15);
 }
 .edit-check-label {
@@ -603,13 +603,13 @@ onMounted(async () => {
   gap: 0.5rem;
   font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
-  color: #465E8A;
+  color: #07172e;
   cursor: pointer;
 }
 .edit-checkbox {
   width: 1.1rem;
   height: 1.1rem;
-  accent-color: #465E8A;
+  accent-color: #07172e;
 }
 .edit-interests {
   display: flex;
@@ -621,7 +621,7 @@ onMounted(async () => {
   border-radius: 9999px;
   border: 1.5px solid rgba(70, 94, 138, 0.25);
   background: #fff;
-  color: #465E8A;
+  color: #07172e;
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   cursor: pointer;
@@ -631,9 +631,9 @@ onMounted(async () => {
   background: #f5f3ee;
 }
 .edit-interest-badge--active {
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
-  border-color: #465E8A;
+  border-color: #07172e;
 }
 .edit-interest-badge--active:hover {
   background: #3a4666;
@@ -647,9 +647,9 @@ onMounted(async () => {
   flex: 1;
   padding: 0.75rem;
   border-radius: 9999px;
-  border: 2px solid #465E8A;
+  border: 2px solid #07172e;
   background: #fff;
-  color: #465E8A;
+  color: #07172e;
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 0.95rem;
@@ -664,7 +664,7 @@ onMounted(async () => {
   padding: 0.75rem;
   border-radius: 9999px;
   border: none;
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
   font-family: 'roca', sans-serif;
   font-weight: 700;
@@ -737,7 +737,7 @@ onMounted(async () => {
 .bio-modal-body {
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
-  color: #465E8A;
+  color: #07172e;
   line-height: 1.55;
   margin: 0 0 1.5rem;
 }
@@ -745,7 +745,7 @@ onMounted(async () => {
   width: 100%;
   padding: 0.875rem;
   border-radius: 9999px;
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
   border: none;
   font-family: 'roca', sans-serif;
@@ -763,7 +763,7 @@ onMounted(async () => {
   border: none;
   font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
-  color: #465E8A;
+  color: #07172e;
   opacity: 0.7;
   cursor: pointer;
   padding: 0.25rem;

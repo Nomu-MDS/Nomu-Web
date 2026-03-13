@@ -25,7 +25,7 @@
             <div class="avatar-circle">
               <img v-if="avatarUrl" :src="avatarUrl" alt="Photo de profil" class="avatar-img" />
               <span v-else class="avatar-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="#465E8A" opacity="0.4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="#07172e" opacity="0.4">
                   <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
                 </svg>
               </span>
@@ -217,14 +217,14 @@ async function save() {
 }
 .progress-fill {
   height: 100%;
-  background: #465E8A;
+  background: #07172e;
   border-radius: 9999px;
   transition: width 0.3s ease;
 }
 .progress-label {
   font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
-  color: #465E8A;
+  color: #07172e;
   white-space: nowrap;
 }
 
@@ -310,7 +310,7 @@ async function save() {
 .avatar-hint {
   font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
-  color: #465E8A;
+  color: #07172e;
   font-weight: 600;
 }
 .avatar-google-hint {
@@ -333,17 +333,17 @@ async function save() {
   border-radius: 9999px;
   border: 1.5px solid rgba(70, 94, 138, 0.25);
   background: #fff;
-  color: #465E8A;
+  color: #07172e;
   font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.15s;
 }
-.interest-badge:hover { border-color: #465E8A; }
+.interest-badge:hover { border-color: #07172e; }
 .interest-badge--active {
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
-  border-color: #465E8A;
+  border-color: #07172e;
 }
 
 /* Actions */
@@ -360,16 +360,16 @@ async function save() {
   padding: 0.75rem 1.25rem;
   font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
-  color: #465E8A;
+  color: #07172e;
   cursor: pointer;
   transition: border-color 0.2s;
 }
-.onboarding-skip:hover { border-color: #465E8A; }
+.onboarding-skip:hover { border-color: #07172e; }
 .onboarding-submit {
   flex: 1;
   padding: 0.875rem;
   border-radius: 9999px;
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
   border: none;
   font-family: 'roca', sans-serif;
@@ -389,7 +389,7 @@ async function save() {
   width: 1.25rem;
   height: 1.25rem;
   border: 2px solid rgba(70, 94, 138, 0.3);
-  border-top-color: #465E8A;
+  border-top-color: #07172e;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   display: inline-block;

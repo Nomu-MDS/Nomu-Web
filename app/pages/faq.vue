@@ -3,14 +3,14 @@
     <!-- Header -->
     <section class="pt-10 pb-8">
       <div class="w-full max-w-[95vw] 2xl:max-w-[60vw] mx-auto px-6 sm:px-10">
-        <span class="inline-flex items-center gap-2 font-mono text-[0.65rem] font-bold tracking-[0.1em] uppercase text-[#465E8A]/60 mb-3">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#465E8A]/40 inline-block" />
+        <span class="inline-flex items-center gap-2 font-mono text-[0.65rem] font-bold tracking-[0.1em] uppercase text-[#07172e]/60 mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#07172e]/40 inline-block" />
           Centre d'aide
         </span>
         <h1 class="font-[roca] font-bold text-[2.25rem] text-[#0E224A] mb-1" style="letter-spacing:-0.04em;">
           Questions fréquentes
         </h1>
-        <p class="font-mono text-sm text-[#465E8A] opacity-70">Tout ce que tu dois savoir sur Nomu.</p>
+        <p class="font-mono text-sm text-[#07172e] opacity-70">Tout ce que tu dois savoir sur Nomu.</p>
       </div>
     </section>
 
@@ -56,10 +56,10 @@
         <!-- Still need help -->
         <div class="mt-12 bg-[#F0EDE6] rounded-2xl p-8 text-center">
           <p class="font-[roca] font-bold text-[#0E224A] text-lg mb-1">Tu n'as pas trouvé ta réponse ?</p>
-          <p class="font-mono text-sm text-[#465E8A]/70 mb-5">Notre équipe est disponible pour t'aider.</p>
+          <p class="font-mono text-sm text-[#07172e]/70 mb-5">Notre équipe est disponible pour t'aider.</p>
           <a
             href="mailto:hello@nomu.app"
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#465E8A] text-white font-mono text-sm font-bold no-underline hover:bg-[#3a4e6e] transition-colors"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#07172e] text-white font-mono text-sm font-bold no-underline hover:bg-[#3a4e6e] transition-colors"
           >
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -244,7 +244,7 @@ function toggle(key: string) {
 .faq-chevron {
   width: 1rem;
   height: 1rem;
-  color: #465E8A;
+  color: #07172e;
   flex-shrink: 0;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -273,7 +273,7 @@ function toggle(key: string) {
   font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   line-height: 1.72;
-  color: #465E8A;
+  color: #07172e;
   margin: 0;
   border-top: 1px solid rgba(70, 94, 138, 0.08);
   padding-top: 0.85rem;
