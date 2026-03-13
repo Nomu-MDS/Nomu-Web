@@ -151,9 +151,19 @@ function onSubmit() {
   router.replace({ path: '/explore', query: { q: query.value?.trim() || '' } })
 }
 
+// Filtres → recherche immédiate
 watch([selectedInterests, selectedCities], () => {
   searchProfiles()
 }, { deep: true })
+
+// Saisie libre → live search debounced 400ms (skip 1 char, immédiat si vide)
+let _searchTimer: ReturnType<typeof setTimeout> | null = null
+watch(query, (val) => {
+  if (val.length === 1) return
+  if (_searchTimer) clearTimeout(_searchTimer)
+  // Si le query est vidé → For You immédiat, sinon debounce
+  _searchTimer = setTimeout(searchProfiles, val.length === 0 ? 0 : 400)
+})
 
 onMounted(async () => {
   await fetchInterests()
@@ -161,6 +171,7 @@ onMounted(async () => {
   searchProfiles()
 })
 
+// Navigation avec ?q= dans l'URL (lien depuis une autre page)
 watch(() => route.query.q, () => {
   syncQueryFromRoute()
   searchProfiles()
