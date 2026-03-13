@@ -50,7 +50,7 @@ const initials = computed(() => {
   border: 2px solid rgba(70, 94, 138, 0.15);
 }
 .user-avatar--initials {
-  background: #465E8A;
+  background: #07172e;
   color: #fff;
   display: flex;
   align-items: center;

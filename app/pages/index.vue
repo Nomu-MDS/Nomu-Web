@@ -104,7 +104,7 @@
 
             <div
               ref="float2"
-              class="opacity-0 bg-[rgba(255,106,87,0.93)] backdrop-blur-sm px-4 py-2.5 rounded-full self-end shadow-xl"
+              class="opacity-0 bg-[#AF3437] flex backdrop-blur-sm px-4 py-2.5 rounded-full self-end shadow-xl"
             >
               <span class="font-space text-white text-[0.72rem] font-bold"
                 >Escalade · Hanoï</span
@@ -172,15 +172,15 @@
          SEARCH BAR — superposée bas du hero
     ══════════════════════════════════════ -->
     <div class="relative z-20 -mt-10 sm:-mt-14 px-5 sm:px-10 mb-4">
-      <form @submit.prevent="searchProfiles" class="max-w-[700px] mx-auto bg-white/96 backdrop-blur-md rounded-2xl shadow-[0_16px_56px_rgba(14,34,74,0.22)] p-2.5 flex gap-2 items-center">
+      <form @submit.prevent="searchProfiles" class="max-w-[700px] mx-auto bg-white/96 backdrop-blur-md rounded-2xl shadow-[0_16px_56px_rgba(14,34,74,0.22)] p-2.5 flex flex-col sm:flex-row gap-2">
         <div class="flex-1 flex items-center gap-3 px-3 py-1">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-navy/35 shrink-0">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
           </svg>
           <input v-model="query" type="search" class="flex-1 border-none bg-transparent font-space text-[0.9rem] text-navy outline-none placeholder:text-navy/35" placeholder="Activité, ville, passion…" />
         </div>
-        <button type="submit" class="inline-flex items-center gap-2 px-4 sm:px-6 py-3 rounded-xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] shrink-0">
-          <span class="search-btn-text">Rechercher</span>
+        <button type="submit" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)]">
+          Rechercher
           <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg>
         </button>
       </form>
@@ -810,7 +810,7 @@
               class="font-roca font-bold text-cream leading-[1.05] tracking-[-0.03em] mb-5"
               style="font-size: clamp(1.9rem, 3vw, 2.8rem)"
             >
-              Vis des aventures<br /><em class="not-italic text-blue"
+              Vis des aventures<br /><em class="not-italic text-coral"
                 >vraiment locales</em
               >
             </h2>
@@ -933,7 +933,7 @@
             class="font-roca font-bold text-cream tracking-[-0.04em] leading-[1.06] mb-5"
             style="font-size: clamp(1.9rem, 4vw, 3.2rem)"
           >
-            Explorez les<br /><em class="not-italic text-blue">passionnés</em>
+            Explorez les<br /><em class="not-italic text-coral">passionnés</em>
             locaux
           </h2>
           <p
@@ -977,7 +977,7 @@
             />
             <div class="absolute bottom-4 left-4">
               <span
-                class="bg-[rgba(255,106,87,0.9)] text-white font-space text-[0.65rem] font-bold px-3 py-1.5 rounded-full shadow-lg"
+                class="bg-[#AF3437] text-white font-space text-[0.65rem] font-bold px-3 py-1.5 rounded-full shadow-lg"
                 >Escalade &amp; Canyoning</span
               >
             </div>
@@ -1104,7 +1104,7 @@
               />
               <span
                 v-if="firstInterest(profile)"
-                class="absolute top-2 left-2 bg-[rgba(255,106,87,0.9)] text-white font-space text-[0.57rem] font-bold px-2 py-0.5 rounded-full truncate max-w-[calc(100%-1rem)]"
+                class="absolute top-2 left-2 bg-[#AF3437] text-white font-space text-[0.57rem] font-bold px-2 py-0.5 rounded-full truncate max-w-[calc(100%-1rem)]"
                 >{{ firstInterest(profile) }}</span
               >
               <div class="absolute bottom-0 left-0 right-0 px-3 pb-3">
@@ -1137,7 +1137,7 @@
               />
               <span
                 v-if="firstInterest(profile)"
-                class="absolute top-2 left-2 bg-[rgba(255,106,87,0.9)] text-white font-space text-[0.57rem] font-bold px-2 py-0.5 rounded-full truncate max-w-[calc(100%-1rem)]"
+                class="absolute top-2 left-2 bg-[#AF3437] text-white font-space text-[0.57rem] font-bold px-2 py-0.5 rounded-full truncate max-w-[calc(100%-1rem)]"
                 >{{ firstInterest(profile) }}</span
               >
               <div class="absolute bottom-0 left-0 right-0 px-3 pb-3">
@@ -1166,7 +1166,7 @@
         <!-- Search bar inside profiles section -->
         <form
           @submit.prevent="searchProfiles"
-          class="flex gap-2 mt-8 max-w-[520px] mx-auto"
+          class="flex flex-col sm:flex-row gap-2 mt-8 max-w-[520px] mx-auto"
         >
           <div
             class="flex-1 flex items-center gap-3 bg-white border border-navy/15 rounded-2xl px-5 py-3.5 shadow-[0_2px_8px_rgba(14,34,74,0.06)] focus-within:border-navy/40 transition-colors"
@@ -1194,9 +1194,9 @@
           </div>
           <button
             type="submit"
-            class="inline-flex items-center gap-2 px-4 sm:px-5 py-3.5 rounded-2xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] shrink-0"
+            class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)]"
           >
-            <span class="search-btn-text">Rechercher</span>
+            Rechercher
             <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg>
           </button>
         </form>
