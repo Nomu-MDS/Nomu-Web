@@ -5,8 +5,7 @@
     ══════════════════════════════════════ -->
     <section class="px-4 py-4 sm:px-5 sm:py-5">
       <div
-        class="relative rounded-[20px] sm:rounded-[28px] overflow-hidden"
-        style="min-height: 88vh"
+        class="relative rounded-[20px] sm:rounded-[28px] overflow-hidden hero-card"
       >
         <img
           src="/img/AdobeStock_96991406.jpg"
@@ -23,8 +22,7 @@
 
         <!-- Content -->
         <div
-          class="relative z-10 flex flex-col justify-center p-8 sm:p-14"
-          style="min-height: 88vh; padding-bottom: 4rem"
+          class="relative z-10 flex flex-col justify-center p-8 sm:p-14 hero-content"
         >
           <!-- Bottom-left: title + CTA -->
           <div class="max-w-[520px]">
@@ -261,9 +259,17 @@
         />
       </div>
 
+      <!-- Mobile avatars row -->
+      <div class="flex sm:hidden justify-center items-center gap-4 px-6 pt-10 relative z-10">
+        <img :src="avatar('Nina')" class="w-12 h-12 rounded-full shadow-lg ring-2 ring-white" alt="" />
+        <img :src="avatar('Tom')" class="w-10 h-10 rounded-full shadow-md ring-2 ring-white" alt="" />
+        <img :src="avatar('Emma')" class="w-12 h-12 rounded-full shadow-lg ring-2 ring-white" alt="" />
+        <img :src="avatar('Lucia')" class="w-10 h-10 rounded-full shadow-md ring-2 ring-white" alt="" />
+      </div>
+
       <!-- Quote centrale -->
       <div
-        class="manifesto-quote max-w-[820px] mx-auto text-center px-6 py-28 relative z-10"
+        class="manifesto-quote max-w-[820px] mx-auto text-center px-6 py-16 sm:py-28 relative z-10"
       >
         <p
           class="font-roca font-bold text-navy tracking-[-0.03em] leading-[1.22]"
@@ -341,9 +347,18 @@
       >
         Des expériences à travers le monde
       </p>
+      <!-- Mobile: horizontal scroll -->
+      <div class="album-mobile-scroll sm:hidden">
+        <div v-for="(photo, i) in albumPhotos" :key="'m-' + i" class="album-mobile-card">
+          <img :src="photo.src" :alt="photo.caption" class="album-mobile-img" />
+          <span class="album-caption">{{ photo.caption }}</span>
+        </div>
+      </div>
+
+      <!-- Desktop: scattered GSAP layout -->
       <div
         ref="photoAlbum"
-        class="album-wrap mx-auto"
+        class="album-wrap mx-auto hidden sm:block"
         style="position: relative; height: 580px; max-width: 1060px"
       >
         <div
@@ -1711,9 +1726,45 @@ onUnmounted(() => {
   border-radius: 0 2px 2px 0;
 }
 
+/* ── Hero responsive height ── */
+.hero-card {
+  min-height: 88vh;
+}
+.hero-content {
+  min-height: 88vh;
+  padding-bottom: 4rem;
+}
+@media (max-width: 640px) {
+  .hero-card { min-height: 65vh; }
+  .hero-content { min-height: 65vh; }
+}
+
 /* ── Album photo ── */
 .album-wrap {
   user-select: none;
+}
+
+/* ── Album mobile scroll ── */
+.album-mobile-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.5rem 1.25rem 1rem;
+  scrollbar-width: none;
+}
+.album-mobile-scroll::-webkit-scrollbar { display: none; }
+.album-mobile-card {
+  flex-shrink: 0;
+  background: #fff;
+  padding: 10px 10px 28px;
+  box-shadow: 0 4px 18px rgba(14, 34, 74, 0.14);
+  width: 210px;
+}
+.album-mobile-img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
 }
 .album-photo {
   position: absolute;

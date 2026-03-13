@@ -5,6 +5,7 @@
         <img src="/img/Nomu_logo.svg" alt="Nomu" class="navbar-logo-img" />
       </NuxtLink>
 
+      <!-- Desktop links -->
       <div class="navbar-links">
         <NuxtLink to="/explore" class="navbar-link">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="navbar-icon">
@@ -41,12 +42,63 @@
           <NuxtLink to="/signup" class="navbar-btn">S'inscrire</NuxtLink>
         </template>
       </div>
+
+      <!-- Burger button (mobile only) -->
+      <button class="burger-btn" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-label="Menu">
+        <svg v-if="!mobileOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="burger-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="burger-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile dropdown menu -->
+    <div v-if="mobileOpen" class="mobile-menu">
+      <NuxtLink to="/explore" class="mobile-link" @click="mobileOpen = false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="mobile-link-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-2.247m0 0A8.966 8.966 0 013 12c0-1.777.514-3.434 1.401-4.831" />
+        </svg>
+        Explorer
+      </NuxtLink>
+
+      <NuxtLink to="/faq" class="mobile-link" @click="mobileOpen = false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="mobile-link-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+        </svg>
+        FAQ
+      </NuxtLink>
+
+      <template v-if="isLoggedIn">
+        <NuxtLink to="/messages" class="mobile-link" @click="mobileOpen = false">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="mobile-link-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+          </svg>
+          Messages
+        </NuxtLink>
+        <NuxtLink to="/reservations" class="mobile-link" @click="mobileOpen = false">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="mobile-link-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+          </svg>
+          Réservations
+        </NuxtLink>
+        <NuxtLink to="/account" class="mobile-link mobile-link--cta" @click="mobileOpen = false">Mon compte</NuxtLink>
+      </template>
+
+      <template v-else>
+        <NuxtLink to="/login" class="mobile-link" @click="mobileOpen = false">Connexion</NuxtLink>
+        <NuxtLink to="/signup" class="mobile-link mobile-link--cta" @click="mobileOpen = false">S'inscrire</NuxtLink>
+      </template>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
 const { isLoggedIn } = useAuth()
+const mobileOpen = ref(false)
+const route = useRoute()
+watch(() => route.path, () => { mobileOpen.value = false })
 </script>
 
 <style scoped>
@@ -56,7 +108,7 @@ const { isLoggedIn } = useAuth()
   box-shadow: 0 1px 3px rgba(70, 94, 138, 0.06);
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 50;
 }
 .navbar-inner {
   max-width: 80rem;
@@ -71,7 +123,7 @@ const { isLoggedIn } = useAuth()
   align-items: center;
 }
 .navbar-logo-img {
-  width: 6rem;
+  width: 7rem;
   height: auto;
 }
 .navbar-links {
@@ -91,9 +143,7 @@ const { isLoggedIn } = useAuth()
   padding: 0.35rem 0.5rem;
   border-radius: 0.5rem;
 }
-.navbar-link:hover {
-  opacity: 0.7;
-}
+.navbar-link:hover { opacity: 0.7; }
 .navbar-link.router-link-active {
   opacity: 1;
   font-weight: 700;
@@ -116,20 +166,71 @@ const { isLoggedIn } = useAuth()
   transition: background 0.2s;
   box-shadow: 0 2px 8px rgba(70, 94, 138, 0.15);
 }
-.navbar-btn:hover {
-  background: #3a4666;
+.navbar-btn:hover { background: #3a4666; }
+
+/* Burger button — hidden on desktop */
+.burger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border: none;
+  background: transparent;
+  color: #465E8A;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background 0.15s;
+}
+.burger-btn:hover { background: rgba(70, 94, 138, 0.1); }
+.burger-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-@media (max-width: 640px) {
-  .navbar-link span {
-    display: none;
-  }
-  .navbar-icon {
-    width: 1.4rem;
-    height: 1.4rem;
-  }
-  .navbar-links {
-    gap: 1rem;
-  }
+/* Mobile dropdown */
+.mobile-menu {
+  background: #E4DBCB;
+  border-top: 1px solid rgba(70, 94, 138, 0.12);
+  padding: 0.5rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #465E8A;
+  text-decoration: none;
+  padding: 0.75rem 0.75rem;
+  border-radius: 0.75rem;
+  transition: background 0.15s;
+}
+.mobile-link:hover { background: rgba(70, 94, 138, 0.07); }
+.mobile-link.router-link-active { font-weight: 700; }
+.mobile-link-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+  opacity: 0.65;
+}
+.mobile-link--cta {
+  margin-top: 0.5rem;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #465E8A;
+  color: #fff;
+  font-family: 'roca', sans-serif;
+  font-weight: 700;
+}
+.mobile-link--cta:hover { background: #3a4666; }
+.mobile-link--cta .mobile-link-icon { display: none; }
+
+/* Responsive breakpoint */
+@media (max-width: 768px) {
+  .navbar-links { display: none; }
+  .burger-btn { display: flex; }
 }
 </style>
