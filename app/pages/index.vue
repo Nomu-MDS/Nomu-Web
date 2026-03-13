@@ -179,8 +179,8 @@
           </svg>
           <input v-model="query" type="search" class="flex-1 border-none bg-transparent font-space text-[0.9rem] text-navy outline-none placeholder:text-navy/35" placeholder="Activité, ville, passion…" />
         </div>
-        <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] whitespace-nowrap">
-          Rechercher
+        <button type="submit" class="inline-flex items-center gap-2 px-4 sm:px-6 py-3 rounded-xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] shrink-0">
+          <span class="search-btn-text">Rechercher</span>
           <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg>
         </button>
       </form>
@@ -1194,9 +1194,9 @@
           </div>
           <button
             type="submit"
-            class="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] whitespace-nowrap"
+            class="inline-flex items-center gap-2 px-4 sm:px-5 py-3.5 rounded-2xl bg-navy text-cream font-roca font-bold text-[0.9rem] border-none cursor-pointer hover:bg-blue transition-colors shadow-[0_4px_16px_rgba(14,34,74,0.2)] shrink-0"
           >
-            Rechercher
+            <span class="search-btn-text">Rechercher</span>
             <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg>
           </button>
         </form>
@@ -1753,6 +1753,9 @@ onUnmounted(() => {
   scrollbar-width: none;
 }
 .album-mobile-scroll::-webkit-scrollbar { display: none; }
+@media (min-width: 640px) {
+  .album-mobile-scroll { display: none; }
+}
 .album-mobile-card {
   flex-shrink: 0;
   background: #fff;
@@ -1793,5 +1796,13 @@ onUnmounted(() => {
   font-size: 0.8rem;
   color: rgba(14, 34, 74, 0.8);
   letter-spacing: 0.03em;
+}
+
+/* ── Search button text (mobile: icon only) ── */
+.search-btn-text {
+  display: none;
+}
+@media (min-width: 480px) {
+  .search-btn-text { display: inline; }
 }
 </style>
