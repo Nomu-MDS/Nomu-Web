@@ -394,7 +394,7 @@
             style="font-size: clamp(1.8rem, 3.5vw, 2.9rem)"
           >
             Fatigué du tourisme de masse ?<br />
-            <em class="not-italic text-navy font-[70%]">Nomu rend les voyages humains</em>
+            <em class="not-italic text-navy text-[70%]">Nomu rend les voyages humains</em>
           </h2>
         </div>
 
