@@ -20,7 +20,7 @@
             <a href="https://github.com/Nomu-MDS" target="_blank" rel="noopener" aria-label="Télécharger sur l'App Store">
               <img src="/img/Download_on_the_App_Store_Badge_FRCA_RGB_blk.svg" alt="App Store" class="store-badge" />
             </a>
-            <a href="https://files.charlesremy.dev/nomu/application-54e08593-c67a-45bf-a8c0-54a0bc61510e.apk" target="_blank" rel="noopener" aria-label="Télécharger sur Google Play">
+            <a href="https://files.charlesremy.dev/nomu/application-946064ee-a7c3-4a5b-bcf0-7595b932650e.apk" target="_blank" rel="noopener" aria-label="Télécharger sur Google Play">
               <img src="/img/Google_Play_Store_badge_FR.svg" alt="Google Play" class="store-badge" />
             </a>
           </div>
