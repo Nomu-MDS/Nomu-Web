@@ -31,7 +31,7 @@ defineEmits(['toggle', 'clear'])
   border-radius: 9999px;
   border: 1.5px solid rgba(70, 94, 138, 0.25);
   background: #fff;
-  color: #07172e;
+  color: #465E8A;
   font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
   font-weight: 400;
@@ -42,9 +42,9 @@ defineEmits(['toggle', 'clear'])
   background: #f5f3ee;
 }
 .interest-badge--active {
-  background: #07172e;
+  background: #465E8A;
   color: #fff;
-  border-color: #07172e;
+  border-color: #465E8A;
 }
 .interest-badge--active:hover {
   background: #3a4666;
@@ -54,7 +54,7 @@ defineEmits(['toggle', 'clear'])
   border-radius: 9999px;
   border: none;
   background: transparent;
-  color: #07172e;
+  color: #465E8A;
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   opacity: 0.6;

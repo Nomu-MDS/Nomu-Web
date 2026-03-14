@@ -426,7 +426,7 @@ async function startConversation() {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: #07172e;
+  color: #465E8A;
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   text-decoration: none;
@@ -440,7 +440,7 @@ async function startConversation() {
   font-weight: 700;
   font-size: 1.6rem;
   letter-spacing: -0.5px;
-  color: #07172e;
+  color: #465E8A;
   margin: 0;
 }
 
@@ -602,7 +602,7 @@ async function startConversation() {
   font-family: 'Courier New', monospace;
   font-size: 12px;
   letter-spacing: 1.5px;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.85;
 }
 
@@ -843,7 +843,7 @@ async function startConversation() {
 .error-body {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
-  color: #07172e;
+  color: #465E8A;
   text-align: center;
   line-height: 1.5;
   margin: 0;
@@ -924,7 +924,7 @@ async function startConversation() {
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  color: #07172e;
+  color: #465E8A;
   letter-spacing: 0.3px;
   margin-bottom: -4px;
 }
@@ -943,7 +943,7 @@ async function startConversation() {
   box-sizing: border-box;
   resize: none;
 }
-.report-input:focus { border-color: #07172e; }
+.report-input:focus { border-color: #465E8A; }
 
 .report-select {
   appearance: none;
@@ -990,11 +990,11 @@ async function startConversation() {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #07172e;
+  color: #465E8A;
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s;
 }
-.report-btn-cancel:hover { border-color: #07172e; color: #0E224A; }
+.report-btn-cancel:hover { border-color: #465E8A; color: #0E224A; }
 
 .report-btn-submit {
   flex: 1;

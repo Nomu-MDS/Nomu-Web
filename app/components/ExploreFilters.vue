@@ -1,15 +1,15 @@
 <template>
   <aside class="explore-filters" :class="{ 'explore-filters--open': mobileOpen }">
-    <div v-if="mobileOpen" class="fixed inset-0 bg-[#07172e]/40 backdrop-blur-sm" @click="$emit('close')" />
+    <div v-if="mobileOpen" class="fixed inset-0 bg-[#465E8A]/40 backdrop-blur-sm" @click="$emit('close')" />
 
     <div class="explore-filters-panel bg-white rounded-2xl shadow-lg flex flex-col h-full overflow-hidden">
       <!-- Header -->
-      <div class="flex items-center gap-3 px-5 py-4 border-b border-[#07172e]/8 shrink-0">
-        <span class="font-[roca] font-bold text-lg text-[#07172e] flex-1">Filtres</span>
-        <button v-if="totalCount" @click="clearAll" class="font-mono text-xs text-[#07172e]/60 hover:opacity-100 underline cursor-pointer bg-transparent border-none">
+      <div class="flex items-center gap-3 px-5 py-4 border-b border-[#465E8A]/8 shrink-0">
+        <span class="font-[roca] font-bold text-lg text-[#465E8A] flex-1">Filtres</span>
+        <button v-if="totalCount" @click="clearAll" class="font-mono text-xs text-[#465E8A]/60 hover:opacity-100 underline cursor-pointer bg-transparent border-none">
           Tout effacer
         </button>
-        <button @click="$emit('close')" class="hidden max-[900px]:block text-[#07172e]/50 hover:opacity-100 bg-transparent border-none cursor-pointer">
+        <button @click="$emit('close')" class="hidden max-[900px]:block text-[#465E8A]/50 hover:opacity-100 bg-transparent border-none cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -20,17 +20,17 @@
       <div class="flex-1 overflow-y-auto px-5 py-2 space-y-4">
         <!-- Ville -->
         <div class="flex flex-col gap-2">
-          <label class="flex items-center gap-2 font-[roca] font-bold text-sm text-[#07172e]">
+          <label class="flex items-center gap-2 font-[roca] font-bold text-sm text-[#465E8A]">
             Ville
-            <span v-if="selectedCities.length" class="bg-[#07172e] text-white text-xs font-mono px-2 py-px rounded-full min-w-[1.2rem] text-center">{{ selectedCities.length }}</span>
+            <span v-if="selectedCities.length" class="bg-[#465E8A] text-white text-xs font-mono px-2 py-px rounded-full min-w-[1.2rem] text-center">{{ selectedCities.length }}</span>
           </label>
           <select
             v-model="selectedCities"
             multiple
-            class="w-full px-3 py-2 bg-[#E4DBCB]/30 border border-[#07172e]/10 rounded-lg font-mono text-sm text-[#07172e] transition-all focus:outline-none focus:ring-2 focus:ring-[#B6FFD7]/50 focus:border-[#07172e]/30"
+            class="w-full px-3 py-2 bg-[#E4DBCB]/30 border border-[#465E8A]/10 rounded-lg font-mono text-sm text-[#465E8A] transition-all focus:outline-none focus:ring-2 focus:ring-[#B6FFD7]/50 focus:border-[#465E8A]/30"
             size="5"
           >
-            <option v-for="city in cities" :key="city" :value="city" class="px-2 py-1.5 checked:bg-[#07172e] checked:text-white">
+            <option v-for="city in cities" :key="city" :value="city" class="px-2 py-1.5 checked:bg-[#465E8A] checked:text-white">
               {{ city }}
             </option>
           </select>
@@ -38,17 +38,17 @@
 
         <!-- Catégories -->
         <div class="flex flex-col gap-2">
-          <label class="flex items-center gap-2 font-[roca] font-bold text-sm text-[#07172e]">
+          <label class="flex items-center gap-2 font-[roca] font-bold text-sm text-[#465E8A]">
             Catégories
-            <span v-if="selectedInterests.length" class="bg-[#07172e] text-white text-xs font-mono px-2 py-px rounded-full min-w-[1.2rem] text-center">{{ selectedInterests.length }}</span>
+            <span v-if="selectedInterests.length" class="bg-[#465E8A] text-white text-xs font-mono px-2 py-px rounded-full min-w-[1.2rem] text-center">{{ selectedInterests.length }}</span>
           </label>
           <select
             v-model="selectedInterests"
             multiple
-            class="w-full px-3 py-2 bg-[#E4DBCB]/30 border border-[#07172e]/10 rounded-lg font-mono text-sm text-[#07172e] transition-all focus:outline-none focus:ring-2 focus:ring-[#B6FFD7]/50 focus:border-[#07172e]/30"
+            class="w-full px-3 py-2 bg-[#E4DBCB]/30 border border-[#465E8A]/10 rounded-lg font-mono text-sm text-[#465E8A] transition-all focus:outline-none focus:ring-2 focus:ring-[#B6FFD7]/50 focus:border-[#465E8A]/30"
             size="6"
           >
-            <option v-for="interest in interests" :key="interest.id" :value="interest.name" class="px-2 py-1.5 checked:bg-[#07172e] checked:text-white">
+            <option v-for="interest in interests" :key="interest.id" :value="interest.name" class="px-2 py-1.5 checked:bg-[#465E8A] checked:text-white">
               {{ interest.name }}
             </option>
           </select>
@@ -56,8 +56,8 @@
       </div>
 
       <!-- Footer (mobile only) -->
-      <div class="hidden max-[900px]:block px-5 py-4 border-t border-[#07172e]/8">
-        <button @click="$emit('close')" class="w-full py-3 rounded-full bg-[#07172e] hover:bg-[#3a4666] text-white font-[roca] font-bold text-sm transition-colors cursor-pointer border-none">
+      <div class="hidden max-[900px]:block px-5 py-4 border-t border-[#465E8A]/8">
+        <button @click="$emit('close')" class="w-full py-3 rounded-full bg-[#465E8A] hover:bg-[#3a4666] text-white font-[roca] font-bold text-sm transition-colors cursor-pointer border-none">
           Voir les résultats
         </button>
       </div>

@@ -1,8 +1,8 @@
 <template>
   <div :class="['chat-bubble-outer', sent ? 'chat-bubble-outer--sent' : 'chat-bubble-outer--received']">
-    <div :class="['chat-bubble', sent ? 'chat-bubble--sent' : 'chat-bubble--received']">
+    <div :class="['chat-bubble', !isImageOnly && (sent ? 'chat-bubble--sent' : 'chat-bubble--received')]">
       <img v-if="attachment" :src="attachment" alt="Image" class="chat-bubble-attachment" />
-      <p class="chat-bubble-text">{{ content }}</p>
+      <p v-if="content?.trim()" class="chat-bubble-text">{{ content }}</p>
     </div>
     <div class="chat-bubble-meta">
       <span class="chat-bubble-time">{{ formattedTime }}</span>
@@ -23,6 +23,8 @@ const props = defineProps<{
 const formattedTime = computed(() =>
   new Date(props.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 )
+
+const isImageOnly = computed(() => !!props.attachment && !props.content?.trim())
 </script>
 
 <style scoped>
@@ -74,13 +76,13 @@ const formattedTime = computed(() =>
 .chat-bubble-status {
   font-size: 0.65rem;
   opacity: 0.6;
-  color: #07172e;
+  color: #465E8A;
 }
 .chat-bubble-attachment {
   max-width: 200px;
   max-height: 150px;
   border-radius: 0.75rem;
-  margin-bottom: 0.35rem;
+  display: block;
   object-fit: cover;
 }
 </style>

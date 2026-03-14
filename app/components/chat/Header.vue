@@ -123,7 +123,7 @@ async function submitReport() {
   border-bottom: 1px solid rgba(70, 94, 138, 0.1);
 }
 .chat-header-back {
-  color: #07172e;
+  color: #465E8A;
   display: flex;
   align-items: center;
   opacity: 0.85;
@@ -144,7 +144,7 @@ async function submitReport() {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1rem;
-  color: #07172e;
+  color: #465E8A;
   letter-spacing: -0.02em;
 }
 
@@ -200,7 +200,7 @@ async function submitReport() {
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  color: #07172e;
+  color: #465E8A;
   letter-spacing: 0.3px;
   margin-bottom: -4px;
 }
@@ -218,7 +218,7 @@ async function submitReport() {
   box-sizing: border-box;
   resize: none;
 }
-.report-input:focus { border-color: #07172e; }
+.report-input:focus { border-color: #465E8A; }
 .report-select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2307172e' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
@@ -257,11 +257,11 @@ async function submitReport() {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #07172e;
+  color: #465E8A;
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s;
 }
-.report-btn-cancel:hover { border-color: #07172e; color: #0E224A; }
+.report-btn-cancel:hover { border-color: #465E8A; color: #0E224A; }
 .report-btn-submit {
   flex: 1;
   height: 46px;

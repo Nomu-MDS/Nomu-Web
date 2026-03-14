@@ -21,7 +21,7 @@ defineProps<{ name: string }>()
   padding: 0.5rem;
   font-family: 'Poppins', sans-serif;
   font-size: 0.78rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.6;
   font-style: italic;
 }
@@ -33,7 +33,7 @@ defineProps<{ name: string }>()
   width: 0.35rem;
   height: 0.35rem;
   border-radius: 50%;
-  background: #07172e;
+  background: #465E8A;
   opacity: 0.5;
   animation: typingBounce 1.2s ease-in-out infinite;
 }

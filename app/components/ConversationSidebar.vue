@@ -155,13 +155,13 @@ function formatRelativeTime(iso: string): string {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1rem;
-  color: #07172e;
+  color: #465E8A;
   margin: 0 0 0.35rem;
 }
 .sidebar-empty-text {
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.6;
   margin: 0 0 1rem;
 }
@@ -169,7 +169,7 @@ function formatRelativeTime(iso: string): string {
   display: inline-block;
   padding: 0.5rem 1.25rem;
   border-radius: 9999px;
-  background: #07172e;
+  background: #465E8A;
   color: #fff;
   font-family: 'roca', sans-serif;
   font-weight: 700;
@@ -225,7 +225,7 @@ function formatRelativeTime(iso: string): string {
 .sidebar-item-time {
   font-family: 'Poppins', sans-serif;
   font-size: 0.65rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.45;
   flex-shrink: 0;
 }
@@ -238,7 +238,7 @@ function formatRelativeTime(iso: string): string {
 .sidebar-item-preview {
   font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.55;
   white-space: nowrap;
   overflow: hidden;

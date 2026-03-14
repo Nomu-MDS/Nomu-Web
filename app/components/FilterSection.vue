@@ -1,14 +1,14 @@
 <template>
-  <div class="border-b border-[#07172e]/8">
+  <div class="border-b border-[#465E8A]/8">
     <button
-      class="flex items-center justify-between w-full py-3.5 bg-transparent border-none cursor-pointer text-[#07172e]"
+      class="flex items-center justify-between w-full py-3.5 bg-transparent border-none cursor-pointer text-[#465E8A]"
       @click="open = !open"
     >
       <span class="flex items-center gap-2 font-[roca] font-bold text-sm">
         {{ title }}
         <span
           v-if="count"
-          class="bg-[#07172e] text-white font-mono text-[0.65rem] font-bold px-2 py-px rounded-full min-w-[1.2rem] text-center"
+          class="bg-[#465E8A] text-white font-mono text-[0.65rem] font-bold px-2 py-px rounded-full min-w-[1.2rem] text-center"
         >
           {{ count }}
         </span>

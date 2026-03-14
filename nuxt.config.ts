@@ -34,7 +34,7 @@ export default defineNuxtConfig({
         }
       ],
       meta: [
-        { name: 'theme-color', content: '#07172e' },
+        { name: 'theme-color', content: '#465E8A' },
         { property: 'og:image', content: 'https://app.nomu.charlesremy.dev/img/Nomu_OG.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },

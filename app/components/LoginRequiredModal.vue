@@ -82,7 +82,7 @@ function goToSignup() {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1.5rem;
-  color: #07172e;
+  color: #465E8A;
   text-align: center;
   margin: 0 0 1rem;
 }
@@ -90,7 +90,7 @@ function goToSignup() {
 .login-modal-text {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  color: #07172e;
+  color: #465E8A;
   text-align: center;
   margin: 0 0 1.5rem;
   line-height: 1.5;
@@ -114,7 +114,7 @@ function goToSignup() {
 }
 
 .login-modal-btn-primary {
-  background: #07172e;
+  background: #465E8A;
   color: #fff;
   border: none;
   box-shadow: 0 2px 8px rgba(70, 94, 138, 0.3);
@@ -126,8 +126,8 @@ function goToSignup() {
 
 .login-modal-btn-secondary {
   background: #fff;
-  color: #07172e;
-  border: 2px solid #07172e;
+  color: #465E8A;
+  border: 2px solid #465E8A;
 }
 
 .login-modal-btn-secondary:hover {

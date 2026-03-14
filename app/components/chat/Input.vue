@@ -263,7 +263,7 @@ async function handleResaSubmit() {
 .chat-input {
   flex: 1;
   padding: 0.7rem 1rem;
-  border: 1.5px solid #07172e;
+  border: 1.5px solid #465E8A;
   border-radius: 9999px;
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
@@ -277,7 +277,7 @@ async function handleResaSubmit() {
   box-shadow: 0 0 0 3px rgba(70, 94, 138, 0.1);
 }
 .chat-input::placeholder {
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.4;
 }
 
@@ -287,7 +287,7 @@ async function handleResaSubmit() {
   height: 2.5rem;
   border-radius: 50%;
   border: none;
-  background: #07172e;
+  background: #465E8A;
   color: #E4DBCB;
   display: flex;
   align-items: center;
@@ -311,7 +311,7 @@ async function handleResaSubmit() {
   height: 2.75rem;
   border-radius: 50%;
   border: none;
-  background: #07172e;
+  background: #465E8A;
   color: #fff;
   display: flex;
   align-items: center;
@@ -355,7 +355,7 @@ async function handleResaSubmit() {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  background: linear-gradient(135deg, #07172e 0%, #5a74a0 100%);
+  background: linear-gradient(135deg, #465E8A 0%, #5a74a0 100%);
 }
 .resa-card-header-left {
   display: flex;
@@ -420,7 +420,7 @@ async function handleResaSubmit() {
   font-family: 'Poppins', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.55;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -431,14 +431,14 @@ async function handleResaSubmit() {
   border-radius: 0.6rem;
   font-family: 'Poppins', sans-serif;
   font-size: 0.82rem;
-  color: #07172e;
+  color: #465E8A;
   background: #f8f7f4;
   transition: border-color 0.2s, box-shadow 0.2s;
   min-width: 0;
 }
 .resa-input:focus {
   outline: none;
-  border-color: #07172e;
+  border-color: #465E8A;
   box-shadow: 0 0 0 3px rgba(70, 94, 138, 0.1);
   background: #fff;
 }
@@ -459,7 +459,7 @@ async function handleResaSubmit() {
   font-family: 'roca', sans-serif;
   font-weight: 700;
   font-size: 1rem;
-  color: #07172e;
+  color: #465E8A;
   pointer-events: none;
 }
 .resa-input--price {
@@ -477,7 +477,7 @@ async function handleResaSubmit() {
   gap: 0.4rem;
 }
 .resa-dates-arrow {
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.25;
   padding-bottom: 0.65rem;
   display: flex;
@@ -503,10 +503,10 @@ async function handleResaSubmit() {
   white-space: nowrap;
   overflow: hidden;
 }
-.resa-date-btn svg { flex-shrink: 0; color: #07172e; opacity: 0.5; }
+.resa-date-btn svg { flex-shrink: 0; color: #465E8A; opacity: 0.5; }
 .resa-date-btn.has-value { color: #0E224A; background: #fff; border-color: rgba(70,94,138,0.25); }
 .resa-date-btn.has-value svg { opacity: 0.8; }
-.resa-date-btn:hover { border-color: #07172e; background: #fff; }
+.resa-date-btn:hover { border-color: #465E8A; background: #fff; }
 
 /* v-calendar popover overrides */
 :deep(.vc-popover-content-wrapper) { z-index: 9999 !important; }
@@ -517,14 +517,14 @@ async function handleResaSubmit() {
   border: 1px solid rgba(70,94,138,0.12) !important;
 }
 :deep(.vc-title) { font-family: 'roca', sans-serif !important; font-weight: 700 !important; color: #0E224A !important; }
-:deep(.vc-time-header) { font-family: 'Poppins', sans-serif !important; font-size: 0.75rem !important; color: #07172e !important; }
+:deep(.vc-time-header) { font-family: 'Poppins', sans-serif !important; font-size: 0.75rem !important; color: #465E8A !important; }
 
 /* Submit button */
 .resa-submit {
   padding: 0.7rem;
   border-radius: 0.75rem;
   border: none;
-  background: linear-gradient(135deg, #07172e 0%, #5a74a0 100%);
+  background: linear-gradient(135deg, #465E8A 0%, #5a74a0 100%);
   color: #fff;
   font-family: 'roca', sans-serif;
   font-weight: 700;
