@@ -51,6 +51,7 @@
               <template v-if="getLastMessage(conv)">
                 <span v-if="getLastMessage(conv)!.user_id === myUserId" class="sidebar-item-you">Vous : </span>
                 <span v-if="getLastMessage(conv)!.attachment">📷 Photo</span>
+                <span v-else-if="isSystemMessage(getLastMessage(conv)!.content)">Activité proposée</span>
                 <span v-else>{{ getLastMessage(conv)!.content }}</span>
               </template>
               <span v-else class="sidebar-item-preview--empty">Nouvelle conversation</span>
@@ -82,7 +83,12 @@ function getOtherUser(conv: Conversation, myId: number): ConversationUser {
 
 function getLastMessage(conv: Conversation): Message | null {
   if (!conv.Messages?.length) return null
-  return conv.Messages[conv.Messages.length - 1]
+  return conv.Messages[conv.Messages.length - 1] ?? null
+}
+
+function isSystemMessage(content: string | undefined): boolean {
+  if (!content) return false
+  try { return !!JSON.parse(content).__type } catch { return false }
 }
 
 function getUnreadCount(conv: Conversation, myId: number): number {
