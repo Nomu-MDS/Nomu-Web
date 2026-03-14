@@ -22,7 +22,7 @@ onMounted(() => {
       const onboardingUrl = photo ? `/onboarding?photo=${encodeURIComponent(photo)}` : '/onboarding'
       navigateTo(onboardingUrl)
     } else {
-      navigateTo('/')
+      navigateTo('/explore')
     }
   } else {
     navigateTo('/login?error=google')

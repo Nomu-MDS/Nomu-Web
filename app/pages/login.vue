@@ -92,7 +92,7 @@ async function submit() {
   try {
     const result = await login({ email: email.value, password: password.value })
     if (result.success) {
-      await router.push('/')
+      await router.push('/explore')
     } else {
       error.value = result.error ?? 'Une erreur est survenue.'
     }
