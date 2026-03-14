@@ -38,7 +38,7 @@
         :to="`/messages/${conv.id}`"
         :class="['sidebar-item', { 'sidebar-item--active': activeId === conv.id }]"
       >
-        <UserAvatar :name="getOtherUser(conv, myUserId).name" size="md" />
+        <UserAvatar :name="getOtherUser(conv, myUserId).name" :image-url="getOtherUser(conv, myUserId).image_url ?? null" :user-id="getOtherUser(conv, myUserId).id" size="md" />
         <div class="sidebar-item-content">
           <div class="sidebar-item-top">
             <span class="sidebar-item-name">{{ getOtherUser(conv, myUserId).name }}</span>

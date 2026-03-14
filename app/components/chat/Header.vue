@@ -7,7 +7,7 @@
     </NuxtLink>
 
     <NuxtLink v-if="name" :to="userId ? `/profile/${userId}` : '#'" class="chat-header-info">
-      <UserAvatar :name="name" :image-url="imageUrl" size="sm" />
+      <UserAvatar :name="name" :image-url="imageUrl" :user-id="userId" size="sm" />
       <span class="chat-header-name">{{ name }}</span>
     </NuxtLink>
 
