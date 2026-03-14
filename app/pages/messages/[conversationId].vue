@@ -1,6 +1,6 @@
 <template>
   <div class="chat-page">
-    <ChatHeader :name="otherUser?.name" :user-id="otherUser?.id ?? null" />
+    <ChatHeader :name="otherUser?.name" :user-id="otherUser?.id ?? null" :image-url="otherUser?.image_url ?? null" />
 
     <div v-if="loading" class="chat-loading">
       <div class="w-full max-w-2xl mx-auto px-4 space-y-4">

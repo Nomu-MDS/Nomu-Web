@@ -65,6 +65,7 @@ export interface ConversationUser {
   id: number
   name: string
   email: string
+  image_url?: string | null
 }
 
 export interface Message {
