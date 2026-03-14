@@ -6,10 +6,10 @@
       </svg>
     </NuxtLink>
 
-    <div v-if="name" class="chat-header-info">
+    <NuxtLink v-if="name" :to="userId ? `/profile/${userId}` : '#'" class="chat-header-info">
       <UserAvatar :name="name" :image-url="imageUrl" size="sm" />
       <span class="chat-header-name">{{ name }}</span>
-    </div>
+    </NuxtLink>
 
     <button v-if="userId" class="chat-header-flag" @click="reportModal = true" title="Signaler cet utilisateur">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -137,6 +137,8 @@ async function submitReport() {
   align-items: center;
   gap: 0.6rem;
   flex: 1;
+  text-decoration: none;
+  cursor: pointer;
 }
 .chat-header-name {
   font-family: 'roca', sans-serif;
