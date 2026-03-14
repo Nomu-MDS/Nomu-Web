@@ -146,6 +146,13 @@ async function initChat() {
       if (msg) msg.read = data.read
     })
 
+    sock.on('reservation_updated', (data: { reservation: Reservation }) => {
+      const idx = reservations.value.findIndex(r => r.id === data.reservation.id)
+      if (idx !== -1) {
+        reservations.value[idx] = { ...reservations.value[idx], ...data.reservation }
+      }
+    })
+
     messages.value
       .filter(m => !m.read && m.user_id !== myUserId.value)
       .forEach(m => markMessageRead(m.id))
@@ -165,6 +172,7 @@ function cleanupSocket() {
     sock.off('new_message')
     sock.off('user_typing')
     sock.off('message_read_update')
+    sock.off('reservation_updated')
   }
   if (typingTimeout) clearTimeout(typingTimeout)
 }
@@ -177,6 +185,7 @@ watch(conversationId, (newId, oldId) => {
       sock.off('new_message')
       sock.off('user_typing')
       sock.off('message_read_update')
+      sock.off('reservation_updated')
     }
   }
   if (newId) initChat()
