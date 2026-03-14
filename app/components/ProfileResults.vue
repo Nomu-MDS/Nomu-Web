@@ -315,14 +315,14 @@ function avatarUrl(profile: any): string {
   gap: 0.2rem;
   font-family: 'Space Mono', monospace;
   font-size: 0.75rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.7;
 }
 
 .list-bio {
   font-family: 'Space Mono', monospace;
   font-size: 0.8rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.85;
   margin: 0;
   display: -webkit-box;
@@ -343,7 +343,7 @@ function avatarUrl(profile: any): string {
   font-family: 'Space Mono', monospace;
   font-size: 0.68rem;
   font-weight: 700;
-  color: #07172e;
+  color: #465E8A;
   background: rgba(182, 255, 215, 0.4);
   padding: 0.2rem 0.55rem;
   border-radius: 9999px;
@@ -353,7 +353,7 @@ function avatarUrl(profile: any): string {
 .list-interest-more {
   font-family: 'Space Mono', monospace;
   font-size: 0.68rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.5;
   padding: 0.2rem 0.3rem;
 }
@@ -362,13 +362,13 @@ function avatarUrl(profile: any): string {
 .results-empty {
   text-align: center;
   padding: 3rem 1rem;
-  color: #07172e;
+  color: #465E8A;
 }
 
 .results-empty-text {
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.6;
   margin: 0;
 }

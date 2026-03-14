@@ -6,21 +6,21 @@
         <h1 class="font-[roca] font-bold text-[2.25rem] text-[#0E224A] mb-1 tracking-tight" style="letter-spacing:-0.04em;">
           Explorer
         </h1>
-        <p class="font-mono text-sm text-[#07172e] mb-5 opacity-70">Trouvez des profils par intérêt ou ville</p>
+        <p class="font-mono text-sm text-[#465E8A] mb-5 opacity-70">Trouvez des profils par intérêt ou ville</p>
         <form @submit.prevent="onSubmit" class="flex gap-2 max-w-xl">
-          <div class="flex-1 flex items-center gap-2 bg-white rounded-full border border-[#07172e] px-4 py-2.5 transition-shadow focus-within:ring-2 focus-within:ring-[#07172e]/20">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#07172e" class="w-4 h-4 shrink-0 opacity-50">
+          <div class="flex-1 flex items-center gap-2 bg-white rounded-full border border-[#465E8A] px-4 py-2.5 transition-shadow focus-within:ring-2 focus-within:ring-[#465E8A]/20">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#465E8A" class="w-4 h-4 shrink-0 opacity-50">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
             </svg>
             <input
               v-model="query"
               type="search"
-              class="flex-1 border-none bg-transparent font-mono text-sm text-[#07172e] focus:outline-none placeholder:text-[#07172e]/40"
+              class="flex-1 border-none bg-transparent font-mono text-sm text-[#465E8A] focus:outline-none placeholder:text-[#465E8A]/40"
               placeholder="Yoga, Cuisine, Paris..."
               aria-label="Recherche de profils"
             />
           </div>
-          <button type="submit" class="px-5 py-2.5 rounded-full bg-[#07172e] text-white font-mono text-sm font-bold cursor-pointer transition-colors hover:bg-[#3a4e6e] border-none">
+          <button type="submit" class="px-5 py-2.5 rounded-full bg-[#465E8A] text-white font-mono text-sm font-bold cursor-pointer transition-colors hover:bg-[#3a4e6e] border-none">
             Chercher
           </button>
         </form>
@@ -36,7 +36,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
         </svg>
         Filtres
-        <span v-if="activeFilterCount" class="bg-[#07172e] text-white text-[0.65rem] font-bold px-1.5 py-px rounded-full min-w-[1.1rem] text-center">{{ activeFilterCount }}</span>
+        <span v-if="activeFilterCount" class="bg-[#465E8A] text-white text-[0.65rem] font-bold px-1.5 py-px rounded-full min-w-[1.1rem] text-center">{{ activeFilterCount }}</span>
       </button>
 
       <!-- Sidebar filters -->
@@ -56,7 +56,7 @@
               Résultats
               <span v-if="query" class="font-normal text-base opacity-70">pour « {{ query }} »</span>
             </h2>
-            <span v-if="hasSearched && !loading" class="font-mono text-xs text-[#07172e]/50 shrink-0">
+            <span v-if="hasSearched && !loading" class="font-mono text-xs text-[#465E8A]/50 shrink-0">
               {{ results.length }} profil{{ results.length !== 1 ? 's' : '' }}
             </span>
           </div>
@@ -87,7 +87,7 @@
           <button
             v-for="city in selectedCities"
             :key="'c-' + city"
-            class="inline-flex items-center gap-1 px-3 py-1 rounded-full border-none bg-[#07172e]/10 text-[#07172e] font-mono text-xs cursor-pointer transition-colors hover:bg-[#07172e]/18"
+            class="inline-flex items-center gap-1 px-3 py-1 rounded-full border-none bg-[#465E8A]/10 text-[#465E8A] font-mono text-xs cursor-pointer transition-colors hover:bg-[#465E8A]/18"
             @click="removeFilter(selectedCities, city)"
           >
             {{ city }} <span class="text-sm leading-none opacity-60">&times;</span>
@@ -95,7 +95,7 @@
           <button
             v-for="interest in selectedInterests"
             :key="'i-' + interest"
-            class="inline-flex items-center gap-1 px-3 py-1 rounded-full border-none bg-[#B6FFD7]/40 text-[#07172e] font-mono text-xs cursor-pointer transition-colors hover:bg-[#B6FFD7]/60"
+            class="inline-flex items-center gap-1 px-3 py-1 rounded-full border-none bg-[#B6FFD7]/40 text-[#465E8A] font-mono text-xs cursor-pointer transition-colors hover:bg-[#B6FFD7]/60"
             @click="removeFilter(selectedInterests, interest)"
           >
             {{ interest }} <span class="text-sm leading-none opacity-60">&times;</span>
@@ -196,7 +196,7 @@ watch(() => route.query.q, () => {
   border-radius: 9999px;
   border: 1.5px solid rgba(70, 94, 138, 0.2);
   background: #fff;
-  color: #07172e;
+  color: #465E8A;
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   cursor: pointer;
@@ -232,7 +232,7 @@ watch(() => route.query.q, () => {
   border-radius: 0.375rem;
   border: none;
   background: transparent;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.45;
   cursor: pointer;
   transition: opacity 0.15s, background 0.15s;

@@ -137,7 +137,7 @@ watch(() => route.path, () => { mobileOpen.value = false })
   gap: 0.35rem;
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
-  color: #07172e;
+  color: #465E8A;
   text-decoration: none;
   transition: opacity 0.2s;
   padding: 0.35rem 0.5rem;
@@ -157,7 +157,7 @@ watch(() => route.path, () => { mobileOpen.value = false })
 .navbar-btn {
   padding: 0.5rem 1.25rem;
   border-radius: 9999px;
-  background: #07172e;
+  background: #465E8A;
   color: #fff;
   font-family: 'roca', sans-serif;
   font-weight: 700;
@@ -176,7 +176,7 @@ watch(() => route.path, () => { mobileOpen.value = false })
   padding: 0.4rem;
   border: none;
   background: transparent;
-  color: #07172e;
+  color: #465E8A;
   cursor: pointer;
   border-radius: 0.5rem;
   transition: background 0.15s;
@@ -202,7 +202,7 @@ watch(() => route.path, () => { mobileOpen.value = false })
   gap: 0.65rem;
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
-  color: #07172e;
+  color: #465E8A;
   text-decoration: none;
   padding: 0.75rem 0.75rem;
   border-radius: 0.75rem;
@@ -220,7 +220,7 @@ watch(() => route.path, () => { mobileOpen.value = false })
   margin-top: 0.5rem;
   justify-content: center;
   border-radius: 9999px;
-  background: #07172e;
+  background: #465E8A;
   color: #fff;
   font-family: 'roca', sans-serif;
   font-weight: 700;

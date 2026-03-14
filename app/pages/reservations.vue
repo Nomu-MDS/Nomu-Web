@@ -262,7 +262,7 @@ const calendarAttrs = computed(() => {
   if (selectedDate.value) {
     attrs.push({
       highlight: {
-        style: { background: "#07172e" },
+        style: { background: "#465E8A" },
         contentStyle: { color: "#fff" },
       },
       dates: new Date(selectedDate.value + "T12:00:00"),
@@ -378,7 +378,7 @@ onMounted(async () => {
 .hero-sub {
   font-family: "Poppins", sans-serif;
   font-size: 0.85rem;
-  color: #07172e;
+  color: #465E8A;
   opacity: 0.7;
   margin: 0;
 }
@@ -420,16 +420,16 @@ onMounted(async () => {
   font-family: "Poppins", sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
-  color: #07172e;
+  color: #465E8A;
   cursor: pointer;
   transition: all 0.15s;
 }
 .filter-btn:hover {
-  border-color: #07172e;
+  border-color: #465E8A;
 }
 .filter-btn.active {
-  background: #07172e;
-  border-color: #07172e;
+  background: #465E8A;
+  border-color: #465E8A;
   color: #fff;
 }
 .filter-count {
@@ -441,7 +441,7 @@ onMounted(async () => {
 }
 .filter-btn:not(.active) .filter-count {
   background: rgba(70, 94, 138, 0.12);
-  color: #07172e;
+  color: #465E8A;
 }
 
 /* ── View toggle ─────────────────────────────────────────────────────────── */
@@ -467,7 +467,7 @@ onMounted(async () => {
   transition: all 0.15s;
 }
 .view-btn:hover {
-  color: #07172e;
+  color: #465E8A;
 }
 .view-btn.active {
   background: #fff;
@@ -498,11 +498,11 @@ onMounted(async () => {
   height: 32px;
   border: 1.5px solid rgba(70, 94, 138, 0.2) !important;
   background: #fff !important;
-  color: #07172e !important;
+  color: #465E8A !important;
 }
 :deep(.vc-arrow:hover) {
-  border-color: #07172e !important;
-  background: #07172e !important;
+  border-color: #465E8A !important;
+  background: #465E8A !important;
   color: #fff !important;
 }
 :deep(.vc-weekday) {
@@ -604,7 +604,7 @@ onMounted(async () => {
   border-radius: 50%;
   border: none;
   background: rgba(70, 94, 138, 0.1);
-  color: #07172e;
+  color: #465E8A;
   cursor: pointer;
   transition: background 0.15s;
 }
@@ -665,15 +665,15 @@ onMounted(async () => {
   margin-top: 1rem;
   padding: 8px 20px;
   border-radius: 999px;
-  border: 1.5px solid #07172e;
+  border: 1.5px solid #465E8A;
   background: transparent;
-  color: #07172e;
+  color: #465E8A;
   font-family: "Poppins", sans-serif;
   font-size: 0.85rem;
   cursor: pointer;
 }
 .btn-outline:hover {
-  background: #07172e;
+  background: #465E8A;
   color: #fff;
 }
 
