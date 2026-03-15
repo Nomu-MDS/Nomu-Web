@@ -25,7 +25,7 @@ export function useProfileSearch(filters: SearchFilters) {
       if (filters.query.value) params.append('q', filters.query.value)
       if (filters.interests.value.length) params.append('filterInterests', filters.interests.value.join(','))
       if (filters.cities.value.length) params.append('filterCity', filters.cities.value.join(','))
-      params.append('limit', '20')
+      params.append('limit', '50')
 
       const data = await get<{ hits: any[] }>(`/users/search?${params.toString()}`)
       // Ignorer si une recherche plus récente a été lancée entre-temps
