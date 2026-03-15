@@ -29,7 +29,7 @@
 
     <!-- White card: filters + results -->
     <div class="explore-white-card">
-    <div class="explore-content w-full max-w-[95vw] 2xl:max-w-[70vw] mx-auto p-6 flex gap-6 items-start">
+    <div class="explore-content w-full max-w-[95vw] 2xl:max-w-[80vw] mx-auto p-6 flex gap-6 items-start">
       <!-- Mobile filter toggle -->
       <button class="explore-filter-toggle" @click="filtersOpen = true">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
