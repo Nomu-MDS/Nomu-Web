@@ -2,7 +2,7 @@
   <aside class="explore-filters" :class="{ 'explore-filters--open': mobileOpen }">
     <div v-if="mobileOpen" class="fixed inset-0 bg-[#465E8A]/40 backdrop-blur-sm" @click="$emit('close')" />
 
-    <div class="explore-filters-panel bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden">
+    <div class="explore-filters-panel bg-white rounded-2xl shadow-lg flex flex-col h-full overflow-hidden">
       <!-- Header -->
       <div class="flex items-center gap-3 px-5 py-4 border-b border-[#465E8A]/8 shrink-0">
         <span class="font-[roca] font-bold text-lg text-[#465E8A] flex-1">Filtres</span>
@@ -101,12 +101,14 @@ function clearAll() {
 .explore-filters {
   width: 280px;
   flex-shrink: 0;
+  position: sticky;
+  top: 5rem;
+  align-self: flex-start;
+  max-height: calc(100vh - 5.5rem);
 }
 
 .explore-filters-panel {
-  position: sticky;
-  top: 5rem;
-  max-height: calc(100vh - 5.5rem);
+  max-height: inherit;
 }
 
 @media (max-width: 900px) {
