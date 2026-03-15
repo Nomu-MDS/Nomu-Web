@@ -402,116 +402,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-14">
           <!-- Étape 1 — Explorer -->
           <div class="how-step text-center">
-            <div class="phone-frame mx-auto mb-7">
-              <div class="phone-vol-up" />
-              <div class="phone-vol-down" />
-              <div class="phone-power" />
-              <div class="phone-screen">
-                <div class="phone-status">
-                  <span>9:41</span>
-                  <div class="phone-island" />
-                  <div class="flex items-center gap-1">
-                    <svg class="h-2 w-3" viewBox="0 0 12 8" fill="currentColor"><rect x="0" y="3" width="2" height="5" rx="0.4"/><rect x="3" y="2" width="2" height="6" rx="0.4"/><rect x="6" y="1" width="2" height="7" rx="0.4"/><rect x="9" y="0" width="2" height="8" rx="0.4" opacity="0.25"/></svg>
-                    <svg class="h-2.5 w-5" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="17" height="9" rx="2" stroke="currentColor" stroke-width="1"/><rect x="17.5" y="3" width="2" height="4" rx="1" fill="currentColor"/><rect x="1.5" y="1.5" width="11" height="7" rx="1.5" fill="currentColor"/></svg>
-                  </div>
-                </div>
-                <div class="px-3 pt-1 pb-2 bg-navy">
-                  <p
-                    class="font-space text-[0.48rem] text-cream/50 mb-1.5 text-center tracking-wider uppercase"
-                  >
-                    Explorer
-                  </p>
-                  <div
-                    class="bg-white/12 rounded-lg px-2.5 py-1.5 flex items-center gap-1.5"
-                  >
-                    <svg
-                      class="w-2.5 h-2.5 text-white/40 shrink-0"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-                      />
-                    </svg>
-                    <span class="font-space text-[0.5rem] text-white/40"
-                      >Yoga, Paris…</span
-                    >
-                  </div>
-                </div>
-                <div class="px-2.5 pt-2.5 space-y-1.5">
-                  <div
-                    class="flex items-center gap-2 bg-white rounded-xl p-2 shadow-sm"
-                  >
-                    <img
-                      :src="avatar('Léa')"
-                      class="w-7 h-7 rounded-full shrink-0"
-                      alt=""
-                    />
-                    <div class="flex-1 min-w-0">
-                      <p
-                        class="font-roca font-bold text-navy text-[0.65rem] leading-none"
-                      >
-                        Léa
-                      </p>
-                      <p class="font-space text-[0.5rem] text-blue">
-                        Yoga · Paris
-                      </p>
-                    </div>
-                    <span
-                      class="w-1.5 h-1.5 rounded-full bg-[#34d399] shrink-0"
-                    />
-                  </div>
-                  <div
-                    class="flex items-center gap-2 bg-white rounded-xl p-2 shadow-sm"
-                  >
-                    <img
-                      :src="avatar('Marc')"
-                      class="w-7 h-7 rounded-full shrink-0"
-                      alt=""
-                    />
-                    <div class="flex-1 min-w-0">
-                      <p
-                        class="font-roca font-bold text-navy text-[0.65rem] leading-none"
-                      >
-                        Marc
-                      </p>
-                      <p class="font-space text-[0.5rem] text-blue">
-                        Randonnée · Chamonix
-                      </p>
-                    </div>
-                    <span
-                      class="w-1.5 h-1.5 rounded-full bg-[#34d399] shrink-0"
-                    />
-                  </div>
-                  <div
-                    class="flex items-center gap-2 bg-white rounded-xl p-2 shadow-sm"
-                  >
-                    <img
-                      :src="avatar('Sofia')"
-                      class="w-7 h-7 rounded-full shrink-0"
-                      alt=""
-                    />
-                    <div class="flex-1 min-w-0">
-                      <p
-                        class="font-roca font-bold text-navy text-[0.65rem] leading-none"
-                      >
-                        Sofia
-                      </p>
-                      <p class="font-space text-[0.5rem] text-blue">
-                        Cuisine · Lyon
-                      </p>
-                    </div>
-                    <span
-                      class="w-1.5 h-1.5 rounded-full bg-navy/20 shrink-0"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <img src="/img/mockup/mobile-navigation-and-home.png" class="step-mockup mx-auto mb-7" alt="" />
             <h3 class="font-roca font-bold text-navy text-[1.08rem] xl:text-[1.2rem] mb-2">
               Trouve ton local
             </h3>
@@ -525,94 +416,7 @@
 
           <!-- Étape 2 — Discuter -->
           <div class="how-step text-center">
-            <div class="phone-frame mx-auto mb-7">
-              <div class="phone-vol-up" />
-              <div class="phone-vol-down" />
-              <div class="phone-power" />
-              <div class="phone-screen">
-                <div class="phone-status">
-                  <span>9:41</span>
-                  <div class="phone-island" />
-                  <div class="flex items-center gap-1">
-                    <svg class="h-2 w-3" viewBox="0 0 12 8" fill="currentColor"><rect x="0" y="3" width="2" height="5" rx="0.4"/><rect x="3" y="2" width="2" height="6" rx="0.4"/><rect x="6" y="1" width="2" height="7" rx="0.4"/><rect x="9" y="0" width="2" height="8" rx="0.4" opacity="0.25"/></svg>
-                    <svg class="h-2.5 w-5" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="17" height="9" rx="2" stroke="currentColor" stroke-width="1"/><rect x="17.5" y="3" width="2" height="4" rx="1" fill="currentColor"/><rect x="1.5" y="1.5" width="11" height="7" rx="1.5" fill="currentColor"/></svg>
-                  </div>
-                </div>
-                <div class="px-3 pt-1 pb-2 bg-navy flex items-center gap-2">
-                  <img
-                    :src="avatar('Marc')"
-                    class="w-6 h-6 rounded-full shrink-0"
-                    alt=""
-                  />
-                  <div>
-                    <p
-                      class="font-roca font-bold text-cream text-[0.6rem] leading-none"
-                    >
-                      Marc
-                    </p>
-                    <p class="font-space text-[0.44rem] text-cream/45">
-                      En ligne
-                    </p>
-                  </div>
-                </div>
-                <div class="px-2.5 pt-3 space-y-2">
-                  <div class="flex justify-start">
-                    <div
-                      class="bg-white rounded-xl rounded-tl-sm px-2.5 py-1.5 max-w-[80%] shadow-sm"
-                    >
-                      <p class="font-space text-[0.55rem] text-navy">
-                        Disponible le 15 mars ?
-                      </p>
-                    </div>
-                  </div>
-                  <div class="flex justify-end">
-                    <div
-                      class="bg-navy rounded-xl rounded-tr-sm px-2.5 py-1.5 max-w-[80%]"
-                    >
-                      <p class="font-space text-[0.55rem] text-cream">
-                        Oui, avec plaisir ! 🏔️
-                      </p>
-                    </div>
-                  </div>
-                  <div class="flex justify-start">
-                    <div
-                      class="bg-white rounded-xl rounded-tl-sm px-2.5 py-1.5 max-w-[80%] shadow-sm"
-                    >
-                      <p class="font-space text-[0.55rem] text-navy">
-                        Je t'envoie une résa 👍
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white rounded-xl p-2 shadow-sm"
-                    style="border: 1px solid rgba(14, 34, 74, 0.08)"
-                  >
-                    <p
-                      class="font-space text-[0.44rem] text-blue font-bold uppercase tracking-wide mb-1"
-                    >
-                      Proposition
-                    </p>
-                    <p class="font-roca font-bold text-navy text-[0.62rem]">
-                      Randonnée Mont-Blanc
-                    </p>
-                    <p class="font-space text-[0.48rem] text-navy/50">
-                      15 mars · 45€
-                    </p>
-                    <div class="flex gap-1 mt-1.5">
-                      <span
-                        class="flex-1 text-center bg-navy rounded-md py-1 font-space text-[0.44rem] text-cream font-bold"
-                        >Accepter</span
-                      >
-                      <span
-                        class="flex-1 text-center rounded-md py-1 font-space text-[0.44rem] text-navy/50"
-                        style="border: 1px solid rgba(14, 34, 74, 0.15)"
-                        >Refuser</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <img src="/img/mockup/mobile-onboarding-3.png" class="step-mockup mx-auto mb-7" alt="" />
             <h3 class="font-roca font-bold text-navy text-[1.08rem] xl:text-[1.2rem] mb-2">
               Discute &amp; planifie
             </h3>
@@ -626,95 +430,7 @@
 
           <!-- Étape 3 — Réserver -->
           <div class="how-step text-center">
-            <div class="phone-frame mx-auto mb-7">
-              <div class="phone-vol-up" />
-              <div class="phone-vol-down" />
-              <div class="phone-power" />
-              <div class="phone-screen">
-                <div class="phone-status">
-                  <span>9:41</span>
-                  <div class="phone-island" />
-                  <div class="flex items-center gap-1">
-                    <svg class="h-2 w-3" viewBox="0 0 12 8" fill="currentColor"><rect x="0" y="3" width="2" height="5" rx="0.4"/><rect x="3" y="2" width="2" height="6" rx="0.4"/><rect x="6" y="1" width="2" height="7" rx="0.4"/><rect x="9" y="0" width="2" height="8" rx="0.4" opacity="0.25"/></svg>
-                    <svg class="h-2.5 w-5" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="17" height="9" rx="2" stroke="currentColor" stroke-width="1"/><rect x="17.5" y="3" width="2" height="4" rx="1" fill="currentColor"/><rect x="1.5" y="1.5" width="11" height="7" rx="1.5" fill="currentColor"/></svg>
-                  </div>
-                </div>
-                <div class="px-3 pt-3 pb-3 text-center">
-                  <div
-                    class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2"
-                    style="background: rgba(52, 211, 153, 0.15)"
-                  >
-                    <svg
-                      class="w-5 h-5"
-                      style="color: #10b981"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="2.5"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                  </div>
-                  <p class="font-roca font-bold text-navy text-[0.78rem]">
-                    Réservé !
-                  </p>
-                  <p class="font-space text-[0.5rem] text-navy/45 mt-0.5">
-                    Ton expérience t'attend
-                  </p>
-                </div>
-                <div class="mx-2.5 bg-navy rounded-2xl p-3">
-                  <div class="flex items-center gap-2 mb-2.5">
-                    <img
-                      :src="avatar('Marc')"
-                      class="w-8 h-8 rounded-full shrink-0"
-                      style="box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15)"
-                      alt=""
-                    />
-                    <div>
-                      <p class="font-roca font-bold text-cream text-[0.68rem]">
-                        Marc
-                      </p>
-                      <p class="font-space text-[0.48rem] text-cream/45">
-                        Randonnée · Chamonix
-                      </p>
-                    </div>
-                  </div>
-                  <div class="space-y-1.5">
-                    <div class="flex justify-between">
-                      <span class="font-space text-[0.5rem] text-cream/45"
-                        >Activité</span
-                      >
-                      <span
-                        class="font-space text-[0.56rem] font-bold text-cream"
-                        >Mont-Blanc</span
-                      >
-                    </div>
-                    <div class="flex justify-between">
-                      <span class="font-space text-[0.5rem] text-cream/45"
-                        >Date</span
-                      >
-                      <span
-                        class="font-space text-[0.56rem] font-bold text-cream"
-                        >15 mars</span
-                      >
-                    </div>
-                    <div class="flex justify-between">
-                      <span class="font-space text-[0.5rem] text-cream/45"
-                        >Prix</span
-                      >
-                      <span
-                        class="font-space text-[0.56rem] font-bold text-cream"
-                        >45€</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <img src="/img/mockup/mobile-onboarding-4.png" class="step-mockup mx-auto mb-7" alt="" />
             <h3 class="font-roca font-bold text-navy text-[1.08rem] xl:text-[1.2rem] mb-2">
               Réserve en 1 clic
             </h3>
@@ -1667,12 +1383,21 @@ onUnmounted(() => {
   animation-play-state: paused;
 }
 
+/* ── Step mockups ── */
+.step-mockup {
+  width: 180px;
+  height: auto;
+  display: block;
+  filter:
+    drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+}
+
 /* ── Phone mockup ── */
 .phone-frame {
   width: 180px;
   height: 362px;
   background: linear-gradient(160deg, #2e2e32 0%, #18181b 100%);
-  border-radius: 40px;
   position: relative;
   overflow: visible;
   box-shadow:
