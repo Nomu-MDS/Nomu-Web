@@ -50,8 +50,8 @@
             <span class="sidebar-item-preview">
               <template v-if="getLastMessage(conv)">
                 <span v-if="getLastMessage(conv)!.user_id === myUserId" class="sidebar-item-you">Vous : </span>
-                <span v-if="getLastMessage(conv)!.attachment">📷 Photo</span>
-                <span v-else-if="isSystemMessage(getLastMessage(conv)!.content)">Activité proposée</span>
+                <span v-if="isSystemMessage(getLastMessage(conv)!.content)">Activité proposée</span>
+                <span v-else-if="getLastMessage(conv)!.attachment">📷 Photo</span>
                 <span v-else>{{ getLastMessage(conv)!.content }}</span>
               </template>
               <span v-else class="sidebar-item-preview--empty">Nouvelle conversation</span>

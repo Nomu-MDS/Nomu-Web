@@ -1,14 +1,27 @@
 <template>
   <div :class="['chat-bubble-outer', sent ? 'chat-bubble-outer--sent' : 'chat-bubble-outer--received']">
-    <div :class="['chat-bubble', !isImageOnly && (sent ? 'chat-bubble--sent' : 'chat-bubble--received')]">
-      <img v-if="attachment" :src="attachment" alt="Image" class="chat-bubble-attachment" />
-      <p v-if="content?.trim()" class="chat-bubble-text">{{ content }}</p>
+    <img
+      v-if="attachment"
+      :src="attachment"
+      alt="Image"
+      class="chat-bubble-attachment"
+      @click="lightboxOpen = true"
+    />
+    <div v-if="content?.trim()" :class="['chat-bubble', sent ? 'chat-bubble--sent' : 'chat-bubble--received']">
+      <p class="chat-bubble-text">{{ content }}</p>
     </div>
     <div class="chat-bubble-meta">
       <span class="chat-bubble-time">{{ formattedTime }}</span>
       <span v-if="sent" class="chat-bubble-status">{{ read ? '✓✓' : '✓' }}</span>
     </div>
   </div>
+
+  <Teleport to="body">
+    <div v-if="attachment && lightboxOpen" class="lightbox-overlay" @click.self="lightboxOpen = false">
+      <button class="lightbox-close" @click="lightboxOpen = false">✕</button>
+      <img :src="attachment" alt="Image" class="lightbox-img" />
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -24,7 +37,7 @@ const formattedTime = computed(() =>
   new Date(props.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 )
 
-const isImageOnly = computed(() => !!props.attachment && !props.content?.trim())
+const lightboxOpen = ref(false)
 </script>
 
 <style scoped>
@@ -79,10 +92,46 @@ const isImageOnly = computed(() => !!props.attachment && !props.content?.trim())
   color: #465E8A;
 }
 .chat-bubble-attachment {
-  max-width: 200px;
-  max-height: 150px;
+  max-width: 260px;
+  max-height: 200px;
   border-radius: 0.75rem;
   display: block;
   object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.chat-bubble-attachment:hover {
+  opacity: 0.88;
+}
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem;
+  opacity: 0.85;
+}
+.lightbox-close:hover {
+  opacity: 1;
+}
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 0.75rem;
+  object-fit: contain;
 }
 </style>
