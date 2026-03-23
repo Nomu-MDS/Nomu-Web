@@ -2,6 +2,7 @@
   <div class="messages-layout">
     <ConversationSidebar
       :conversations="conversations"
+      :reservations="reservations"
       :my-user-id="myUserId"
       :loading="loading"
       :error="error"
@@ -27,6 +28,7 @@ useSeoMeta({
 const route = useRoute()
 const { get } = useApi()
 const { conversations, loading, error, fetchConversations } = useConversations()
+const { reservations, fetchMyReservations } = useReservations()
 const { connect, getSocketInstance } = useSocket()
 const myUserId = ref(0)
 
@@ -43,7 +45,7 @@ onMounted(async () => {
     const me = await get<MeResponse>('/users/me')
     myUserId.value = me.id
   } catch {}
-  await fetchConversations()
+  await Promise.all([fetchConversations(), fetchMyReservations()])
 
   // Brancher le socket pour mettre à jour les badges non-lus en temps réel
   try {

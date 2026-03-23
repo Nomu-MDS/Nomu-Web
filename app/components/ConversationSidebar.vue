@@ -42,17 +42,19 @@
         <div class="sidebar-item-content">
           <div class="sidebar-item-top">
             <span class="sidebar-item-name">{{ getOtherUser(conv, myUserId).name }}</span>
-            <span v-if="getLastMessage(conv)" class="sidebar-item-time">
-              {{ formatRelativeTime(getLastMessage(conv)!.createdAt) }}
+            <span v-if="getLastActivityDate(conv)" class="sidebar-item-time">
+              {{ formatRelativeTime(new Date(getLastActivityDate(conv)).toISOString()) }}
             </span>
           </div>
           <div class="sidebar-item-bottom">
             <span class="sidebar-item-preview">
-              <template v-if="getLastMessage(conv)">
-                <span v-if="getLastMessage(conv)!.user_id === myUserId" class="sidebar-item-you">Vous : </span>
-                <span v-if="isSystemMessage(getLastMessage(conv)!.content)">Activité proposée</span>
-                <span v-else-if="getLastMessage(conv)!.attachment">📷 Photo</span>
-                <span v-else>{{ getLastMessage(conv)!.content }}</span>
+              <template v-if="getPreview(conv).isResa">
+                <span>Activité proposée</span>
+              </template>
+              <template v-else-if="getPreview(conv).msg">
+                <span v-if="getPreview(conv).msg!.user_id === myUserId" class="sidebar-item-you">Vous : </span>
+                <span v-if="getPreview(conv).msg!.attachment">📷 Photo</span>
+                <span v-else>{{ getPreview(conv).msg!.content }}</span>
               </template>
               <span v-else class="sidebar-item-preview--empty">Nouvelle conversation</span>
             </span>
@@ -67,10 +69,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Conversation, ConversationUser, Message } from '~/types'
+import type { Conversation, ConversationUser, Message, Reservation } from '~/types'
 
 const props = defineProps<{
   conversations: Conversation[]
+  reservations?: Reservation[]
   myUserId: number
   loading: boolean
   error: string
@@ -86,9 +89,25 @@ function getLastMessage(conv: Conversation): Message | null {
   return conv.Messages[conv.Messages.length - 1] ?? null
 }
 
-function isSystemMessage(content: string | undefined): boolean {
-  if (!content) return false
-  try { return !!JSON.parse(content).__type } catch { return false }
+function getLastReservation(conv: Conversation): Reservation | null {
+  const resas = (props.reservations ?? []).filter(r => r.conversation_id === conv.id)
+  if (!resas.length) return null
+  return resas.reduce((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? a : b)
+}
+
+function getLastActivityDate(conv: Conversation): number {
+  const msgDate = getLastMessage(conv) ? new Date(getLastMessage(conv)!.createdAt).getTime() : 0
+  const resaDate = getLastReservation(conv) ? new Date(getLastReservation(conv)!.createdAt).getTime() : 0
+  return Math.max(msgDate, resaDate)
+}
+
+function getPreview(conv: Conversation): { isResa: boolean; msg: Message | null } {
+  const lastMsg = getLastMessage(conv)
+  const lastResa = getLastReservation(conv)
+  if (lastResa && (!lastMsg || new Date(lastResa.createdAt) > new Date(lastMsg.createdAt))) {
+    return { isResa: true, msg: null }
+  }
+  return { isResa: false, msg: lastMsg }
 }
 
 function getUnreadCount(conv: Conversation, myId: number): number {
@@ -97,14 +116,7 @@ function getUnreadCount(conv: Conversation, myId: number): number {
 }
 
 const sortedConversations = computed(() => {
-  return [...props.conversations].sort((a, b) => {
-    const aMsg = getLastMessage(a)
-    const bMsg = getLastMessage(b)
-    if (!aMsg && !bMsg) return 0
-    if (!aMsg) return 1
-    if (!bMsg) return -1
-    return new Date(bMsg.createdAt).getTime() - new Date(aMsg.createdAt).getTime()
-  })
+  return [...props.conversations].sort((a, b) => getLastActivityDate(b) - getLastActivityDate(a))
 })
 
 function formatRelativeTime(iso: string): string {
