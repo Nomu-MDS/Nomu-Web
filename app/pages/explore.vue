@@ -102,7 +102,7 @@
           </button>
         </div>
 
-        <ProfileResults :results="results" :loading="loading" :has-searched="hasSearched" :view-mode="viewMode" />
+        <ProfileResults :results="results" :loading="loading" :has-searched="hasSearched" :no-relevant-results="noRelevantResults" :view-mode="viewMode" />
       </div>
     </div>
     </div>
@@ -127,7 +127,7 @@ const filtersOpen = ref(false)
 const viewMode = ref<'grid' | 'list'>('grid')
 
 const { interests, fetchInterests } = useInterests()
-const { results, loading, hasSearched, searchProfiles } = useProfileSearch({
+const { results, loading, hasSearched, noRelevantResults, searchProfiles } = useProfileSearch({
   query,
   interests: selectedInterests,
   cities: selectedCities,

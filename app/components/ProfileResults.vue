@@ -81,11 +81,16 @@
 
     <!-- Empty state -->
     <div v-else class="results-empty">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mx-auto mb-3 opacity-30">
+      <svg v-if="noRelevantResults" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mx-auto mb-3 opacity-30">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+      </svg>
+      <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mx-auto mb-3 opacity-30">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
       </svg>
-      <p v-if="hasSearched" class="results-empty-text">Aucun profil trouvé.</p>
+      <p v-if="noRelevantResults" class="results-empty-text results-empty-text--warn">Aucun résultat pertinent trouvé.</p>
+      <p v-else-if="hasSearched" class="results-empty-text">Aucun profil trouvé.</p>
       <p v-else class="results-empty-text">Recherchez un profil ou explorez les intérêts !</p>
+      <p v-if="noRelevantResults" class="results-empty-hint">Essayez des termes plus généraux ou une autre ville.</p>
     </div>
 
     <LoginRequiredModal v-model="showLoginModal" />
@@ -97,8 +102,9 @@ const props = withDefaults(defineProps<{
   results: any[]
   loading: boolean
   hasSearched: boolean
+  noRelevantResults?: boolean
   viewMode?: 'grid' | 'list'
-}>(), { viewMode: 'grid' })
+}>(), { viewMode: 'grid', noRelevantResults: false })
 
 const router = useRouter()
 const { isLoggedIn } = useAuth()
@@ -371,5 +377,18 @@ function avatarUrl(profile: any): string {
   color: #465E8A;
   opacity: 0.6;
   margin: 0;
+}
+
+.results-empty-text--warn {
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.results-empty-hint {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  color: #465E8A;
+  opacity: 0.45;
+  margin: 0.35rem 0 0;
 }
 </style>

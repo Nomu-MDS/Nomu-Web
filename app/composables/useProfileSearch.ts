@@ -11,6 +11,7 @@ export function useProfileSearch(filters: SearchFilters) {
   const results = ref<any[]>([])
   const loading = ref(false)
   const hasSearched = ref(false)
+  const noRelevantResults = ref(false)
   let searchId = 0
 
   async function searchProfiles() {
@@ -27,18 +28,20 @@ export function useProfileSearch(filters: SearchFilters) {
       if (filters.cities.value.length) params.append('filterCity', filters.cities.value.join(','))
       params.append('limit', '50')
 
-      const data = await get<{ hits: any[] }>(`/users/search?${params.toString()}`)
+      const data = await get<{ hits: any[]; noRelevantResults?: boolean }>(`/users/search?${params.toString()}`)
       // Ignorer si une recherche plus récente a été lancée entre-temps
       if (currentId !== searchId) return
       results.value = data.hits || []
+      noRelevantResults.value = data.noRelevantResults ?? false
     } catch (e) {
       if (currentId !== searchId) return
       console.error('Search error:', e)
       results.value = []
+      noRelevantResults.value = false
     } finally {
       if (currentId === searchId) loading.value = false
     }
   }
 
-  return { results, loading, hasSearched, searchProfiles }
+  return { results, loading, hasSearched, noRelevantResults, searchProfiles }
 }
