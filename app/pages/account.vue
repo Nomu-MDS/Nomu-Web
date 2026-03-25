@@ -151,6 +151,15 @@
                 <label class="edit-label">Pays</label>
                 <input v-model="editForm.country" type="text" class="edit-input" placeholder="Pays" />
               </div>
+              <div class="edit-field">
+                <label class="edit-label">Genre</label>
+                <select v-model="editForm.gender" class="edit-input">
+                  <option value="">Non précisé</option>
+                  <option value="Femme">Femme</option>
+                  <option value="Homme">Homme</option>
+                  <option value="Non-binaire">Non-binaire</option>
+                </select>
+              </div>
             </div>
 
             <div class="edit-field mt-4">
@@ -339,6 +348,7 @@ function startEdit() {
     biography: p?.biography || '',
     country: p?.country || '',
     city: p?.city || '',
+    gender: p?.gender || '',
     image_url: p?.image_url || undefined,
     is_searchable: p?.is_searchable ?? true,
     interest_ids: p?.Interests?.map(i => i.id) || [],
